@@ -6,6 +6,8 @@ package Vista;
 
 import java.awt.Graphics;
 import java.awt.Image;
+import java.awt.Toolkit;
+import java.awt.event.WindowEvent;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -62,6 +64,7 @@ public class VInicio extends javax.swing.JFrame {
         });
 
         bIniciar.setBackground(new java.awt.Color(102, 255, 102));
+        bIniciar.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         bIniciar.setText("Iniciar");
         bIniciar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -112,11 +115,11 @@ public class VInicio extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtAlimento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
-                .addComponent(bIniciar, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(22, 22, 22))
+                .addComponent(bIniciar, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
-        bSalir.setBackground(new java.awt.Color(255, 51, 51));
+        bSalir.setBackground(new java.awt.Color(255, 0, 0));
         bSalir.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         bSalir.setForeground(new java.awt.Color(255, 255, 255));
         bSalir.setText("Salir");
@@ -134,19 +137,19 @@ public class VInicio extends javax.swing.JFrame {
                 .addContainerGap(79, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(bSalir)
-                        .addGap(14, 14, 14))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(panel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(72, 72, 72))))
+                        .addGap(72, 72, 72))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(bSalir)
+                        .addGap(14, 14, 14))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(38, 38, 38)
                 .addComponent(panel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 55, Short.MAX_VALUE)
-                .addComponent(bSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 57, Short.MAX_VALUE)
+                .addComponent(bSalir)
                 .addContainerGap())
         );
 
@@ -187,9 +190,15 @@ public class VInicio extends javax.swing.JFrame {
         }else if (resultadoAlimento != 0){
             JOptionPane.showMessageDialog(this, "La cantidad de alimento debe ser "
                     + "un número entero positivo mayor a 1", "Error", JOptionPane.WARNING_MESSAGE);
+        }else if(resultadoAlimento == 0 && resultadoNodo == 0){
+            VMedioJuego juego = new VMedioJuego();
+            juego.setVisible(true);
+            this.dispose();
         }
+        
     }//GEN-LAST:event_bIniciarActionPerformed
 
+    
     private void txtNodosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNodosActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtNodosActionPerformed
