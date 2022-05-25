@@ -15,7 +15,7 @@ import javax.swing.JTextField;
 
 /**
  *
- * @author Esteb
+ * @author 
  */
 public class VInicio extends javax.swing.JFrame {
 
@@ -57,11 +57,14 @@ public class VInicio extends javax.swing.JFrame {
         lblTitulo.setForeground(new java.awt.Color(255, 255, 255));
         lblTitulo.setText("Ant Village");
 
+        txtNodos.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtNodos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtNodosActionPerformed(evt);
             }
         });
+
+        txtAlimento.setHorizontalAlignment(javax.swing.JTextField.CENTER);
 
         bIniciar.setBackground(new java.awt.Color(102, 255, 102));
         bIniciar.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
