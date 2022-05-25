@@ -4,6 +4,8 @@
  */
 package Vista;
 
+import java.awt.Color;
+
 /**
  *
  * @author Esteb
@@ -16,6 +18,7 @@ public class VMedioJuego extends javax.swing.JFrame {
    
     public VMedioJuego( ) {
         initComponents();
+        this.setBackground(Color.black);
         this.setLocationRelativeTo(null);
         this.setResizable(false);
     }
@@ -32,31 +35,168 @@ public class VMedioJuego extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
+        gamePanel = new javax.swing.JPanel();
+        jPanel1 = new javax.swing.JPanel();
+        jButton1 = new javax.swing.JButton();
+        blueTeamPanel = new javax.swing.JPanel();
+        lblBlueTeam = new javax.swing.JLabel();
+        lblAlimentoAzules = new javax.swing.JLabel();
+        txtAA = new javax.swing.JTextField();
+        greenTeamPanel = new javax.swing.JPanel();
+        lblGreenTeam = new javax.swing.JLabel();
+        lblAlimentoVerdes = new javax.swing.JLabel();
+        txtAV = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setBackground(new java.awt.Color(0, 0, 0));
+        setName("AntVillage"); // NOI18N
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel1.setText("jLabel1");
+        gamePanel.setBackground(new java.awt.Color(204, 143, 55));
+        gamePanel.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 3, true));
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(161, 161, 161)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(202, Short.MAX_VALUE))
+        javax.swing.GroupLayout gamePanelLayout = new javax.swing.GroupLayout(gamePanel);
+        gamePanel.setLayout(gamePanelLayout);
+        gamePanelLayout.setHorizontalGroup(
+            gamePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 694, Short.MAX_VALUE)
         );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(27, 27, 27)
-                .addComponent(jLabel1)
-                .addContainerGap(257, Short.MAX_VALUE))
+        gamePanelLayout.setVerticalGroup(
+            gamePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
         );
+
+        getContentPane().add(gamePanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 0, -1, 511));
+
+        jPanel1.setBackground(new java.awt.Color(0, 0, 0));
+
+        jButton1.setBackground(new java.awt.Color(255, 102, 0));
+        jButton1.setFont(new java.awt.Font("Segoe UI Black", 3, 18)); // NOI18N
+        jButton1.setForeground(new java.awt.Color(255, 255, 255));
+        jButton1.setText("FINALIZAR");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
+        blueTeamPanel.setBackground(new java.awt.Color(0, 204, 204));
+        blueTeamPanel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
+
+        lblBlueTeam.setFont(new java.awt.Font("Verdana Pro Black", 0, 18)); // NOI18N
+        lblBlueTeam.setText("Blue team");
+
+        lblAlimentoAzules.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        lblAlimentoAzules.setText("Alimento recolectado:");
+
+        txtAA.setEditable(false);
+        txtAA.setFocusable(false);
+
+        javax.swing.GroupLayout blueTeamPanelLayout = new javax.swing.GroupLayout(blueTeamPanel);
+        blueTeamPanel.setLayout(blueTeamPanelLayout);
+        blueTeamPanelLayout.setHorizontalGroup(
+            blueTeamPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(blueTeamPanelLayout.createSequentialGroup()
+                .addGroup(blueTeamPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(blueTeamPanelLayout.createSequentialGroup()
+                        .addGap(77, 77, 77)
+                        .addComponent(lblBlueTeam))
+                    .addGroup(blueTeamPanelLayout.createSequentialGroup()
+                        .addGap(16, 16, 16)
+                        .addComponent(lblAlimentoAzules)
+                        .addGap(18, 18, 18)
+                        .addComponent(txtAA, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        blueTeamPanelLayout.setVerticalGroup(
+            blueTeamPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(blueTeamPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(lblBlueTeam)
+                .addGap(18, 18, 18)
+                .addGroup(blueTeamPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblAlimentoAzules)
+                    .addComponent(txtAA, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(44, Short.MAX_VALUE))
+        );
+
+        greenTeamPanel.setBackground(new java.awt.Color(153, 255, 102));
+        greenTeamPanel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
+
+        lblGreenTeam.setFont(new java.awt.Font("Verdana Pro Black", 0, 18)); // NOI18N
+        lblGreenTeam.setText("Green team");
+
+        lblAlimentoVerdes.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        lblAlimentoVerdes.setText("Alimento recolectado:");
+
+        txtAV.setEditable(false);
+        txtAV.setFocusable(false);
+
+        javax.swing.GroupLayout greenTeamPanelLayout = new javax.swing.GroupLayout(greenTeamPanel);
+        greenTeamPanel.setLayout(greenTeamPanelLayout);
+        greenTeamPanelLayout.setHorizontalGroup(
+            greenTeamPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(greenTeamPanelLayout.createSequentialGroup()
+                .addGroup(greenTeamPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(greenTeamPanelLayout.createSequentialGroup()
+                        .addGap(26, 26, 26)
+                        .addComponent(lblAlimentoVerdes, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtAV, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(greenTeamPanelLayout.createSequentialGroup()
+                        .addGap(72, 72, 72)
+                        .addComponent(lblGreenTeam)))
+                .addContainerGap(53, Short.MAX_VALUE))
+        );
+        greenTeamPanelLayout.setVerticalGroup(
+            greenTeamPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(greenTeamPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(lblGreenTeam)
+                .addGap(34, 34, 34)
+                .addGroup(greenTeamPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblAlimentoVerdes)
+                    .addComponent(txtAV, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(28, Short.MAX_VALUE))
+        );
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(84, 84, 84)
+                .addComponent(jButton1)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(greenTeamPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(blueTeamPanel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(greenTeamPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(blueTeamPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 216, Short.MAX_VALUE)
+                .addComponent(jButton1)
+                .addGap(15, 15, 15))
+        );
+
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 310, 510));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        this.dispose();
+        VInicio ventanaInicio = new VInicio();
+        ventanaInicio.setVisible(true);
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -94,6 +234,16 @@ public class VMedioJuego extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JPanel blueTeamPanel;
+    private javax.swing.JPanel gamePanel;
+    private javax.swing.JPanel greenTeamPanel;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JLabel lblAlimentoAzules;
+    private javax.swing.JLabel lblAlimentoVerdes;
+    private javax.swing.JLabel lblBlueTeam;
+    private javax.swing.JLabel lblGreenTeam;
+    private javax.swing.JTextField txtAA;
+    private javax.swing.JTextField txtAV;
     // End of variables declaration//GEN-END:variables
 }
