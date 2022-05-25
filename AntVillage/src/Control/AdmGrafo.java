@@ -11,7 +11,7 @@ import java.lang.Math;
  * @author 
  */
 
-public class ControlJuego {
+public class AdmGrafo {
     /*acordarse que si los ponemos directamente en el panel con pos x y y en = 0
     podríamos quitar los valores mínimos por ser constantes*/
     final int MIN_X = 0;//Minimo pixeles en la ventana
@@ -26,7 +26,7 @@ public class ControlJuego {
     private int cantidad_nodos;
     //otras como hormigas azules y verdes etc etc
 
-    public ControlJuego(int cantidad_alimento, int cantidad_nodos) {
+    public AdmGrafo(int cantidad_alimento, int cantidad_nodos) {
         this.cantidad_alimento = cantidad_alimento;
         this.cantidad_nodos = cantidad_nodos;
         this.grafo = new Grafo(cantidad_nodos);
@@ -50,25 +50,41 @@ public class ControlJuego {
        
         int x; //recibirá el valor aleatorio de x respecto a su posición en el frame
         int y; //recibirá el valor aleatorio de x respecto a su posición en el frame
-        for (int i = 1; i<=cantidad_nodos;i++ ){
+        for (int i = 0; i<cantidad_nodos;i++ ){
             x = generarAleatorioX();
             y = generarAleatorioY();
             this.grafo.agregar(i, x, y);
         }
+        dirigirGrafo();
         return true;
     }
     
     private boolean dirigirGrafo(){
         for (int i = 0; i < TOPE_ARISTAS; i++){
-            int nodoA = (int ) (Math.random() * (this.cantidad_nodos-1))+1;//conecta con un random
-            int nodoB = (int)  (Math.random() * (this.cantidad_nodos-1))+1;//+1 porque los nodos empiezan desde 0
+            int nodoA = (int ) (Math.random() * (this.cantidad_nodos-1));//conecta con un random
+            int nodoB = (int)  (Math.random() * (this.cantidad_nodos-1));//+1 porque los nodos empiezan desde 0
             while (nodoA == nodoB){ //evitar que sea el mismo nodo
-                 nodoB = (int) (Math.random() * (this.cantidad_nodos-1))+1;
+                 nodoB = (int) (Math.random() * (this.cantidad_nodos-1));
             }
             int peso = (int) Math.random() * FACTOR_PESO;
             this.grafo.colocarArco(nodoA, nodoB, peso);
         }
         return true;
+    }
+    
+    /*
+    Métodos sobrecargados para colocar alimento, si recibe parámetro, lo inserta
+    si no, genera uno aleatorio por si el usuario no coloca la comida en ningún nodo
+    lo hará automáticamente
+    */
+    private int aparecerAlimento(int i ){
+        this.grafo.colocarAlimento(i);
+        return i; 
+    }
+    private int aparecerAlimento(){
+        int posAlimento = (int) Math.random()* (this.cantidad_nodos-1)+2 ;
+        this.grafo.colocarAlimento(posAlimento);
+        return posAlimento;
     }
     
 }
