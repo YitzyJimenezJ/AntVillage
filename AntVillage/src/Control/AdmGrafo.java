@@ -46,7 +46,7 @@ public class AdmGrafo {
         int rango = (MAX_Y-MIN_Y)+1;
         return (int)(Math.random()*rango)+MIN_Y;
     }
-    private boolean iniciarGrafo(){
+    public boolean iniciarGrafo(){
        
         int x; //recibirá el valor aleatorio de x respecto a su posición en el frame
         int y; //recibirá el valor aleatorio de x respecto a su posición en el frame
@@ -55,7 +55,7 @@ public class AdmGrafo {
             y = generarAleatorioY();
             this.grafo.agregar(i, x, y);
         }
-        dirigirGrafo();
+        this.dirigirGrafo();
         return true;
     }
     
@@ -77,11 +77,11 @@ public class AdmGrafo {
     si no, genera uno aleatorio por si el usuario no coloca la comida en ningún nodo
     lo hará automáticamente
     */
-    private int aparecerAlimento(int i ){
+    public int aparecerAlimento(int i ){
         this.grafo.colocarAlimento(i);
         return i; 
     }
-    private int aparecerAlimento(){
+    public int aparecerAlimento(){
         int posAlimento = (int) Math.random()* (this.cantidad_nodos-1)+2 ;
         this.grafo.colocarAlimento(posAlimento);
         return posAlimento;
