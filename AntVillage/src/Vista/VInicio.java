@@ -191,7 +191,7 @@ public class VInicio extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "La cantidad de alimento debe ser "
                     + "un número entero positivo mayor a 1", "Error", JOptionPane.WARNING_MESSAGE);
         }else if(resultadoAlimento == 0 && resultadoNodo == 0){
-            VMedioJuego juego = new VMedioJuego();
+            VMedioJuego juego = new VMedioJuego(Integer.parseInt(txtNodos.getText().trim()),Integer.parseInt(txtAlimento.getText().trim()));
             juego.setVisible(true);
             this.dispose();
         }
