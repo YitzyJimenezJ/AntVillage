@@ -30,6 +30,9 @@ public class Grafo {
         actual.setHaveFood(true);
         return true;
     }
+    public void colocarArco(int id_nodoA, int id_nodoB, int peso){
+        this.adyacencia[id_nodoA][id_nodoB] = peso;
+    }
 
     public ArrayList<Nodo> getListaNodos() {
         return listaNodos;
