@@ -69,7 +69,7 @@
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="1" attributes="0">
-                      <EmptySpace max="32767" attributes="0"/>
+                      <EmptySpace pref="259" max="32767" attributes="0"/>
                       <Component id="btnIniciar" min="-2" pref="222" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="213" max="-2" attributes="0"/>
                   </Group>

@@ -94,5 +94,19 @@ public class Grafo {
             return false; //no hay conexión entre ellos
         }
     }
+    
+    public Nodo getAlimento(){
+        /*
+        Retorna el nodo que contiene el alimento
+        si ninguno tiene alimento returna null
+        */
+        for(int i = 0; i<cantidad_nodos; i++){
+            Nodo unNodo = listaNodos.get(i);
+            if  (unNodo.isHaveFood()){
+                return unNodo;
+            }
+        }
+        return null;
+    }
 }
 

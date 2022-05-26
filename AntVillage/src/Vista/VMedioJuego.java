@@ -29,6 +29,7 @@ public class VMedioJuego extends javax.swing.JFrame {
     private int cantidad_alimento;
     public JLabel vistaHormigaAzul;
     public JLabel vistaHormigaVerde;
+    public JLabel vistaAlimento;
     private Juego juego;
     
     public VMedioJuego( int nodos, int alimentos ) {
@@ -40,11 +41,13 @@ public class VMedioJuego extends javax.swing.JFrame {
         this.setResizable(false);
         this.cantidad_nodos = nodos;
         this.cantidad_alimento = alimentos;
-        
+        alimentoInFrame();
     }
     public void setimagenesHormigas(int x, int y ){
-        ImageIcon imagenAzul = new ImageIcon(getClass().getResource("/Imagenes/hormigaAzul.png"));
-        ImageIcon imagenVerde = new ImageIcon(getClass().getResource("/Imagenes/hormigaVerde.png"));
+        ImageIcon imagenAzul = new ImageIcon(getClass().
+                getResource("/Imagenes/hormigaAzul.png"));
+        ImageIcon imagenVerde = new ImageIcon(getClass().
+                getResource("/Imagenes/hormigaVerde.png"));
         vistaHormigaAzul = new JLabel();
         vistaHormigaVerde = new JLabel();
         
@@ -52,15 +55,45 @@ public class VMedioJuego extends javax.swing.JFrame {
         vistaHormigaVerde.setBounds(x+5,y-20, 30, 30);
         
         vistaHormigaAzul.setIcon(new ImageIcon(imagenAzul.getImage().
-                getScaledInstance(vistaHormigaAzul.getWidth(), vistaHormigaAzul.getHeight(), Image.SCALE_SMOOTH)));
+                getScaledInstance(vistaHormigaAzul.getWidth(),
+                        vistaHormigaAzul.getHeight(), Image.SCALE_SMOOTH)));
         vistaHormigaVerde.setIcon(new ImageIcon(imagenVerde.getImage().
-                getScaledInstance(vistaHormigaVerde.getWidth(), vistaHormigaVerde.getHeight(), Image.SCALE_SMOOTH)));
+                getScaledInstance(vistaHormigaVerde.getWidth(), 
+                        vistaHormigaVerde.getHeight(), Image.SCALE_SMOOTH)));
         
         this.gamePanel.add(vistaHormigaAzul);
         this.gamePanel.add(vistaHormigaVerde);
      
+    } 
+    /* =========================================================================
+   
+        INTERACCIONES DE LOS ALIMENTOS
+    
+     =========================================================================*/
+    public void alimentoInFrame(){
+        ImageIcon alimento = new ImageIcon(getClass().getResource("/Imagenes/hoja.png"));
+        vistaAlimento = new JLabel();
+        this.vistaAlimento.setBounds(0, 0, 30,30);
+        this.vistaAlimento.setVisible(false);
+        vistaAlimento.setIcon(new ImageIcon(alimento.getImage().
+                getScaledInstance(vistaAlimento.getWidth(), 
+                        vistaAlimento.getHeight(), Image.SCALE_SMOOTH)));
+        this.gamePanel.add(vistaAlimento);
     }
-
+    public void mostrarAlimento(){
+        this.vistaAlimento.setVisible(true);
+    }
+    public void ocultarAlimento(){
+        this.vistaAlimento.setVisible(false);
+    }
+    public void posAlimento(int x, int y){
+        this.vistaAlimento.setBounds(x+5, y-15, 30,30);
+    }
+  /* =========================================================================
+   
+       Getter
+    
+     =========================================================================*/
     public JPanel getGamePanel() {
         return gamePanel;
     }
@@ -156,7 +189,7 @@ public class VMedioJuego extends javax.swing.JFrame {
         gamePanelLayout.setHorizontalGroup(
             gamePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, gamePanelLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(259, Short.MAX_VALUE)
                 .addComponent(btnIniciar, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(213, 213, 213))
         );

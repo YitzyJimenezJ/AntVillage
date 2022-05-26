@@ -7,10 +7,13 @@ import Vista.VMedioJuego;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import static javax.swing.SwingConstants.CENTER;
@@ -111,13 +114,17 @@ public class Juego {
     public JButton cbotonColocarAlimento(int i){
         JButton nuevoBoton = new JButton();
         nuevoBoton.setHorizontalAlignment(CENTER);//coloca el cursor en el centro 
-        nuevoBoton.setBounds(200,241, 100, 30);
+        nuevoBoton.setBounds(190,121, 100, 30);
         nuevoBoton.setText("Alimento");
         nuevoBoton.setBackground(Color.GREEN);
         nuevoBoton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 admGrafo.aparecerAlimento(i);
+                int xhoja = admGrafo.getGrafo().getAlimento().getX();
+                int yhoja = admGrafo.getGrafo().getAlimento().getY();
+                ventana.posAlimento(xhoja, yhoja);
+                ventana.mostrarAlimento();
                 nuevoBoton.setVisible(false);
                 ventana.removeBoton_to_DatosPanel(nuevoBoton);
                 ventana.getTxtNodoPresionado().setText("");
@@ -130,6 +137,7 @@ public class Juego {
         });
         return nuevoBoton;
     }
+   
     //Funciones del mapeo
     /*
     Esta función se encuentra en desarrollo y la idea es trazar rayas entre
