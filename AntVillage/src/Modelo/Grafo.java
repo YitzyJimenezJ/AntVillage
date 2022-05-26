@@ -86,5 +86,14 @@ public class Grafo {
             return false; //no hay conexión entre ellos
         }
     }
+    //Métoodo sobrecargado de la función anterior
+    public boolean haveArco(Nodo nodoA, Nodo nodoB){
+        int valor = this.adyacencia[nodoA.getId()][nodoB.getId()];
+        if (valor >0){
+            return true; //tiene un arco
+        }else{
+            return false; //no hay conexión entre ellos
+        }
+    }
 }
 

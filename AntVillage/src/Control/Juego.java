@@ -6,11 +6,13 @@ import Modelo.Nodo;
 import Vista.VMedioJuego;
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import static javax.swing.SwingConstants.CENTER;
 
 /**
@@ -30,7 +32,7 @@ public class Juego {
         this.totalAlimento = totalAlimento;
         this.cantidadNodos = ventana.getCantidad_nodos();
         iniciarJuego();
-        trazar();
+       
         colocar_nodos_interfaz();
         hormigasEnJuego(); //coloca los label de las hormigas según su posición
         
@@ -128,6 +130,11 @@ public class Juego {
         });
         return nuevoBoton;
     }
+    //Funciones del mapeo
+    /*
+    Esta función se encuentra en desarrollo y la idea es trazar rayas entre
+    los nodos para conocer el movimiento de las hormigas
+    
     public void trazar(){
         for (int i = 0; i < cantidadNodos; i++){
             for(int j = 0; j < cantidadNodos; j++){
@@ -136,16 +143,19 @@ public class Juego {
                 Nodo nodoB = admGrafo.getNodoGrafo(j);
                 if(tipoTrazo !=0)
                 {
-                    ventana.dibujarLinea(ventana.getGamePanel().getGraphics(), 
-                            nodoA.getX(), nodoA.getY(), nodoB.getX(), nodoB.getY(), Color.BLACK);   
+                   
+                    ventana.dibujarLinea(this.ventana.getJpanelMapeo().getGraphics(), 
+                            nodoA.getX(), nodoA.getY(), nodoB.getX(), nodoB.getY(), Color.white);  
+                    
                 }
             }
    
         }
         
-        
         System.out.println("Trazos dibujados");
     }
+    */
+    
     
     
     /* un update de ir tratando de igualar los valores de sus posiciones hacia el nuevo nodo para 

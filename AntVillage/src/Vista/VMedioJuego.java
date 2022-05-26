@@ -58,7 +58,7 @@ public class VMedioJuego extends javax.swing.JFrame {
         
         this.gamePanel.add(vistaHormigaAzul);
         this.gamePanel.add(vistaHormigaVerde);
-        this.gamePanel.updateUI();
+     
     }
 
     public JPanel getGamePanel() {
@@ -75,7 +75,7 @@ public class VMedioJuego extends javax.swing.JFrame {
     public void agregarBoton(JButton btnNuevo){
         listaBotones.add(btnNuevo);
         this.gamePanel.add(btnNuevo);
-        this.gamePanel.updateUI();
+        this.gamePanel.repaint();
     }
     public void addBoton_to_DatosPanel(JButton nuevoBoton){
         this.datosPanel.add(nuevoBoton);
@@ -433,7 +433,6 @@ public class VMedioJuego extends javax.swing.JFrame {
     private void btnIniciarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIniciarActionPerformed
         this.btnIniciar.setVisible(false);
         juego = new Juego(this, this.cantidad_alimento);
-        
     }//GEN-LAST:event_btnIniciarActionPerformed
    
     /**
@@ -474,6 +473,8 @@ public class VMedioJuego extends javax.swing.JFrame {
         g.setColor(color);
         g.drawLine(xInicio, yInicio, xDestino, yDestino);
     }
+    
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel blueTeamPanel;

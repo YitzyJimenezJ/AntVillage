@@ -4,10 +4,25 @@
  */
 package Control;
 
+import Modelo.Grafo;
+import Modelo.Nodo;
+import java.util.ArrayList;
+
 /**
  *
- * @author Esteb
+ * @author 
  */
-public class Algoritmos extends Thread{
-    
+public class Algoritmos {
+    /*
+    posiblemente deba implementar hilos acá para que el algoritmo de fuerza bruta
+    se resulta por aparte si da problemas
+    */
+    public static ArrayList<Nodo> dijkstra(Grafo grafo){
+        ArrayList<Nodo> caminoCorto = new ArrayList<>();
+        
+        
+        
+        
+        return caminoCorto; 
+    }
 }
