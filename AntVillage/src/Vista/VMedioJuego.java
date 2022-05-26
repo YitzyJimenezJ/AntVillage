@@ -57,6 +57,7 @@ public class VMedioJuego extends javax.swing.JFrame {
         
         this.gamePanel.add(vistaHormigaAzul);
         this.gamePanel.add(vistaHormigaVerde);
+        this.gamePanel.updateUI();
     }
 
     public JPanel getGamePanel() {
@@ -73,6 +74,7 @@ public class VMedioJuego extends javax.swing.JFrame {
     public void agregarBoton(JButton btnNuevo){
         listaBotones.add(btnNuevo);
         this.gamePanel.add(btnNuevo);
+        this.gamePanel.updateUI();
     }
     public void addBoton_to_DatosPanel(JButton nuevoBoton){
         this.datosPanel.add(nuevoBoton);
@@ -101,9 +103,10 @@ public class VMedioJuego extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        paneltotal = new javax.swing.JPanel();
         gamePanel = new javax.swing.JPanel();
         btnIniciar = new javax.swing.JButton();
-        jPanel1 = new javax.swing.JPanel();
+        panelInfo = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
         blueTeamPanel = new javax.swing.JPanel();
         lblBlueTeam = new javax.swing.JLabel();
@@ -125,11 +128,14 @@ public class VMedioJuego extends javax.swing.JFrame {
         txtNodoPresionado = new javax.swing.JTextField();
         jspDetalle = new javax.swing.JScrollPane();
         txaDetalles = new javax.swing.JTextArea();
+        lblArcos = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(0, 0, 0));
         setName("AntVillage"); // NOI18N
-        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        paneltotal.setBackground(new java.awt.Color(255, 255, 255));
+        paneltotal.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         gamePanel.setBackground(new java.awt.Color(204, 143, 55));
         gamePanel.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 3, true));
@@ -149,7 +155,7 @@ public class VMedioJuego extends javax.swing.JFrame {
         gamePanelLayout.setHorizontalGroup(
             gamePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, gamePanelLayout.createSequentialGroup()
-                .addContainerGap(259, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnIniciar, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(213, 213, 213))
         );
@@ -158,12 +164,13 @@ public class VMedioJuego extends javax.swing.JFrame {
             .addGroup(gamePanelLayout.createSequentialGroup()
                 .addGap(180, 180, 180)
                 .addComponent(btnIniciar, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(214, Short.MAX_VALUE))
+                .addContainerGap(223, Short.MAX_VALUE))
         );
 
-        getContentPane().add(gamePanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 0, -1, 511));
+        paneltotal.add(gamePanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 0, 700, 520));
 
-        jPanel1.setBackground(new java.awt.Color(0, 0, 0));
+        panelInfo.setBackground(new java.awt.Color(0, 0, 0));
+        panelInfo.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jButton1.setBackground(new java.awt.Color(255, 102, 0));
         jButton1.setFont(new java.awt.Font("Segoe UI Black", 3, 18)); // NOI18N
@@ -174,6 +181,7 @@ public class VMedioJuego extends javax.swing.JFrame {
                 jButton1ActionPerformed(evt);
             }
         });
+        panelInfo.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 460, -1, -1));
 
         blueTeamPanel.setBackground(new java.awt.Color(0, 204, 204));
         blueTeamPanel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
@@ -217,6 +225,8 @@ public class VMedioJuego extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+        panelInfo.add(blueTeamPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 77, 302, -1));
+
         greenTeamPanel.setBackground(new java.awt.Color(153, 255, 102));
         greenTeamPanel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
 
@@ -258,6 +268,8 @@ public class VMedioJuego extends javax.swing.JFrame {
                     .addComponent(txtAV, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
+
+        panelInfo.add(greenTeamPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 6, 302, -1));
 
         datosPanel.setBackground(new java.awt.Color(204, 204, 0));
         datosPanel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
@@ -309,6 +321,8 @@ public class VMedioJuego extends javax.swing.JFrame {
         txaDetalles.setFocusable(false);
         jspDetalle.setViewportView(txaDetalles);
 
+        lblArcos.setText("Arcos:");
+
         javax.swing.GroupLayout datosPanelLayout = new javax.swing.GroupLayout(datosPanel);
         datosPanel.setLayout(datosPanelLayout);
         datosPanelLayout.setHorizontalGroup(
@@ -323,16 +337,23 @@ public class VMedioJuego extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(txtnodos, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(datosPanelLayout.createSequentialGroup()
-                                .addComponent(lblfoodToWin)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtAlimentoTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, Short.MAX_VALUE))
-                            .addGroup(datosPanelLayout.createSequentialGroup()
-                                .addGap(6, 6, 6)
-                                .addComponent(lblNodoPresionado, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(txtNodoPresionado, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jspDetalle)))
+                                .addGroup(datosPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addGroup(datosPanelLayout.createSequentialGroup()
+                                        .addComponent(lblfoodToWin)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(txtAlimentoTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(datosPanelLayout.createSequentialGroup()
+                                        .addGap(6, 6, 6)
+                                        .addGroup(datosPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addGroup(datosPanelLayout.createSequentialGroup()
+                                                .addComponent(lblNodoPresionado, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                                .addComponent(txtNodoPresionado, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                            .addGroup(datosPanelLayout.createSequentialGroup()
+                                                .addComponent(lblArcos, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                                .addComponent(jspDetalle)))))
+                                .addGap(0, 0, Short.MAX_VALUE))))
                     .addGroup(datosPanelLayout.createSequentialGroup()
                         .addGroup(datosPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(datosPanelLayout.createSequentialGroup()
@@ -363,46 +384,31 @@ public class VMedioJuego extends javax.swing.JFrame {
                 .addGroup(datosPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblNodoPresionado)
                     .addComponent(txtNodoPresionado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jspDetalle, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 20, Short.MAX_VALUE)
+                .addGap(14, 14, 14)
+                .addGroup(datosPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblArcos)
+                    .addComponent(jspDetalle, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(datosPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton3)
                     .addComponent(btnIfnfo))
-                .addContainerGap())
+                .addGap(18, 18, 18))
         );
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(datosPanel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(greenTeamPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(blueTeamPanel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(75, 75, 75)
-                .addComponent(jButton1)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(greenTeamPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(blueTeamPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(datosPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton1)
-                .addGap(24, 24, 24))
-        );
+        panelInfo.add(datosPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 166, -1, -1));
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 310, 510));
+        paneltotal.add(panelInfo, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, 310, 520));
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(paneltotal, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 1042, Short.MAX_VALUE)
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(paneltotal, javax.swing.GroupLayout.PREFERRED_SIZE, 524, javax.swing.GroupLayout.PREFERRED_SIZE)
+        );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -474,15 +480,17 @@ public class VMedioJuego extends javax.swing.JFrame {
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jspDetalle;
     private javax.swing.JLabel lblAlimentoAzules;
     private javax.swing.JLabel lblAlimentoVerdes;
+    private javax.swing.JLabel lblArcos;
     private javax.swing.JLabel lblBlueTeam;
     private javax.swing.JLabel lblDatos;
     private javax.swing.JLabel lblGreenTeam;
     private javax.swing.JLabel lblNodoPresionado;
     private javax.swing.JLabel lblfoodToWin;
+    private javax.swing.JPanel panelInfo;
+    private javax.swing.JPanel paneltotal;
     private javax.swing.JTextArea txaDetalles;
     private javax.swing.JTextField txtAA;
     private javax.swing.JTextField txtAV;

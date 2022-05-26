@@ -20,7 +20,7 @@ public class AdmGrafo {
     int MAX_X = 0;//maximo pixeles en la ventana
     int MIN_Y = 0;//Minimo pixeles en la ventana
     int MAX_Y = 0;//maximo pixeles en la ventana
-    final int TOPE_ARISTAS= 5;
+    int TOPE_ARISTAS= 5;
     final int FACTOR_PESO = 100;
     //todas las variables privadas
     private Grafo grafo;
@@ -33,9 +33,9 @@ public class AdmGrafo {
         MIN_Y = ymin;
         MAX_X = xmax;
         MAX_Y = ymax;
-       
-        
-        
+        if (TOPE_ARISTAS<this.cantidad_nodos){//valida que no vengan menos nodos que aristas
+            TOPE_ARISTAS = this.cantidad_nodos;
+        }
         //iniciar grafo 
     }
       /*
@@ -103,5 +103,11 @@ public class AdmGrafo {
     public Nodo getPrimerNodo(){
         return this.grafo.getPrimerNodo();
     }
-    
+    public void imprimirGrafo(){
+        for(int i = 0; i < this.cantidad_nodos; i++){
+            System.out.println(getNodoGrafo(i).toString());
+            System.out.println(this.grafo.get_Arcos_To_String(i));
+        }
+            
+    }
 }

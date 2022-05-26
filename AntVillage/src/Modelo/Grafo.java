@@ -63,14 +63,20 @@ public class Grafo {
     }
     public String get_Arcos_To_String(int idNodo){
         String arcos= "";
-        for(int i = 0; i <cantidad_nodos; i++){
+        for(int i = 0; i <cantidad_nodos; i++)
+        {
             int valor = this.adyacencia[idNodo][i];
-            if (valor!=0){
-                arcos+= String.valueOf(idNodo)+" -> "+String.valueOf(i)+" = "+String.valueOf(valor)+"\n";
+            if (valor!=0)
+            {
+             arcos+= String.valueOf(idNodo)+" -> "+String.valueOf(i)+" = "+String.valueOf(valor)+"\n";
             }
+        }
+        if(arcos.isBlank())
+        {
+            arcos = "Sin arcos";  
         }
         return arcos;
     
     }
-    
 }
+

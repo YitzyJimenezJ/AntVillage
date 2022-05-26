@@ -40,6 +40,11 @@ public class Nodo {
     public void setHaveFood(boolean haveFood) {
         this.haveFood = haveFood;
     }
+
+    @Override
+    public String toString() {
+        return "Nodo{" + "id=" + id + ", x=" + x + ", y=" + y + '}';
+    }
     
     
 }

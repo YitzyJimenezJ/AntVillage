@@ -34,13 +34,14 @@ public class Juego {
     }
     private boolean iniciarJuego(){
         int x_min = 0;
-        int y_min = 30; //ajuste para que los botones no queden demasiado a las esquinas
-        int x_max = (this.ventana.getGamePanel().getWidth())-30;
-        int y_max = (this.ventana.getGamePanel().getHeight())-30;
+        int y_min = 20; //ajuste para que los botones no queden demasiado a las esquinas
+        int x_max = (this.ventana.getGamePanel().getWidth())-20;
+        int y_max = (this.ventana.getGamePanel().getHeight())-20;
         admGrafo = new AdmGrafo(cantidadNodos, x_min, y_min, x_max, y_max);
         admGrafo.iniciarGrafo();
         admGrafo.dirigirGrafo();
         
+        admGrafo.imprimirGrafo(); //lo imprime en terminar 
         //colocar las hormigas a su punto de inicio
         int x = admGrafo.getPrimerNodo().getX(); 
         int y = admGrafo.getPrimerNodo().getY();
@@ -70,7 +71,7 @@ public class Juego {
     public JButton crearBoton(int i, int x, int y){
         JButton nuevoBoton = new JButton();
         nuevoBoton.setHorizontalAlignment(CENTER);//coloca el cursor en el centro 
-        nuevoBoton.setBounds(x, y, 30, 30);
+        nuevoBoton.setBounds(x, y, 20, 20);
         //nuevoBoton.setText(String.valueOf(i));//para identificarlo
         
        
@@ -80,7 +81,6 @@ public class Juego {
             nuevoBoton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                JOptionPane.showMessageDialog(null, "Este es el primer nodo");
                 ventana.getTxtNodoPresionado().setText(String.valueOf(i));
                 ventana.getTxaDetalles().setText(
                         admGrafo.getGrafo().get_Arcos_To_String(i));
@@ -106,7 +106,7 @@ public class Juego {
     public JButton cbotonColocarAlimento(int i){
         JButton nuevoBoton = new JButton();
         nuevoBoton.setHorizontalAlignment(CENTER);//coloca el cursor en el centro 
-        nuevoBoton.setBounds(0,0, 100, 30);
+        nuevoBoton.setBounds(200,241, 100, 30);
         nuevoBoton.setText("Alimento");
         nuevoBoton.setBackground(Color.GREEN);
         nuevoBoton.addActionListener(new ActionListener() {
@@ -125,6 +125,7 @@ public class Juego {
         });
         return nuevoBoton;
     }
+    
     
     /* un update de ir tratando de igualar los valores de sus posiciones hacia el nuevo nodo para 
     el dezplazamiento de las hormigas como están en un hilo cada una puede ir sumando los valores
