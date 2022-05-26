@@ -30,7 +30,10 @@ public class Juego {
         this.totalAlimento = totalAlimento;
         this.cantidadNodos = ventana.getCantidad_nodos();
         iniciarJuego();
+        trazar();
+        colocar_nodos_interfaz();
         hormigasEnJuego(); //coloca los label de las hormigas según su posición
+        ventana.getGamePanel().repaint();
     }
     private boolean iniciarJuego(){
         int x_min = 0;
@@ -45,10 +48,10 @@ public class Juego {
         //colocar las hormigas a su punto de inicio
         int x = admGrafo.getPrimerNodo().getX(); 
         int y = admGrafo.getPrimerNodo().getY();
-        hormiga_azul =  new Hormiga(0,"Hormiga Azul", this.ventana, x,y,500);
-        hormiga_verde = new Hormiga(1,"Hormiga Verde", this.ventana, x,y,500);
+        hormiga_azul =  new Hormiga(0,"Hormiga Azul", this.ventana, x,y-20,500);
+        hormiga_verde = new Hormiga(1,"Hormiga Verde", this.ventana, x,y-20,500);
         
-        colocar_nodos_interfaz();
+       
         return true;
     }
     /*
@@ -71,7 +74,7 @@ public class Juego {
     public JButton crearBoton(int i, int x, int y){
         JButton nuevoBoton = new JButton();
         nuevoBoton.setHorizontalAlignment(CENTER);//coloca el cursor en el centro 
-        nuevoBoton.setBounds(x, y, 20, 20);
+        nuevoBoton.setBounds(x+10, y-10, 20, 20);
         //nuevoBoton.setText(String.valueOf(i));//para identificarlo
         
        
@@ -124,6 +127,27 @@ public class Juego {
             }
         });
         return nuevoBoton;
+    }
+    public void trazar(){
+        for (int i = 0; i < cantidadNodos; i++){
+            for(int j = 0; j < cantidadNodos; j++){
+                int tipoTrazo = admGrafo.getTipoRelacion(i, j);
+                Nodo nodoA = admGrafo.getNodoGrafo(i);
+                Nodo nodoB = admGrafo.getNodoGrafo(j);
+                if(tipoTrazo == 1){
+                    ventana.dibujarLinea(ventana.getGamePanel().getGraphics(), 
+                            nodoA.getX(), nodoA.getY(), nodoB.getX(), nodoB.getY(), Color.BLACK);
+                    
+                }else if(tipoTrazo==2){ //si tiene camino de ida y de vuelta se pinta amarillo
+                    ventana.dibujarLinea(ventana.getGamePanel().getGraphics(), 
+                            nodoA.getX(), nodoA.getY(), nodoB.getX(), nodoB.getY(), Color.yellow);
+                }
+            }
+   
+        }
+        
+        
+        System.out.println("Trazos dibujados");
     }
     
     

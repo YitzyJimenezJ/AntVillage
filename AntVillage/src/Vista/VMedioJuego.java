@@ -3,6 +3,7 @@ package Vista;
 
 import Control.Juego;
 import java.awt.Color;
+import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -468,6 +469,10 @@ public class VMedioJuego extends javax.swing.JFrame {
                 new VMedioJuego().setVisible(true);
             }
         });
+    }
+    public void dibujarLinea(Graphics g, int xInicio, int yInicio, int xDestino, int yDestino, Color color){
+        g.setColor(color);
+        g.drawLine(xInicio, yInicio, xDestino, yDestino);
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

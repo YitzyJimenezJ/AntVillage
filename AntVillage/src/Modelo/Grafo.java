@@ -78,5 +78,13 @@ public class Grafo {
         return arcos;
     
     }
+    public boolean haveArco(int idNodoA, int idNodoB){
+        int valor = this.adyacencia[idNodoA][idNodoB];
+        if (valor >0){
+            return true; //tiene un arco
+        }else{
+            return false; //no hay conexión entre ellos
+        }
+    }
 }
 
