@@ -48,8 +48,8 @@ public class VMedioJuego extends javax.swing.JFrame {
         vistaHormigaAzul = new JLabel();
         vistaHormigaVerde = new JLabel();
         
-        vistaHormigaAzul.setBounds(x, y, 40, 50);
-        vistaHormigaVerde.setBounds(x,y, 40, 50);
+        vistaHormigaAzul.setBounds(x+5, y-20, 30, 30);
+        vistaHormigaVerde.setBounds(x+5,y-20, 30, 30);
         
         vistaHormigaAzul.setIcon(new ImageIcon(imagenAzul.getImage().
                 getScaledInstance(vistaHormigaAzul.getWidth(), vistaHormigaAzul.getHeight(), Image.SCALE_SMOOTH)));

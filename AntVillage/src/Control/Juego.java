@@ -33,7 +33,7 @@ public class Juego {
         trazar();
         colocar_nodos_interfaz();
         hormigasEnJuego(); //coloca los label de las hormigas según su posición
-        ventana.getGamePanel().repaint();
+        
     }
     private boolean iniciarJuego(){
         int x_min = 0;
@@ -48,8 +48,8 @@ public class Juego {
         //colocar las hormigas a su punto de inicio
         int x = admGrafo.getPrimerNodo().getX(); 
         int y = admGrafo.getPrimerNodo().getY();
-        hormiga_azul =  new Hormiga(0,"Hormiga Azul", this.ventana, x,y-20,500);
-        hormiga_verde = new Hormiga(1,"Hormiga Verde", this.ventana, x,y-20,500);
+        hormiga_azul =  new Hormiga(0,"Hormiga Azul", this.ventana, x+5,y-20,500);
+        hormiga_verde = new Hormiga(1,"Hormiga Verde", this.ventana, x+5,y-20,500);
         
        
         return true;
@@ -134,13 +134,10 @@ public class Juego {
                 int tipoTrazo = admGrafo.getTipoRelacion(i, j);
                 Nodo nodoA = admGrafo.getNodoGrafo(i);
                 Nodo nodoB = admGrafo.getNodoGrafo(j);
-                if(tipoTrazo == 1){
+                if(tipoTrazo !=0)
+                {
                     ventana.dibujarLinea(ventana.getGamePanel().getGraphics(), 
-                            nodoA.getX(), nodoA.getY(), nodoB.getX(), nodoB.getY(), Color.BLACK);
-                    
-                }else if(tipoTrazo==2){ //si tiene camino de ida y de vuelta se pinta amarillo
-                    ventana.dibujarLinea(ventana.getGamePanel().getGraphics(), 
-                            nodoA.getX(), nodoA.getY(), nodoB.getX(), nodoB.getY(), Color.yellow);
+                            nodoA.getX(), nodoA.getY(), nodoB.getX(), nodoB.getY(), Color.BLACK);   
                 }
             }
    

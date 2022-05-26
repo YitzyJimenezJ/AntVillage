@@ -114,9 +114,11 @@ public class AdmGrafo {
         boolean ida = this.grafo.haveArco(idnodoA, idnodoB);
         boolean vuelta = this.grafo.haveArco(idnodoB, idnodoA);
         if(ida){
-            return 1; //tiene solo un arco 
+            return 1; //tiene solo un arco
+        }else if(vuelta){
+            return 2;
         }else if (ida && vuelta){
-            return 2; //tiene los dos arcos 
+            return 3; //tiene los dos arcos 
         }else{
             return 0; // no tiene ningún arco
         }
