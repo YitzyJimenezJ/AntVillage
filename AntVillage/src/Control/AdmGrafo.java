@@ -5,6 +5,7 @@
 package Control;
 
 import Modelo.Grafo;
+import Modelo.Nodo;
 import java.lang.Math;
 /**
  *
@@ -14,22 +15,25 @@ import java.lang.Math;
 public class AdmGrafo {
     /*acordarse que si los ponemos directamente en el panel con pos x y y en = 0
     podríamos quitar los valores mínimos por ser constantes*/
-    final int MIN_X = 0;//Minimo pixeles en la ventana
-    final int MAX_X = 0;//maximo pixeles en la ventana
-    final int MIN_Y = 0;//Minimo pixeles en la ventana
-    final int MAX_Y = 0;//maximo pixeles en la ventana
+    //todas las variables publicas
+    int MIN_X = 0;//Minimo pixeles en la ventana
+    int MAX_X = 0;//maximo pixeles en la ventana
+    int MIN_Y = 0;//Minimo pixeles en la ventana
+    int MAX_Y = 0;//maximo pixeles en la ventana
     final int TOPE_ARISTAS= 5;
     final int FACTOR_PESO = 100;
-    
+    //todas las variables privadas
     private Grafo grafo;
-    private int cantidad_alimento;
     private int cantidad_nodos;
-    //otras como hormigas azules y verdes etc etc
 
-    public AdmGrafo(int cantidad_alimento, int cantidad_nodos) {
-        this.cantidad_alimento = cantidad_alimento;
+    public AdmGrafo( int cantidad_nodos, int xmin,int ymin,int xmax,int ymax) {
         this.cantidad_nodos = cantidad_nodos;
         this.grafo = new Grafo(cantidad_nodos);
+        MIN_X = xmin;
+        MIN_Y = ymin;
+        MAX_X = xmax;
+        MAX_Y = ymax;
+       
         
         
         //iniciar grafo 
@@ -55,21 +59,24 @@ public class AdmGrafo {
             y = generarAleatorioY();
             this.grafo.agregar(i, x, y);
         }
-        this.dirigirGrafo();
         return true;
     }
     
-    private boolean dirigirGrafo(){
+    public boolean dirigirGrafo(){
         for (int i = 0; i < TOPE_ARISTAS; i++){
             int nodoA = (int ) (Math.random() * (this.cantidad_nodos-1));//conecta con un random
             int nodoB = (int)  (Math.random() * (this.cantidad_nodos-1));//+1 porque los nodos empiezan desde 0
             while (nodoA == nodoB){ //evitar que sea el mismo nodo
                  nodoB = (int) (Math.random() * (this.cantidad_nodos-1));
             }
-            int peso = (int) Math.random() * FACTOR_PESO;
+            int peso = (int) (Math.random() * FACTOR_PESO);
             this.grafo.colocarArco(nodoA, nodoB, peso);
         }
         return true;
+    }
+
+    public Grafo getGrafo() {
+        return grafo;
     }
     
     /*
@@ -85,6 +92,16 @@ public class AdmGrafo {
         int posAlimento = (int) Math.random()* (this.cantidad_nodos-1)+2 ;
         this.grafo.colocarAlimento(posAlimento);
         return posAlimento;
+    }
+    /*
+    Cualquiera de los dos métodos siguientes puede ser utilizado para sacar el primer nodo
+    solo que uno es más directo que el otro y quedará a criterio del programador
+    */
+    public Nodo getNodoGrafo(int i){
+        return this.grafo.obtenerNodo(i);
+    }
+    public Nodo getPrimerNodo(){
+        return this.grafo.getPrimerNodo();
     }
     
 }

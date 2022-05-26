@@ -5,6 +5,7 @@
 package Modelo;
 
 import Vista.VMedioJuego;
+import javax.swing.JLabel;
 
 /**
  *
@@ -12,10 +13,12 @@ import Vista.VMedioJuego;
  */
 public class Hormiga extends Thread{
     private int id; //identificadores que serán necesarios si queremos dejar el programa escalable
-    public int nombre;  
+    public String nombre;  
     private VMedioJuego ventana; //modificar movimientos de la hormiga
     private int x;
     private int y;
+    private int xInicial;
+    private int yInicial;
     private int comidaRecolectada; 
     private int velocidad; 
   /*La velocidad podría ser o no una constante, pero por ahora parametrizamos los
@@ -24,7 +27,7 @@ public class Hormiga extends Thread{
     verdes tienen la ventaja; entonces podríamos modificar la velocidad para que las verdes
     se muevan más lento y las azules más rápido*/
 
-    public Hormiga(int id, int nombre, VMedioJuego ventana, int x, int y, int velocidad) {
+    public Hormiga(int id, String nombre, VMedioJuego ventana, int x, int y, int velocidad) {
         super();
         this.id = id;
         this.nombre = nombre;
@@ -33,6 +36,14 @@ public class Hormiga extends Thread{
         this.y = y; //recibe el parámetro del y del primer nodo (inicio)
         this.comidaRecolectada = 0; //ambas hormigas inician sin alimento
         this.velocidad = velocidad;
+        this.xInicial = x; //inicializa los valores de una vez en el constructor
+        this.yInicial = y; //inicializa los valores de una vez en el constructor
+    }
+    //devuelve  a la hormiga a la posición del primer nodo una vez que encuentre
+    //la comida
+    public void restartPoint(){
+        this.x = this.xInicial;
+        this.y = this.yInicial;
     }
     public Hormiga() {
         super();

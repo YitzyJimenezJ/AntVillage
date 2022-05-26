@@ -18,6 +18,10 @@ public class Grafo {
         this.adyacencia = new int[cantidad_nodos][cantidad_nodos];
         
     }
+  
+    public Nodo getPrimerNodo(){
+        return listaNodos.get(0);
+    }
     public void agregar(int id, int x, int y ){
         Nodo nuevoNodo = new Nodo(id, x, y, false);
         listaNodos.add(nuevoNodo);
@@ -56,6 +60,17 @@ public class Grafo {
 
     public void setAdyacencia(int[][] adyacencia) {
         this.adyacencia = adyacencia;
+    }
+    public String get_Arcos_To_String(int idNodo){
+        String arcos= "";
+        for(int i = 0; i <cantidad_nodos; i++){
+            int valor = this.adyacencia[idNodo][i];
+            if (valor!=0){
+                arcos+= String.valueOf(idNodo)+" -> "+String.valueOf(i)+" = "+String.valueOf(valor)+"\n";
+            }
+        }
+        return arcos;
+    
     }
     
 }
