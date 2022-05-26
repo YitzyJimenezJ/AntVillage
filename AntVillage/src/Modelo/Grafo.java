@@ -16,7 +16,6 @@ public class Grafo {
         this.listaNodos = new ArrayList <> ();
         this.cantidad_nodos = cantidad_nodos;
         this.adyacencia = new int[cantidad_nodos][cantidad_nodos];
-        
     }
   
     public Nodo getPrimerNodo(){

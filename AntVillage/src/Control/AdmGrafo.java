@@ -89,7 +89,7 @@ public class AdmGrafo {
         return i; 
     }
     public int aparecerAlimento(){
-        int posAlimento = (int) Math.random()* (this.cantidad_nodos-1)+2 ;
+        int posAlimento = (int)  (Math.random()*(this.cantidad_nodos-1))+1 ;
         this.grafo.colocarAlimento(posAlimento);
         return posAlimento;
     }
