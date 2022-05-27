@@ -15,6 +15,7 @@ import javax.swing.JPanel;
 import java.awt.Image;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import static javax.swing.SwingConstants.CENTER;
 /**
  *
  * @author 
@@ -45,8 +46,15 @@ public class VMedioJuego extends javax.swing.JFrame {
         crearBtnAlimentar();
         alimentoInFrame();
     }
-    public void crearBtnAlimentar(){
+    private void crearBtnAlimentar(){
         this.btnAlimentar = new JButton();
+        this.btnAlimentar.setVisible(false);
+        this.btnAlimentar .setHorizontalAlignment(CENTER);//coloca el cursor en el centro 
+        this.btnAlimentar .setBounds(190,121, 100, 30);
+        this.btnAlimentar .setText("Alimento");
+        this.btnAlimentar .setBackground(Color.GREEN);
+        this.datosPanel.add(this.btnAlimentar);
+        
     }
     public void setimagenesHormigas(int x, int y ){
         ImageIcon imagenAzul = new ImageIcon(getClass().

@@ -66,17 +66,20 @@ public class Juego {
        Nodo primernodo = admGrafo.getPrimerNodo();
        this.ventana.setimagenesHormigas(primernodo.getX(), primernodo.getY());
     }
+    //==========================================================================
+    //          Funciones de colocar los nodos/botones en la interfaz
+    //==========================================================================
     private void colocar_nodos_interfaz(){
         for (int i = 0; i<cantidadNodos-1;i++){
             Nodo unNodo = admGrafo.getNodoGrafo(i);
-            JButton btncreado =crearBoton(i, unNodo.getX(), unNodo.getY());
+            JButton btncreado =crearBotonNodo(i, unNodo.getX(), unNodo.getY());
             //unNodo.getX(), unNodo.getY() corresponden a su respectiva posición en el grafo.
             
             this.ventana.agregarBoton(btncreado);
             
         }
     }
-    public JButton crearBoton(int i, int x, int y){
+    public JButton crearBotonNodo(int i, int x, int y){
         /*
         Crea los botones del nodo dependiendo de su posición 
         */
@@ -103,12 +106,8 @@ public class Juego {
             nuevoBoton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                
-                /*
-                Debo eliminar el botón alimentar antes de poner otro
-                */
-                JButton btnColocar = cbotonColocarAlimento(i);
-                ventana.addBoton_to_DatosPanel(btnColocar);
+                eliminarEventos_btnAlimento(); //elimina los eventos del botón para poner el nuevo evento
+                aparecer_btnAlimento(i);
                 ventana.getTxtNodoPresionado().setText(String.valueOf(i));
                 ventana.getTxaDetalles().setText(
                         admGrafo.getGrafo().get_Arcos_To_String(i));
@@ -118,13 +117,10 @@ public class Juego {
         }
         return nuevoBoton;
         }
-    public JButton cbotonColocarAlimento(int i){
-        JButton nuevoBoton = new JButton();
-        nuevoBoton.setHorizontalAlignment(CENTER);//coloca el cursor en el centro 
-        nuevoBoton.setBounds(190,121, 100, 30);
-        nuevoBoton.setText("Alimento");
-        nuevoBoton.setBackground(Color.GREEN);
-        nuevoBoton.addActionListener(new ActionListener() {
+    //==========================================================================
+    private void aparecer_btnAlimento(int i){
+        this.ventana.btnAlimentar.setVisible(true);
+        this.ventana.btnAlimentar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 Nodo nodoConAlimento = admGrafo.getGrafo().getNodoAlimento();
@@ -137,17 +133,36 @@ public class Juego {
           
                 ventana.posAlimento(xhoja, yhoja);
                 ventana.mostrarAlimento();
-                nuevoBoton.setVisible(false);
-                ventana.removeBoton_to_DatosPanel(nuevoBoton);
+                ventana.btnAlimentar.setVisible(false);//lo desaparece
                 ventana.getTxtNodoPresionado().setText("");
                 ventana.getTxaDetalles().setText("");
                 System.out.println("Has colocado el alimento en el nodo: "+
                         String.valueOf(i));
-                ventana.btnAlimentar = nuevoBoton;
+             
                 //además validar 
             }
         });
-        return nuevoBoton;
+    }
+    /*
+        Diseñamos esta función porque una versión de los botones generaba
+        los botones uno encima del otro por cada nodo seleccionado
+        esta versión maneja solo un botón de alimento que solo le cambia 
+        el evento del anterior nodo seleccionado por el nuevo nodo
+        para ello no existe una función así que mejor diseñamos esta que
+        elimina todos los eventos del botón
+    */
+    private boolean eliminarEventos_btnAlimento(){
+        try
+        {
+            for( ActionListener al : ventana.btnAlimentar.getActionListeners() ) 
+            {
+            ventana.btnAlimentar.removeActionListener( al );
+            }
+        }catch(Exception e)
+        {
+            return false;
+        }
+        return true;
     }
    
     //Funciones del mapeo
