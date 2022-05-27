@@ -24,7 +24,7 @@ public class Hormiga extends Thread{
     private int comidaRecolectada; 
     private int velocidad; 
     private JLabel imagen;
-    public volatile boolean ganador;
+    public volatile boolean ganador; //se sabe quién es el ganador 
   /*La velocidad podría ser o no una constante, pero por ahora parametrizamos los
     valores porque sabemos que el algoritmo de dijkstra recorre el camino más corto
     directamente; será más rápido que el de fuerza bruta, por lo tanto las hormigas
@@ -62,8 +62,21 @@ public class Hormiga extends Thread{
     //Hilo
     @Override
     public void run(){
-        while(true){
-            
+        while(!ganador ){
+            if(xActual == xdestino && yActual == ydestino){
+                ganador = true;
+            }
+            if(xActual < xdestino){
+                xActual+=1;
+            }else if(xActual> xdestino){
+                xActual-=1;
+            }
+            if(yActual < ydestino){
+                yActual+=1;
+            }else if(yActual>ydestino){
+                yActual-=1;
+            }
+            this.imagen.setLocation(xActual, yActual); // otra es actualizarlo desde la ventana 
             try
             {
                 System.out.println("SLEEP: "+ this.nombre);
@@ -71,15 +84,17 @@ public class Hormiga extends Thread{
             }catch(InterruptedException e)
             {
                 System.out.println(e);
-            }
-            
+            }     
         }
-    
         
     }
-   
-   
     
+   
+   
+    public void setDestino(int x, int y){
+        this.xdestino = x;
+        this.ydestino = y;
+    }
     
     // MÉTODOS GETTER AND SETTER
 
