@@ -13,9 +13,6 @@ import java.lang.Math;
  */
 
 public class AdmGrafo {
-    /*acordarse que si los ponemos directamente en el panel con pos x y y en = 0
-    podríamos quitar los valores mínimos por ser constantes*/
-    //todas las variables publicas
     int MIN_X = 0;//Minimo pixeles en la ventana
     int MAX_X = 0;//maximo pixeles en la ventana
     int MIN_Y = 0;//Minimo pixeles en la ventana
