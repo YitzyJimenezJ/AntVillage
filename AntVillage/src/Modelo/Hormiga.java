@@ -19,9 +19,12 @@ public class Hormiga extends Thread{
     private int yActual;
     private int xInicial;
     private int yInicial;
+    private int xdestino; 
+    private int ydestino;
     private int comidaRecolectada; 
     private int velocidad; 
     private JLabel imagen;
+    public volatile boolean ganador;
   /*La velocidad podría ser o no una constante, pero por ahora parametrizamos los
     valores porque sabemos que el algoritmo de dijkstra recorre el camino más corto
     directamente; será más rápido que el de fuerza bruta, por lo tanto las hormigas
@@ -60,21 +63,29 @@ public class Hormiga extends Thread{
     @Override
     public void run(){
         while(true){
+            
             try
             {
-                /*falta encontrar la comida, desplazarse etc etc*/
                 System.out.println("SLEEP: "+ this.nombre);
                 sleep(velocidad);
             }catch(InterruptedException e)
             {
                 System.out.println(e);
             }
+            
         }
+    
+        
     }
+   
    
     
     
     // MÉTODOS GETTER AND SETTER
+
+    public JLabel getImagen() {
+        return imagen;
+    }
 
     public int getxActual() {
         return xActual;

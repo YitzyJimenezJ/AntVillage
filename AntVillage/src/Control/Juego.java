@@ -49,7 +49,7 @@ public class Juego {
         int y_max = (this.ventana.getGamePanel().getHeight())-20;
         admGrafo = new AdmGrafo(cantidadNodos, x_min, y_min, x_max, y_max);
         admGrafo.iniciarGrafo();
-        admGrafo.dirigirGrafo();
+        admGrafo.colocarArcos();
         
         admGrafo.imprimirGrafo(); //lo imprime en terminar 
         //colocar las hormigas a su punto de inicio

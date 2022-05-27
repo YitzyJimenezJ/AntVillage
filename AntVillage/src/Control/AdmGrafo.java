@@ -59,7 +59,7 @@ public class AdmGrafo {
         }
         return true;
     }
-    
+    /*
     public boolean dirigirGrafo(){
         for (int i = 0; i < TOPE_ARISTAS; i++){
             int nodoA = (int ) (Math.random() * (this.cantidad_nodos-1));//conecta con un random
@@ -71,6 +71,20 @@ public class AdmGrafo {
             this.grafo.colocarArco(nodoA, nodoB, peso);
         }
         return true;
+    }*/
+    public void colocarArcos(){
+        for (int i = 0; i < cantidad_nodos; i++){
+            int nodoA = i; // es lo mismo pero se entenderá mejor
+            int nodoB = (int)  (Math.random() * (this.cantidad_nodos-1));//+1 porque los nodos empiezan desde 0
+            while (nodoA == nodoB){ //evitar que sea el mismo nodo
+                 nodoB = (int) (Math.random() * (this.cantidad_nodos-1));
+            }
+            int pesoAB = (int) (Math.random() * FACTOR_PESO);
+            int pesoBA = (int) (Math.random() * FACTOR_PESO);
+            this.grafo.colocarArco(nodoA, nodoB, pesoAB);
+            this.grafo.colocarArco(nodoB, nodoA, pesoBA);
+            
+        }
     }
 
     public Grafo getGrafo() {

@@ -118,8 +118,8 @@ public class VMedioJuego extends javax.swing.JFrame {
         imagenHormiga.setBounds(x, y, 30,30);
     }
     
-    private VMedioJuego() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    private VMedioJuego() { ///es obligatorio poner este constructor sobre cargado aunque no se use
+        throw new UnsupportedOperationException("Not supported yet.");
     }
     public void agregarBoton(JButton btnNuevo){
         listaBotones.add(btnNuevo);
