@@ -77,6 +77,9 @@ public class Juego {
         }
     }
     public JButton crearBoton(int i, int x, int y){
+        /*
+        Crea los botones del nodo dependiendo de su posición 
+        */
         JButton nuevoBoton = new JButton();
         nuevoBoton.setHorizontalAlignment(CENTER);//coloca el cursor en el centro 
         nuevoBoton.setBounds(x+10, y-10, 20, 20);
@@ -100,6 +103,10 @@ public class Juego {
             nuevoBoton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                
+                /*
+                Debo eliminar el botón alimentar antes de poner otro
+                */
                 JButton btnColocar = cbotonColocarAlimento(i);
                 ventana.addBoton_to_DatosPanel(btnColocar);
                 ventana.getTxtNodoPresionado().setText(String.valueOf(i));
@@ -120,9 +127,14 @@ public class Juego {
         nuevoBoton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                Nodo nodoConAlimento = admGrafo.getGrafo().getNodoAlimento();
+                if(nodoConAlimento !=null){ //si tiene comida entonces la eliminar
+                    admGrafo.getGrafo().retirarAlimento(nodoConAlimento);
+                }
                 admGrafo.aparecerAlimento(i);
-                int xhoja = admGrafo.getGrafo().getAlimento().getX();
-                int yhoja = admGrafo.getGrafo().getAlimento().getY();
+                int xhoja = admGrafo.getGrafo().getNodoAlimento().getX();
+                int yhoja = admGrafo.getGrafo().getNodoAlimento().getY();
+          
                 ventana.posAlimento(xhoja, yhoja);
                 ventana.mostrarAlimento();
                 nuevoBoton.setVisible(false);
@@ -131,7 +143,7 @@ public class Juego {
                 ventana.getTxaDetalles().setText("");
                 System.out.println("Has colocado el alimento en el nodo: "+
                         String.valueOf(i));
-                //falta cargar la imagen de hoja
+                ventana.btnAlimentar = nuevoBoton;
                 //además validar 
             }
         });

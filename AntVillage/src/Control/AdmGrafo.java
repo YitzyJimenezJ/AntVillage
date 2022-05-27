@@ -25,6 +25,7 @@ public class AdmGrafo {
     //todas las variables privadas
     private Grafo grafo;
     private int cantidad_nodos;
+    private Nodo esperaAlimento;
 
     public AdmGrafo( int cantidad_nodos, int xmin,int ymin,int xmax,int ymax) {
         this.cantidad_nodos = cantidad_nodos;
@@ -78,7 +79,9 @@ public class AdmGrafo {
     public Grafo getGrafo() {
         return grafo;
     }
-    
+    //=========================================================================
+    //                      Métodos de control de alimento
+    //=========================================================================
     /*
     Métodos sobrecargados para colocar alimento, si recibe parámetro, lo inserta
     si no, genera uno aleatorio por si el usuario no coloca la comida en ningún nodo
@@ -93,6 +96,7 @@ public class AdmGrafo {
         this.grafo.colocarAlimento(posAlimento);
         return posAlimento;
     }
+
     /*
     Cualquiera de los dos métodos siguientes puede ser utilizado para sacar el primer nodo
     solo que uno es más directo que el otro y quedará a criterio del programador

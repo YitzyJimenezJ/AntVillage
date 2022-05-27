@@ -28,11 +28,7 @@ public class Grafo {
     public Nodo obtenerNodo(int id){
         return listaNodos.get(id);
     }
-    public boolean colocarAlimento(int id){
-        Nodo actual = obtenerNodo(id);
-        actual.setHaveFood(true);
-        return true;
-    }
+   
     public void colocarArco(int id_nodoA, int id_nodoB, int peso){
         this.adyacencia[id_nodoA][id_nodoB] = peso;
     }
@@ -94,8 +90,46 @@ public class Grafo {
             return false; //no hay conexión entre ellos
         }
     }
+    //=========================================================================
+    //                      Métodos de control de alimento
+    //=========================================================================
+    public boolean colocarAlimento(int id){
+        Nodo actual = obtenerNodo(id);
+        actual.setHaveFood(true);
+        return true;
+    }
+  
+    public boolean retirarAlimento(){
+        /*Busca en el grafo el alimento para retirarlo del nodo 
+        se supone que habrá un alimento en el grafo solamente*/
+        for (int i = 0; i <cantidad_nodos; i++){
+            Nodo unNodo = listaNodos.get(i);
+            if(unNodo.isHaveFood()){
+                unNodo.setHaveFood(false);
+                return true;
+            }
+        }
+        return false;
+    }
+    public boolean retirarAlimento(Nodo unNodo){
+        if(unNodo.isHaveFood()){
+            unNodo.setHaveFood(false);
+            return true; //alimento retirado
+        }else{
+            return false;
+        }
+    }
+    public boolean retirarAlimento(int id){
+        Nodo unNodo = listaNodos.get(id);
+        if(unNodo.isHaveFood()){
+            unNodo.setHaveFood(false);
+            return true; //alimento retirado
+        }else{
+            return false;
+        }
+    }
     
-    public Nodo getAlimento(){
+    public Nodo getNodoAlimento(){
         /*
         Retorna el nodo que contiene el alimento
         si ninguno tiene alimento returna null
@@ -108,5 +142,6 @@ public class Grafo {
         }
         return null;
     }
+    
 }
 

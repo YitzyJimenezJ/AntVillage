@@ -31,6 +31,7 @@ public class VMedioJuego extends javax.swing.JFrame {
     public JLabel vistaHormigaVerde;
     public JLabel vistaAlimento;
     private Juego juego;
+    public JButton btnAlimentar;
     
     public VMedioJuego( int nodos, int alimentos ) {
         initComponents();
@@ -41,7 +42,11 @@ public class VMedioJuego extends javax.swing.JFrame {
         this.setResizable(false);
         this.cantidad_nodos = nodos;
         this.cantidad_alimento = alimentos;
+        crearBtnAlimentar();
         alimentoInFrame();
+    }
+    public void crearBtnAlimentar(){
+        this.btnAlimentar = new JButton();
     }
     public void setimagenesHormigas(int x, int y ){
         ImageIcon imagenAzul = new ImageIcon(getClass().
@@ -460,7 +465,10 @@ public class VMedioJuego extends javax.swing.JFrame {
     }//GEN-LAST:event_btnIfnfoActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-       JOptionPane.showMessageDialog(this, "Reglas del juego:\n- ");
+       JOptionPane.showMessageDialog(this, "Detalles:\n-Selecciona un nodo/botón "
+               + "para ver los detalles del mismo, además podrás colocar el \n"
+               + "alimento en esa posición; si no hay alimento entonces el \n"
+               + "programa eligirá un nodo aleatoriamente\n");
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void btnIniciarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIniciarActionPerformed
