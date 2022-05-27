@@ -114,6 +114,9 @@ public class VMedioJuego extends javax.swing.JFrame {
     public int getCantidad_nodos() {
         return cantidad_nodos;
     }
+    public void moverHormiga(JLabel imagenHormiga, int x, int y){
+        imagenHormiga.setBounds(x, y, 30,30);
+    }
     
     private VMedioJuego() {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody

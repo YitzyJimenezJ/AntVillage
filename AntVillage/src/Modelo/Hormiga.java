@@ -15,12 +15,13 @@ public class Hormiga extends Thread{
     private int id; //identificadores que serán necesarios si queremos dejar el programa escalable
     public String nombre;  
     private VMedioJuego ventana; //modificar movimientos de la hormiga
-    private int x;
-    private int y;
+    private int xActual;
+    private int yActual;
     private int xInicial;
     private int yInicial;
     private int comidaRecolectada; 
     private int velocidad; 
+    private JLabel imagen;
   /*La velocidad podría ser o no una constante, pero por ahora parametrizamos los
     valores porque sabemos que el algoritmo de dijkstra recorre el camino más corto
     directamente; será más rápido que el de fuerza bruta, por lo tanto las hormigas
@@ -32,18 +33,24 @@ public class Hormiga extends Thread{
         this.id = id;
         this.nombre = nombre;
         this.ventana = ventana;
-        this.x = x; //recibe el parámetro del x del primer nodo (inicio)
-        this.y = y; //recibe el parámetro del y del primer nodo (inicio)
+        this.xActual = x; //recibe el parámetro del x del primer nodo (inicio)
+        this.yActual = y; //recibe el parámetro del y del primer nodo (inicio)
         this.comidaRecolectada = 0; //ambas hormigas inician sin alimento
         this.velocidad = velocidad;
         this.xInicial = x; //inicializa los valores de una vez en el constructor
         this.yInicial = y; //inicializa los valores de una vez en el constructor
+        
     }
+
+    public void setImagen(JLabel imagen) {
+        this.imagen = imagen;
+    }
+    
     //devuelve  a la hormiga a la posición del primer nodo una vez que encuentre
     //la comida
     public void restartPoint(){
-        this.x = this.xInicial;
-        this.y = this.yInicial;
+        this.xActual = this.xInicial;
+        this.yActual = this.yInicial;
     }
     public Hormiga() {
         super();
@@ -56,9 +63,8 @@ public class Hormiga extends Thread{
             try
             {
                 /*falta encontrar la comida, desplazarse etc etc*/
-                System.out.println("SLEEP");
+                System.out.println("SLEEP: "+ this.nombre);
                 sleep(velocidad);
-                System.out.println("NO SLEEP");
             }catch(InterruptedException e)
             {
                 System.out.println(e);
@@ -70,33 +76,31 @@ public class Hormiga extends Thread{
     
     // MÉTODOS GETTER AND SETTER
 
+    public int getxActual() {
+        return xActual;
+    }
+
+    public int getyActual() {
+        return yActual;
+    }
+
+    public int getxInicial() {
+        return xInicial;
+    }
+
+    public int getyInicial() {
+        return yInicial;
+    }
+    
+    
+    
+    
     public int obtenerId() {
         return id;
     }
-    
-    
-    
-
     public int getVelocidad() {
         return velocidad;
     }
-    
-    public int getX() {
-        return x;
-    }
-
-    public void setX(int x) {
-        this.x = x;
-    }
-
-    public int getY() {
-        return y;
-    }
-
-    public void setY(int y) {
-        this.y = y;
-    }
-
     public int getComidaRecolectada() {
         return comidaRecolectada;
     }

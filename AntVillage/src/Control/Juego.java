@@ -38,6 +38,8 @@ public class Juego {
        
         colocar_nodos_interfaz();
         hormigasEnJuego(); //coloca los label de las hormigas según su posición
+        this.hormiga_azul.setImagen(this.ventana.vistaHormigaAzul);
+        this.hormiga_verde.setImagen(this.ventana.vistaHormigaVerde);
         
     }
     private boolean iniciarJuego(){
@@ -53,8 +55,8 @@ public class Juego {
         //colocar las hormigas a su punto de inicio
         int x = admGrafo.getPrimerNodo().getX(); 
         int y = admGrafo.getPrimerNodo().getY();
-        hormiga_azul =  new Hormiga(0,"Hormiga Azul", this.ventana, x+5,y-20,500);
-        hormiga_verde = new Hormiga(1,"Hormiga Verde", this.ventana, x+5,y-20,500);
+        hormiga_azul =  new Hormiga(0,"Hormiga Azul", this.ventana, x+5,y-20,100);
+        hormiga_verde = new Hormiga(1,"Hormiga Verde", this.ventana, x+5,y-20,100);
         
        
         return true;
