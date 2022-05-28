@@ -5,6 +5,7 @@
 package Modelo;
 
 import Vista.VMedioJuego;
+import java.util.ArrayList;
 import javax.swing.JLabel;
 
 /**
@@ -19,11 +20,10 @@ public class Hormiga extends Thread{
     private int yActual;
     private int xInicial;
     private int yInicial;
-    private int xdestino; 
-    private int ydestino;
     private int comidaRecolectada; 
     private int velocidad; 
     private JLabel imagen;
+    private ArrayList<Nodo> camino;
     public volatile boolean ganador; //se sabe quién es el ganador 
   /*La velocidad podría ser o no una constante, pero por ahora parametrizamos los
     valores porque sabemos que el algoritmo de dijkstra recorre el camino más corto
@@ -42,7 +42,7 @@ public class Hormiga extends Thread{
         this.velocidad = velocidad;
         this.xInicial = x; //inicializa los valores de una vez en el constructor
         this.yInicial = y; //inicializa los valores de una vez en el constructor
-        
+        this.camino = new ArrayList<>();
     }
 
     public void setImagen(JLabel imagen) {
@@ -54,6 +54,7 @@ public class Hormiga extends Thread{
     public void restartPoint(){
         this.xActual = this.xInicial;
         this.yActual = this.yInicial;
+        this.imagen.setLocation(this.xInicial, this.yInicial);
     }
     public Hormiga() {
         super();
@@ -62,18 +63,56 @@ public class Hormiga extends Thread{
     //Hilo
     @Override
     public void run(){
-        while(!ganador ){
-            if(xActual == xdestino && yActual == ydestino){
-                ganador = true;
+        boolean respuesta =true;
+        while(!ganador){
+            if(camino!=null){
+                for(int i = 0; i < camino.size(); i++){
+                    Nodo unNodo = camino.get(i);
+                    respuesta =dezplazar(unNodo.getX(), unNodo.getY());
+                    if (!respuesta){
+                        break; //evitar que siga porque ya perdió 
+                    }
+                }
+                if(respuesta){
+                    this.ventana.hormiga_ganadora = this.id; //esto debe ir aquí porque es cuando justo terminó de recorrer todo el algoritmo
+                }
+            }else{
+                System.out.println("Error lista de caminos vacía");
             }
-            if(xActual < xdestino){
+            ganador =true;    
+        }
+        restartPoint();
+        if(respuesta){
+            this.comidaRecolectada+=1;
+            if(this.id == 0){
+                this.ventana.getTxtAA().setText(String.valueOf(this.comidaRecolectada));
+            }else{
+                 this.ventana.getTxtAV().setText(String.valueOf(this.comidaRecolectada));
+            }
+        }
+    }
+    private boolean dezplazar(int xDestino, int yDestino){
+        boolean salir = false;
+        while(!salir){
+            if(ventana.hormiga_ganadora != this.id && ventana.hormiga_ganadora !=-1){
+                return false; //si es diferente a -1 y diferente este id es porque ganó otra
+            }
+            if(xActual == xDestino && yActual == yDestino)
+            {
+                salir = true;
+            }
+            if(xActual < xDestino)
+            {
                 xActual+=1;
-            }else if(xActual> xdestino){
+            }else if(xActual> xDestino)
+            {
                 xActual-=1;
             }
-            if(yActual < ydestino){
+            if(yActual < yDestino)
+            {
                 yActual+=1;
-            }else if(yActual>ydestino){
+            }else if(yActual>yDestino)
+            {
                 yActual-=1;
             }
             this.imagen.setLocation(xActual, yActual); // otra es actualizarlo desde la ventana 
@@ -84,17 +123,14 @@ public class Hormiga extends Thread{
             }catch(InterruptedException e)
             {
                 System.out.println(e);
-            }     
+            }
         }
-        
+        return true;
     }
-    
-   
-   
-    public void setDestino(int x, int y){
-        this.xdestino = x;
-        this.ydestino = y;
+    public void setCamino (ArrayList<Nodo> camino){
+        this.camino = camino;
     }
+   
     
     // MÉTODOS GETTER AND SETTER
 

@@ -33,6 +33,7 @@ public class VMedioJuego extends javax.swing.JFrame {
     public JLabel vistaAlimento;
     private Juego juego;
     public JButton btnAlimentar;
+    public volatile int hormiga_ganadora;
     
     public VMedioJuego( int nodos, int alimentos ) {
         initComponents();
@@ -45,6 +46,8 @@ public class VMedioJuego extends javax.swing.JFrame {
         this.cantidad_alimento = alimentos;
         crearBtnAlimentar();
         alimentoInFrame();
+        hormiga_ganadora = -1;
+        
     }
     private void crearBtnAlimentar(){
         this.btnAlimentar = new JButton();
@@ -107,6 +110,15 @@ public class VMedioJuego extends javax.swing.JFrame {
        Getter
     
      =========================================================================*/
+
+    public JTextField getTxtAA() {
+        return txtAA;
+    }
+
+    public JTextField getTxtAV() {
+        return txtAV;
+    }
+    
     public JPanel getGamePanel() {
         return gamePanel;
     }

@@ -7,6 +7,7 @@ package Control;
 import Modelo.Grafo;
 import Modelo.Nodo;
 import java.lang.Math;
+import java.util.ArrayList;
 /**
  *
  * @author 
@@ -138,5 +139,14 @@ public class AdmGrafo {
             return 0; // no tiene ningún arco
         }
         
+    }
+    public ArrayList<Nodo> dijsktra(){
+        ArrayList<Nodo> caminoDisktra  = new ArrayList<>();
+        
+       return caminoDisktra;
+    }
+    public ArrayList<Nodo> fuerzaBruta(){
+        ArrayList<Nodo> caminoFB  = new ArrayList<>();
+        return caminoFB;
     }
 }

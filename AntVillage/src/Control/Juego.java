@@ -22,6 +22,9 @@ import static javax.swing.SwingConstants.CENTER;
  *
  * @author 
  */
+/*
+El juego es prácticamente la conexión entre el modelo y la vista
+*/
 public class Juego {
     private AdmGrafo admGrafo;
     private Hormiga hormiga_azul;
@@ -29,20 +32,16 @@ public class Juego {
     private VMedioJuego ventana;
     private int cantidadNodos;
     private int totalAlimento; //alimento para ganar
+    
 
     public Juego(VMedioJuego ventana, int totalAlimento) {
         this.ventana = ventana;
         this.totalAlimento = totalAlimento;
         this.cantidadNodos = ventana.getCantidad_nodos();
-        iniciarJuego();
-       
-        colocar_nodos_interfaz();
-        hormigasEnJuego(); //coloca los label de las hormigas según su posición
-        this.hormiga_azul.setImagen(this.ventana.vistaHormigaAzul);
-        this.hormiga_verde.setImagen(this.ventana.vistaHormigaVerde);
+        prepararJuego();
         
     }
-    private boolean iniciarJuego(){
+    private boolean prepararJuego(){
         int x_min = 0;
         int y_min = 20; //ajuste para que los botones no queden demasiado a las esquinas
         int x_max = (this.ventana.getGamePanel().getWidth())-20;
@@ -57,7 +56,10 @@ public class Juego {
         int y = admGrafo.getPrimerNodo().getY();
         hormiga_azul =  new Hormiga(0,"Hormiga Azul", this.ventana, x+5,y-20,100);
         hormiga_verde = new Hormiga(1,"Hormiga Verde", this.ventana, x+5,y-20,100);
-        
+        colocar_nodos_interfaz();
+        hormigasEnJuego(); //coloca los label de las hormigas según su posición
+        this.hormiga_azul.setImagen(this.ventana.vistaHormigaAzul);
+        this.hormiga_verde.setImagen(this.ventana.vistaHormigaVerde);
        
         return true;
     }
@@ -164,6 +166,29 @@ public class Juego {
         {
             return false;
         }
+        return true;
+    }
+    public  boolean iniciarJuego(){
+        //obtener resultado dijsktra
+        //obtener resultado fuerza bruta
+        
+        //hormiga_azul.setCamino(caminodijkstra);
+        //hormiga_azul.setCamino(caminoFB);
+     
+        this.hormiga_azul.start();
+        this.hormiga_verde.start();
+        // cómo me doy cuenta que el hilo está terminado para el siguiente nodo
+        
+        if(this.hormiga_azul.getComidaRecolectada() == this.totalAlimento){
+            finalizarJuego(hormiga_azul, hormiga_verde);
+        }else if(this.hormiga_verde.getComidaRecolectada() == this.totalAlimento){
+            finalizarJuego(hormiga_verde, hormiga_azul);
+        }
+        return true;
+    }
+    public boolean finalizarJuego(Hormiga ganadora, Hormiga perdedora){
+        //generar el XML
+        
         return true;
     }
    
