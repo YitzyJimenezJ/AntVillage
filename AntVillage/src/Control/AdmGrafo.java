@@ -14,16 +14,16 @@ import java.util.ArrayList;
  */
 
 public class AdmGrafo {
-    int MIN_X = 0;//Minimo pixeles en la ventana
-    int MAX_X = 0;//maximo pixeles en la ventana
-    int MIN_Y = 0;//Minimo pixeles en la ventana
-    int MAX_Y = 0;//maximo pixeles en la ventana
-    int TOPE_ARISTAS= 5;
-    final int FACTOR_PESO = 100;
+    int MIN_X;//Minimo pixeles en la ventana
+    int MAX_X;//maximo pixeles en la ventana
+    int MIN_Y;//Minimo pixeles en la ventana
+    int MAX_Y;//maximo pixeles en la ventana
+   
+    private final int FACTOR_PESO = 100;
     //todas las variables privadas
-    private Grafo grafo;
-    private int cantidad_nodos;
-    private Nodo esperaAlimento;
+    private final Grafo grafo;
+    private final int cantidad_nodos;
+    private Nodo nodo_espera_alimento;
 
     public AdmGrafo( int cantidad_nodos, int xmin,int ymin,int xmax,int ymax) {
         this.cantidad_nodos = cantidad_nodos;
@@ -32,25 +32,14 @@ public class AdmGrafo {
         MIN_Y = ymin;
         MAX_X = xmax;
         MAX_Y = ymax;
-        if (TOPE_ARISTAS<this.cantidad_nodos){//valida que no vengan menos nodos que aristas
-            TOPE_ARISTAS = this.cantidad_nodos;
-        }
         //iniciar grafo 
     }
       /*
         Función que me genera el grafo con valores aleatorios según la cantidad
-    de nodo que ingresó el usuario
+        de nodo que ingresó el usuario
         */ 
-    private int generarAleatorioX(){
-        int rango = (MAX_X-MIN_X)+1;
-        return (int)(Math.random()*rango)+MIN_X;
-    }
-    private int generarAleatorioY(){
-        int rango = (MAX_Y-MIN_Y)+1;
-        return (int)(Math.random()*rango)+MIN_Y;
-    }
-    public boolean iniciarGrafo(){
-       
+
+    public void iniciarGrafo(){
         int x; //recibirá el valor aleatorio de x respecto a su posición en el frame
         int y; //recibirá el valor aleatorio de x respecto a su posición en el frame
         for (int i = 0; i<cantidad_nodos;i++ ){
@@ -58,38 +47,41 @@ public class AdmGrafo {
             y = generarAleatorioY();
             this.grafo.agregar(i, x, y);
         }
-        return true;
     }
-    /*
-    public boolean dirigirGrafo(){
-        for (int i = 0; i < TOPE_ARISTAS; i++){
-            int nodoA = (int ) (Math.random() * (this.cantidad_nodos-1));//conecta con un random
-            int nodoB = (int)  (Math.random() * (this.cantidad_nodos-1));//+1 porque los nodos empiezan desde 0
-            while (nodoA == nodoB){ //evitar que sea el mismo nodo
-                 nodoB = (int) (Math.random() * (this.cantidad_nodos-1));
-            }
-            int peso = (int) (Math.random() * FACTOR_PESO);
-            this.grafo.colocarArco(nodoA, nodoB, peso);
-        }
-        return true;
-    }*/
     public void colocarArcos(){
         for (int i = 0; i < cantidad_nodos; i++){
             int nodoA = i; // es lo mismo pero se entenderá mejor
-            int nodoB = (int)  (Math.random() * (this.cantidad_nodos-1));//+1 porque los nodos empiezan desde 0
-            while (nodoA == nodoB){ //evitar que sea el mismo nodo
-                 nodoB = (int) (Math.random() * (this.cantidad_nodos-1));
+            int cantidadArcos = (int ) (Math.random() * cantidad_nodos);
+            for(int j = 0; j < cantidadArcos; j++){
+                    int nodoB = escogerNodoAleatorio(nodoA);
+                    if(!grafo.haveArco(nodoA, nodoB)){
+                        int pesoAB = (int) (Math.random() * FACTOR_PESO);
+                        int pesoBA = (int) (Math.random() * FACTOR_PESO);
+                        this.grafo.colocarArco(nodoA, nodoB, pesoAB);
+                        this.grafo.colocarArco(nodoB, nodoA, pesoBA);
+                    }else{
+                        System.out.println("El nodo: "+String.valueOf(i)+ " ya "
+                                + "tiene un arco ");
+                    }
             }
-            int pesoAB = (int) (Math.random() * FACTOR_PESO);
-            int pesoBA = (int) (Math.random() * FACTOR_PESO);
-            this.grafo.colocarArco(nodoA, nodoB, pesoAB);
-            this.grafo.colocarArco(nodoB, nodoA, pesoBA);
-            
         }
     }
-
-    public Grafo getGrafo() {
-        return grafo;
+    private int escogerNodoAleatorio(int a){
+        int b = (int)  (Math.random() * (this.cantidad_nodos-1));//+1 porque los nodos empiezan desde 0
+        while (a == b)//evitar que sea el mismo nodo o que ya tenga arco
+        { 
+            b = (int) (Math.random() * (this.cantidad_nodos-1));
+        }
+        return b;
+    }
+    //Generador de números aleatorios
+    private int generarAleatorioX(){
+        int rango = (MAX_X-MIN_X)+1;
+        return (int)(Math.random()*rango)+MIN_X;
+    }
+    private int generarAleatorioY(){
+        int rango = (MAX_Y-MIN_Y)+1;
+        return (int)(Math.random()*rango)+MIN_Y;
     }
     //=========================================================================
     //                      Métodos de control de alimento
@@ -108,45 +100,27 @@ public class AdmGrafo {
         this.grafo.colocarAlimento(posAlimento);
         return posAlimento;
     }
-
-    /*
-    Cualquiera de los dos métodos siguientes puede ser utilizado para sacar el primer nodo
-    solo que uno es más directo que el otro y quedará a criterio del programador
-    */
+    //========================================================================
+    //                  Getter-setter--imprimir grafo 
+    //========================================================================
     public Nodo getNodoGrafo(int i){
         return this.grafo.obtenerNodo(i);
-    }
-    public Nodo getPrimerNodo(){
-        return this.grafo.getPrimerNodo();
     }
     public void imprimirGrafo(){
         for(int i = 0; i < this.cantidad_nodos; i++){
             System.out.println(getNodoGrafo(i).toString());
             System.out.println(this.grafo.get_Arcos_To_String(i));
-        }
-            
+        }   
     }
-    public int getTipoRelacion(int idnodoA, int idnodoB){
-        boolean ida = this.grafo.haveArco(idnodoA, idnodoB);
-        boolean vuelta = this.grafo.haveArco(idnodoB, idnodoA);
-        if(ida){
-            return 1; //tiene solo un arco
-        }else if(vuelta){
-            return 2;
-        }else if (ida && vuelta){
-            return 3; //tiene los dos arcos 
-        }else{
-            return 0; // no tiene ningún arco
-        }
-        
+    public Grafo getGrafo() {
+        return grafo;
     }
-    public ArrayList<Nodo> dijsktra(){
-        ArrayList<Nodo> caminoDisktra  = new ArrayList<>();
-        
-       return caminoDisktra;
+    public Nodo getNodoAlimento(){
+        return grafo.getNodoAlimento();
     }
-    public ArrayList<Nodo> fuerzaBruta(){
-        ArrayList<Nodo> caminoFB  = new ArrayList<>();
-        return caminoFB;
+
+    public void setNodo_espera_alimento(Nodo nodo_espera_alimento) {
+        this.nodo_espera_alimento = nodo_espera_alimento;
     }
+
 }

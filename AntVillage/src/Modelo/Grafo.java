@@ -37,25 +37,13 @@ public class Grafo {
         return listaNodos;
     }
 
-    public void setListaNodos(ArrayList<Nodo> listaNodos) {
-        this.listaNodos = listaNodos;
-    }
-
     public int getCantidad_nodos() {
         return cantidad_nodos;
     }
-
-    public void setCantidad_nodos(int cantidad_nodos) {
-        this.cantidad_nodos = cantidad_nodos;
-    }
-
-    public int[][] getAdyacencia() {
-        return adyacencia;
-    }
-
     public void setAdyacencia(int[][] adyacencia) {
         this.adyacencia = adyacencia;
     }
+    
     public String get_Arcos_To_String(int idNodo){
         String arcos= "";
         for(int i = 0; i <cantidad_nodos; i++)
@@ -81,7 +69,7 @@ public class Grafo {
             return false; //no hay conexión entre ellos
         }
     }
-    //Métoodo sobrecargado de la función anterior
+    //Método sobrecargado de la función anterior
     public boolean haveArco(Nodo nodoA, Nodo nodoB){
         int valor = this.adyacencia[nodoA.getId()][nodoB.getId()];
         if (valor >0){
@@ -132,7 +120,7 @@ public class Grafo {
     public Nodo getNodoAlimento(){
         /*
         Retorna el nodo que contiene el alimento
-        si ninguno tiene alimento returna null
+        si ninguno tiene alimento retorna null
         */
         for(int i = 0; i<cantidad_nodos; i++){
             Nodo unNodo = listaNodos.get(i);

@@ -30,10 +30,12 @@ public class VMedioJuego extends javax.swing.JFrame {
     private int cantidad_alimento;
     public JLabel vistaHormigaAzul;
     public JLabel vistaHormigaVerde;
-    public JLabel vistaAlimento;
+    public JLabel imagenAlimento;
+    public JLabel imagenSiguienteAlimento;
     private Juego juego;
     public JButton btnAlimentar;
-    public volatile int hormiga_ganadora;
+    public volatile int ganadora_Partida;
+    public volatile boolean pausado; 
     
     public VMedioJuego( int nodos, int alimentos ) {
         initComponents();
@@ -46,7 +48,8 @@ public class VMedioJuego extends javax.swing.JFrame {
         this.cantidad_alimento = alimentos;
         crearBtnAlimentar();
         alimentoInFrame();
-        hormiga_ganadora = -1;
+        ganadora_Partida = -1;
+        pausado = true; // el juego empieza pausado si las hormigas no se mueven
         
     }
     private void crearBtnAlimentar(){
@@ -191,6 +194,8 @@ public class VMedioJuego extends javax.swing.JFrame {
         jspDetalle = new javax.swing.JScrollPane();
         txaDetalles = new javax.swing.JTextArea();
         lblArcos = new javax.swing.JLabel();
+        lblNodoSiguienteAlimento = new javax.swing.JLabel();
+        txtSiguienteAlimento = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(0, 0, 0));
@@ -385,6 +390,11 @@ public class VMedioJuego extends javax.swing.JFrame {
 
         lblArcos.setText("Arcos:");
 
+        lblNodoSiguienteAlimento.setText("Nodo para siguiente alimento:");
+
+        txtSiguienteAlimento.setEditable(false);
+        txtSiguienteAlimento.setFocusable(false);
+
         javax.swing.GroupLayout datosPanelLayout = new javax.swing.GroupLayout(datosPanel);
         datosPanel.setLayout(datosPanelLayout);
         datosPanelLayout.setHorizontalGroup(
@@ -408,13 +418,18 @@ public class VMedioJuego extends javax.swing.JFrame {
                                         .addGap(6, 6, 6)
                                         .addGroup(datosPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addGroup(datosPanelLayout.createSequentialGroup()
-                                                .addComponent(lblNodoPresionado, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                                .addComponent(txtNodoPresionado, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                            .addGroup(datosPanelLayout.createSequentialGroup()
                                                 .addComponent(lblArcos, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                                .addComponent(jspDetalle)))))
+                                                .addComponent(jspDetalle))
+                                            .addGroup(datosPanelLayout.createSequentialGroup()
+                                                .addComponent(lblNodoPresionado, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                                .addComponent(txtNodoPresionado, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addGap(0, 0, Short.MAX_VALUE))
+                                            .addGroup(datosPanelLayout.createSequentialGroup()
+                                                .addComponent(lblNodoSiguienteAlimento)
+                                                .addGap(18, 18, 18)
+                                                .addComponent(txtSiguienteAlimento)))))
                                 .addGap(0, 0, Short.MAX_VALUE))))
                     .addGroup(datosPanelLayout.createSequentialGroup()
                         .addGroup(datosPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -434,14 +449,14 @@ public class VMedioJuego extends javax.swing.JFrame {
             .addGroup(datosPanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(lblDatos)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(datosPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(txtnodos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(datosPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblfoodToWin)
-                    .addComponent(txtAlimentoTotal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(datosPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txtnodos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(datosPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txtAlimentoTotal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblfoodToWin))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(datosPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblNodoPresionado)
@@ -449,15 +464,19 @@ public class VMedioJuego extends javax.swing.JFrame {
                 .addGap(14, 14, 14)
                 .addGroup(datosPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lblArcos)
-                    .addComponent(jspDetalle, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jspDetalle, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 9, Short.MAX_VALUE)
+                .addGroup(datosPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblNodoSiguienteAlimento)
+                    .addComponent(txtSiguienteAlimento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(datosPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton3)
                     .addComponent(btnIfnfo))
                 .addGap(18, 18, 18))
         );
 
-        panelInfo.add(datosPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 166, -1, -1));
+        panelInfo.add(datosPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 166, -1, 260));
 
         paneltotal.add(panelInfo, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, 310, 520));
 
@@ -558,6 +577,7 @@ public class VMedioJuego extends javax.swing.JFrame {
     private javax.swing.JLabel lblDatos;
     private javax.swing.JLabel lblGreenTeam;
     private javax.swing.JLabel lblNodoPresionado;
+    private javax.swing.JLabel lblNodoSiguienteAlimento;
     private javax.swing.JLabel lblfoodToWin;
     private javax.swing.JPanel panelInfo;
     private javax.swing.JPanel paneltotal;
@@ -566,6 +586,7 @@ public class VMedioJuego extends javax.swing.JFrame {
     private javax.swing.JTextField txtAV;
     private javax.swing.JTextField txtAlimentoTotal;
     private javax.swing.JTextField txtNodoPresionado;
+    private javax.swing.JTextField txtSiguienteAlimento;
     private javax.swing.JTextField txtnodos;
     // End of variables declaration//GEN-END:variables
 }
