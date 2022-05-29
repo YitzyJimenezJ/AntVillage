@@ -9,10 +9,8 @@ import Modelo.Nodo;
 import java.lang.Math;
 import java.util.ArrayList;
 /**
- *
  * @author 
  */
-
 public class AdmGrafo {
     int MIN_X;//Minimo pixeles en la ventana
     int MAX_X;//maximo pixeles en la ventana
@@ -103,6 +101,7 @@ public class AdmGrafo {
     //========================================================================
     //                  Getter-setter--imprimir grafo 
     //========================================================================
+ 
     public Nodo getNodoGrafo(int i){
         return this.grafo.obtenerNodo(i);
     }

@@ -61,6 +61,15 @@ public class Grafo {
         return arcos;
     
     }
+    public ArrayList<Nodo> getAdyacentesByNodo(Nodo nodoA){
+        ArrayList<Nodo> nodosConArco = new ArrayList();
+        for(Nodo nodoB: listaNodos){
+            if(haveArco(nodoA, nodoB)){
+                nodosConArco.add(nodoB);
+            }
+        }
+        return nodosConArco;
+    }
     public boolean haveArco(int idNodoA, int idNodoB){
         int valor = this.adyacencia[idNodoA][idNodoB];
         if (valor >0){
