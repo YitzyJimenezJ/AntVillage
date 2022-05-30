@@ -27,6 +27,10 @@ public class FuerzaBruta {
         recorrido.add(actual); 
         llenado();
     }
+
+    public FuerzaBruta() {
+    }
+    
     public Nodo siguienteCamino(){
         int i = actual.getId(); //obtiene el indice del nodo
         ArrayList<Nodo> adyacentes = nodosAdyacentes.get(i);//obtiene sus adyacentes

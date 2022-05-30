@@ -30,8 +30,8 @@ public class VMedioJuego extends javax.swing.JFrame {
     private int cantidad_alimento;
     public JLabel vistaHormigaAzul;
     public JLabel vistaHormigaVerde;
-    public JLabel imagenAlimento;
-    public JLabel imagenSiguienteAlimento;
+    public JLabel imAlimentoActual;
+    public JLabel imAlimentoSiguiente;
     private Juego juego;
     public JButton btnAlimentar;
     public volatile int ganadora_Partida;
@@ -90,15 +90,29 @@ public class VMedioJuego extends javax.swing.JFrame {
     
      =========================================================================*/
     public void alimentoInFrame(){
-        ImageIcon alimento = new ImageIcon(getClass().getResource("/Imagenes/hoja.png"));
-        vistaAlimento = new JLabel();
-        this.vistaAlimento.setBounds(0, 0, 30,30);
-        this.vistaAlimento.setVisible(false);
-        vistaAlimento.setIcon(new ImageIcon(alimento.getImage().
-                getScaledInstance(vistaAlimento.getWidth(), 
-                        vistaAlimento.getHeight(), Image.SCALE_SMOOTH)));
-        this.gamePanel.add(vistaAlimento);
+        //Coloca el alimento que es de color verde
+        ImageIcon alimentoVerde = new ImageIcon(getClass().getResource("/Imagenes/hoja.png"));
+        imAlimentoActual = new JLabel();
+        this.imAlimentoActual.setBounds(0, 0, 30,30);
+        this.imAlimentoActual.setVisible(false);
+        imAlimentoActual.setIcon(new ImageIcon(alimentoVerde.getImage().
+                getScaledInstance(imAlimentoActual.getWidth(), 
+                        imAlimentoActual.getHeight(), Image.SCALE_SMOOTH)));
+        //Coloca el alimento que es de color gris
+        ImageIcon alimentoGris = new ImageIcon(
+                getClass().getResource("/Imagenes/hojaInactiva.png"));
+        imAlimentoSiguiente = new JLabel();
+        this.imAlimentoSiguiente.setBounds(0, 0, 30, 30);
+        this.imAlimentoSiguiente.setVisible(false);
+        imAlimentoSiguiente.setIcon(new ImageIcon(alimentoGris.getImage().
+                getScaledInstance(imAlimentoSiguiente.getWidth(), 
+                        imAlimentoSiguiente.getHeight(), Image.SCALE_SMOOTH)));
+        
+        //los agrego al panel
+        this.gamePanel.add(imAlimentoActual);
+        this.gamePanel.add(imAlimentoSiguiente);
     }
+    /*
     public void mostrarAlimento(){
         this.vistaAlimento.setVisible(true);
     }
@@ -108,6 +122,7 @@ public class VMedioJuego extends javax.swing.JFrame {
     public void posAlimento(int x, int y){
         this.vistaAlimento.setBounds(x+5, y-15, 30,30);
     }
+    */
   /* =========================================================================
    
        Getter

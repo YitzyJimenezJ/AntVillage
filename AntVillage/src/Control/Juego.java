@@ -41,7 +41,6 @@ public class Juego extends Thread{
         this.totalAlimento = totalAlimento;
         this.cantidadNodos = ventana.getCantidad_nodos();
         prepararJuego();
-        
     }
     /* =========================================================================
      *              FUNCIONES DEL JUEGO
@@ -56,11 +55,11 @@ public class Juego extends Thread{
         admGrafo.colocarArcos();
         admGrafo.imprimirGrafo(); //lo imprime en terminar 
         //colocar las hormigas a su punto de inicio
-        int x = admGrafo.getPrimerNodo().getX(); 
-        int y = admGrafo.getPrimerNodo().getY();
+        int x = admGrafo.getNodoGrafo(0).getX(); //obtiene el nodo
+        int y = admGrafo.getNodoGrafo(0).getY();
         hormiga_azul =  new Hormiga(0,"Hormiga Azul",  x+5,y-20,100);
         hormiga_verde = new Hormiga(1,"Hormiga Verde", x+5,y-20,100);
-        pilaAlimento = new Nodo();
+        pilaAlimento = new Nodo(); //siguiente alimento de cada partida
         colocar_nodos_interfaz();
         hormigasEnJuego(); //coloca los label de las hormigas según su posición
         //this.hormiga_azul.setImagen(this.ventana.vistaHormigaAzul);
@@ -78,7 +77,7 @@ public class Juego extends Thread{
     Este función coloca los label de las hormigas
     */
     private void hormigasEnJuego(){
-       Nodo primernodo = admGrafo.getPrimerNodo();
+       Nodo primernodo = admGrafo.getNodoGrafo(0);
        this.ventana.setimagenesHormigas(primernodo.getX(), primernodo.getY());
     }
     //==========================================================================
@@ -89,7 +88,6 @@ public class Juego extends Thread{
             Nodo unNodo = admGrafo.getNodoGrafo(i);
             JButton btncreado =crearBotonNodo(i, unNodo.getX(), unNodo.getY());
             //unNodo.getX(), unNodo.getY() corresponden a su respectiva posición en el grafo.
-            
             this.ventana.agregarBoton(btncreado);
             
         }
@@ -138,9 +136,8 @@ public class Juego extends Thread{
         this.ventana.btnAlimentar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Nodo nodoConAlimento = admGrafo.getGrafo().getNodoAlimento();
-                if(nodoConAlimento !=null){ //si tiene comida entonces la eliminar
-                    admGrafo.getGrafo().retirarAlimento(nodoConAlimento);
+                if(admGrafo.getGrafo().hayComida() && ){
+                    
                 }
                 if(ventana.pausado == true){
                     admGrafo.aparecerAlimento(i);
@@ -211,7 +208,7 @@ public class Juego extends Thread{
         Hormiga ganadoraPartida = new Hormiga();
       
         Partida partidaAzul = new Partida(hormiga_azul, ventana);
-        partidaAzul.setCamino(admGrafo.pruebaRecorrido());
+        //partidaAzul.setCamino(admGrafo.pruebaRecorrido());
         partidaAzul.start();
         
         if(ventana.ganadora_Partida ==0 ){

@@ -93,7 +93,7 @@ public class Dijkstra {
             System.out.println("El nodo de destino no puede ser el mismo del "
                     + "origen");
         }
-        return null;
+        return camino;
 
     }
     

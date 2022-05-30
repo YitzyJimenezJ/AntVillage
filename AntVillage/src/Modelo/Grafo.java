@@ -11,11 +11,12 @@ public class Grafo {
     private ArrayList<Nodo> listaNodos;
     private int cantidad_nodos;
     private int[][] adyacencia;
-
+    private Nodo espera;
     public Grafo(int cantidad_nodos) {
-        this.listaNodos = new ArrayList <> ();
+        this.listaNodos = new ArrayList();
         this.cantidad_nodos = cantidad_nodos;
         this.adyacencia = new int[cantidad_nodos][cantidad_nodos];
+        Nodo espera = null;
     }
   
     public Nodo getPrimerNodo(){
@@ -91,8 +92,12 @@ public class Grafo {
     //                      Métodos de control de alimento
     //=========================================================================
     public boolean colocarAlimento(int id){
-        Nodo actual = obtenerNodo(id);
-        actual.setHaveFood(true);
+        Nodo unNodo = obtenerNodo(id);
+        unNodo.setHaveFood(true);
+        return true;
+    }
+     public boolean colocarAlimento(Nodo unNodo){
+        unNodo.setHaveFood(true);
         return true;
     }
   
@@ -138,6 +143,14 @@ public class Grafo {
             }
         }
         return null;
+    }
+    public boolean hayComida(){
+        for(Nodo unNodo : this.listaNodos){
+            if(unNodo.isHaveFood()){
+                return true; //El grafo tiene un alimento
+            }
+        }
+        return false;//El grafo no tiene alimento
     }
     /**
      *Obtiene el valor del arco entre un par de nodos

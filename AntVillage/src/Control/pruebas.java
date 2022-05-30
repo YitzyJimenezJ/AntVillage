@@ -4,6 +4,8 @@
  */
 package Control;
 
+import Modelo.Nodo;
+
 /**
  *
  * @author Esteb
@@ -14,11 +16,8 @@ public class pruebas {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-       for(int i = 0; i<100; i++){
-            int posAlimento = (int) (Math.random()*(12-1)+1);
-            if(posAlimento<12)
-                System.out.println(posAlimento);
-       }
+       Nodo unNodo = null;
+        System.out.println(unNodo.getId());
     }
     
 }
