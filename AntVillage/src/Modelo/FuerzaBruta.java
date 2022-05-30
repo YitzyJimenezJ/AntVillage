@@ -9,7 +9,7 @@ import java.util.ArrayList;
 
 /**
  *
- * @author Esteb
+ * @author Yitsy
  */
 public class FuerzaBruta {
     private ArrayList<Nodo>recorrido; //solo los nodos en orden
@@ -38,6 +38,8 @@ public class FuerzaBruta {
                 {
                     anterior = actual;
                     actual = unNodoAdyacente;
+                    System.out.println("FB: NODO"+String.valueOf(actual.getId())+""
+                            + "Agregado ");
                     recorrido.add(actual);
                     nodosAdyacentes.get(i).remove(unNodoAdyacente); //lo elimina para no volver a el
                     return actual;
@@ -46,11 +48,15 @@ public class FuerzaBruta {
         }else{
             actual = anterior;
             if(recorrido.size()-2>=0){
-               anterior = recorrido.get(recorrido.size()-3);//obtiene el tras anterior
+                anterior = recorrido.get(recorrido.size()-3);//obtiene el tras anterior
+                System.out.println("El anterior es: "+String.valueOf(anterior.getId()));
             }else{
                  anterior = admgrafo.getNodoGrafo(0);//obtiene el primer nodo
             }
-            recorrido.remove(recorrido.size()-1);
+            System.out.println("FB: NODO"+String.valueOf(recorrido.get(
+                    recorrido.size()-1).getId())+""
+                            + "eliminado ");
+            recorrido.remove(recorrido.size()-1); //remueve el último
         }
         return actual;
     }

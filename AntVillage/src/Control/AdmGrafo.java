@@ -4,6 +4,7 @@
  */
 package Control;
 
+import Modelo.FuerzaBruta;
 import Modelo.Grafo;
 import Modelo.Nodo;
 import java.lang.Math;
@@ -11,13 +12,14 @@ import java.util.ArrayList;
 /**
  * @author 
  */
-public class AdmGrafo {
+public class AdmGrafo extends FuerzaBruta{
     int MIN_X;//Minimo pixeles en la ventana
     int MAX_X;//maximo pixeles en la ventana
     int MIN_Y;//Minimo pixeles en la ventana
     int MAX_Y;//maximo pixeles en la ventana
    
     private final int FACTOR_PESO = 100;
+    private final int GRAN_PESO = 999999 ;
     //todas las variables privadas
     private final Grafo grafo;
     private final int cantidad_nodos;
@@ -120,6 +122,9 @@ public class AdmGrafo {
 
     public void setNodo_espera_alimento(Nodo nodo_espera_alimento) {
         this.nodo_espera_alimento = nodo_espera_alimento;
+    }
+    public int getMAX(){
+        return this.GRAN_PESO;
     }
 
 }

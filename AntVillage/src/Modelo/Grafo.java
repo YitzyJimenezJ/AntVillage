@@ -73,7 +73,7 @@ public class Grafo {
     public boolean haveArco(int idNodoA, int idNodoB){
         int valor = this.adyacencia[idNodoA][idNodoB];
         if (valor >0){
-            return true; //tiene un arco
+            return true; //tiene un arco de A -> B
         }else{
             return false; //no hay conexión entre ellos
         }
@@ -138,6 +138,18 @@ public class Grafo {
             }
         }
         return null;
+    }
+    /**
+     *Obtiene el valor del arco entre un par de nodos
+     * @return valor del peso
+     */
+    public int getArco(int a, int b){
+        int valor = this.adyacencia[a][b];
+        return valor;
+    }
+    public int getArco(Nodo a, Nodo b){
+        int valor = this.adyacencia[a.getId()][b.getId()];
+        return valor;
     }
     
 }
