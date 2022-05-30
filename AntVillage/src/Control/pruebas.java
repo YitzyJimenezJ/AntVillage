@@ -4,7 +4,10 @@
  */
 package Control;
 
+import Modelo.Dijkstra;
+import Modelo.FuerzaBruta;
 import Modelo.Nodo;
+import java.util.ArrayList;
 
 /**
  *
@@ -16,8 +19,20 @@ public class pruebas {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-       Nodo unNodo = null;
-        System.out.println(unNodo.getId());
+        AdmGrafo adm = new AdmGrafo(10, 0, 0, 100, 100);
+        adm.iniciarGrafo();
+        adm.colocarArcos();
+        adm.imprimirGrafo();
+        
+        adm.getGrafo().colocarAlimento(4);
+        Dijkstra D = new Dijkstra(adm);
+        ArrayList<Nodo> rutaD = D.getRuta(4);
+
+        System.out.println("Camino Dijkstra: \n");
+        for (Nodo n : rutaD){
+            System.out.print(n.getId()+" ->");
+        }
+        
+        //FuerzaBruta FB = new FuerzaBruta(adm);    
     }
-    
 }

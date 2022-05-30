@@ -4,6 +4,7 @@
  */
 package Control;
 
+import Modelo.Dijkstra;
 import Modelo.FuerzaBruta;
 import Modelo.Grafo;
 import Modelo.Nodo;
@@ -24,6 +25,8 @@ public class AdmGrafo extends FuerzaBruta{
     private final Grafo grafo;
     private final int cantidad_nodos;
     private Nodo nodo_espera_alimento;
+    
+  
 
     public AdmGrafo( int cantidad_nodos, int xmin,int ymin,int xmax,int ymax) {
         this.cantidad_nodos = cantidad_nodos;
@@ -32,7 +35,7 @@ public class AdmGrafo extends FuerzaBruta{
         MIN_Y = ymin;
         MAX_X = xmax;
         MAX_Y = ymax;
-        //iniciar grafo 
+        
     }
       /*
         Función que me genera el grafo con valores aleatorios según la cantidad

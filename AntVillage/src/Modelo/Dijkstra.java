@@ -19,6 +19,8 @@ public class Dijkstra {
     private int origen;
     private int n;
     private AdmGrafo admgrafo;
+    
+    private ArrayList<Nodo> ruta = new ArrayList();
 
     public Dijkstra( AdmGrafo adm) {
         admgrafo = adm;
@@ -42,12 +44,12 @@ public class Dijkstra {
         visitados[origen] = true; //el primero ya está visitado
         minimos[origen] = 0; //tiene un costo de cero porque llegar al mismo nodo no cuesta nada
         
-        for(int i = 0; i<n; i++){
+        for(int i = 1; i<n; i++){
             int idnodo = minino();
             visitados[idnodo] = true;
-            for(int k = 0; k<n;i++){
+            for(int k = 1; k<n;k++){
                 if(!visitados[k]){ //no visitado
-                    if((minimos[idnodo]+ mcostos[idnodo][idnodo])< minimos[k]){
+                    if((minimos[idnodo]+ mcostos[idnodo][k])< minimos[k]){
                         minimos[k] = minimos[idnodo]+mcostos[idnodo][k];
                         ultimo[k] = idnodo;
                     }
@@ -64,7 +66,7 @@ public class Dijkstra {
     private int minino(){
         int max = admgrafo.getMAX();
         int nodo = 1; //se inicializa pero este valor será cambiado
-        for(int j = 0; j <n ; j++){
+        for(int j = 1; j <n ; j++){
             if (!visitados[j]&&(minimos[j] <=max)){ //no visitado y menor a el peso máximo
                 max = minimos[j];
                 nodo = j;
@@ -78,24 +80,34 @@ public class Dijkstra {
         {
             for(int j = 0; j<n; j++)
             {
-                mcostos[i][j] = admgrafo.getGrafo().getArco(i, j);
+                int costo =  admgrafo.getGrafo().getArco(i, j);
+                if(costo== 0){
+                    mcostos[i][j] =admgrafo.getMAX();
+                }else{
+                    mcostos[i][j] = costo;
+                }
+                
             }
         }
     }
-    public ArrayList<Nodo> ruta(int idDestino){
-     
-        ArrayList<Nodo> camino = new ArrayList();
-        if(idDestino != origen){
-            for(int i = 0; i< idDestino;i++){
-                Nodo unNodo= admgrafo.getNodoGrafo(ultimo[i]);
-                camino.add(unNodo);
-            }
-        }else{
-            System.out.println("El nodo de destino no puede ser el mismo del "
-                    + "origen");
-        }
-        return camino;
+    public ArrayList<Nodo> getRuta(int idDestino){
+        ruta = new ArrayList(); //lo vuelvo vacío
+        recuperaCamino(idDestino);
+        return ruta;
 
+    }
+    private void recuperaCamino(int v)
+    {
+        int anterior = ultimo[v];
+        if (v != origen)
+        {
+            recuperaCamino(anterior); // vuelve al último del último
+            ruta.add(admgrafo.getNodoGrafo(v));
+            System.out.print(" -> V" + v);
+        } else{
+            ruta.add(admgrafo.getNodoGrafo(origen));
+            System.out.print("V" + origen);
+        }
     }
     
    

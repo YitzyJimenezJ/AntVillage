@@ -1,6 +1,8 @@
 
 package Control;
 
+import Modelo.Dijkstra;
+import Modelo.FuerzaBruta;
 import Modelo.Hormiga;
 import Modelo.Nodo;
 import Vista.VMedioJuego;
@@ -32,9 +34,11 @@ public class Juego extends Thread{
     private VMedioJuego ventana;
     private final int cantidadNodos;
     private final int totalAlimento; //alimento para ganar
-    private Nodo pilaAlimento;
-    
 
+    public Dijkstra dijsktra;
+    public FuerzaBruta fuerza_bruta;
+    
+    
     public Juego(VMedioJuego ventana, int totalAlimento) {
         super();
         this.ventana = ventana;
@@ -59,7 +63,6 @@ public class Juego extends Thread{
         int y = admGrafo.getNodoGrafo(0).getY();
         hormiga_azul =  new Hormiga(0,"Hormiga Azul",  x+5,y-20,100);
         hormiga_verde = new Hormiga(1,"Hormiga Verde", x+5,y-20,100);
-        pilaAlimento = new Nodo(); //siguiente alimento de cada partida
         colocar_nodos_interfaz();
         hormigasEnJuego(); //coloca los label de las hormigas según su posición
         //this.hormiga_azul.setImagen(this.ventana.vistaHormigaAzul);
@@ -164,9 +167,6 @@ public class Juego extends Thread{
             }
         });
     }
-    private void colocarImagenHoja(){
-        
-    }
     /*
         Diseñamos esta función porque una versión de los botones generaba
         los botones uno encima del otro por cada nodo seleccionado
@@ -180,7 +180,7 @@ public class Juego extends Thread{
         {
             for( ActionListener al : ventana.btnAlimentar.getActionListeners() ) 
             {
-            ventana.btnAlimentar.removeActionListener( al );
+                ventana.btnAlimentar.removeActionListener( al );
             }
         }catch(Exception e)
         {
@@ -190,20 +190,16 @@ public class Juego extends Thread{
     }
     @Override
     public  void run(){
-   
-        while(hormiga_azul.getComidaRecolectada()<totalAlimento && 
-                hormiga_azul.getComidaRecolectada()<totalAlimento)
-        {
-          
-            partida();
+        ventana.pausado = false; 
         
-        }
         // cómo me doy cuenta que el hilo está terminado para el siguiente nodo
-        
+      
         if(this.hormiga_azul.getComidaRecolectada() == this.totalAlimento){
             finalizarJuego(hormiga_azul, hormiga_verde);
         }else if(this.hormiga_verde.getComidaRecolectada() == this.totalAlimento){
             finalizarJuego(hormiga_verde, hormiga_azul);
+        }else{
+            
         }
       
     }
