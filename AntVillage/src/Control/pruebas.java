@@ -31,11 +31,12 @@ public class pruebas {
         
         ArrayList<Nodo> rutaD = D.getRuta(4);
 
-        System.out.println("Camino Dijkstra: \n");
-        for (Nodo n : rutaD){
+        System.out.println("Camino Dijkstra: \n\n\n");
+        System.out.println(rutaD.size()-1);
+        /*for (Nodo n : rutaD){
             System.out.print(n.getId()+" ->");
         }
-        System.out.println("Camino Fuerza Bruta: \n");
+        /*System.out.println("Camino Fuerza Bruta: \n");
         while(!FB.hallegado(adm.getNodoGrafo(4))){
             FB.siguienteCamino();
         }
@@ -44,5 +45,6 @@ public class pruebas {
         while(!FB.hallegado(adm.getNodoGrafo(4))){
             FB.siguienteCamino();
         }
+        */
     }
 }

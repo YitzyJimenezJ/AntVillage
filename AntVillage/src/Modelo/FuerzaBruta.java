@@ -30,8 +30,7 @@ public class FuerzaBruta {
         llenado();
     }
 
-    public FuerzaBruta() {
-    }
+    
    
     public Nodo siguienteCamino(){
         int i = actual.getId(); //obtiene el indice del nodo

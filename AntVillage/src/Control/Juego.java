@@ -45,6 +45,8 @@ public class Juego extends Thread{
         this.totalAlimento = totalAlimento;
         this.cantidadNodos = ventana.getCantidad_nodos();
         prepararJuego();
+        
+        
     }
     /* =========================================================================
      *              FUNCIONES DEL JUEGO
@@ -65,9 +67,8 @@ public class Juego extends Thread{
         hormiga_verde = new Hormiga(1,"Hormiga Verde", x+5,y-20,100);
         colocar_nodos_interfaz();
         hormigasEnJuego(); //coloca los label de las hormigas según su posición
-        //this.hormiga_azul.setImagen(this.ventana.vistaHormigaAzul);
-        //this.hormiga_verde.setImagen(this.ventana.vistaHormigaVerde);
-       
+        dijsktra = new Dijkstra(admGrafo);
+        fuerza_bruta = new FuerzaBruta(admGrafo);
         return true;
     }
     /*
@@ -146,8 +147,9 @@ public class Juego extends Thread{
 
                     ventana.posAlimento(ventana.imAlimentoActual, xhoja, yhoja);
                     ventana.mostrarAlimento(ventana.imAlimentoActual);
+                    iniciarPartida();
                     
-                    //aquí lo empieza a buscar e inicia el juego
+                
                 }else{//Significa que hay una partida en ejecución
                     admGrafo.getGrafo().setAlimentoEspera(i);
                     int xhojaGris = admGrafo.getGrafo().getEspera().getX();
@@ -188,41 +190,56 @@ public class Juego extends Thread{
         }
         return true;
     }
-    @Override
-    public  void run(){
-        ventana.pausado = false; 
+    public void iniciarPartida(){
+        Nodo nodoDestino = admGrafo.getNodoAlimento();
+        fuerza_bruta.restart();
+        ArrayList<Nodo> rutaD = dijsktra.getRuta(nodoDestino.getId());
+        HiloHormigaV hhv = new HiloHormigaV(hormiga_verde, ventana, rutaD);
+        HiloHormigaA hha = new HiloHormigaA(hormiga_azul, ventana, fuerza_bruta,nodoDestino);
+       
+        hhv.start();
+        hha.start();
         
-        // cómo me doy cuenta que el hilo está terminado para el siguiente nodo
-      
-        if(this.hormiga_azul.getComidaRecolectada() == this.totalAlimento){
-            finalizarJuego(hormiga_azul, hormiga_verde);
-        }else if(this.hormiga_verde.getComidaRecolectada() == this.totalAlimento){
-            finalizarJuego(hormiga_verde, hormiga_azul);
-        }else{
-            
-        }
-      
+        
+        
+        //debe quitar el alimento del grafo una vez que lo haya encontrado y también si tiene un alimento en espera continuar con ese
+        //las hojas deben cambiar de posición; es decir, la verde colocarse en la que está la gris y la gris debe desaparecer
+        //acordarse que el nodo en espera debe regresar a null
     }
-    private Hormiga partida (){
-        Hormiga ganadoraPartida = new Hormiga();
-      
-        Partida partidaAzul = new Partida(hormiga_azul, ventana);
-        //partidaAzul.setCamino(admGrafo.pruebaRecorrido());
-        partidaAzul.start();
+    
+    @Override 
+    public void run(){ //está comparando constantemente si una de las hormigas ha ganado
+        while(hormiga_azul.getComidaRecolectada()< totalAlimento ||
+                hormiga_verde.getComidaRecolectada()<totalAlimento){
+                if(ventana.pausado){
+                    if(admGrafo.getGrafo().getEspera() != null){
+                        int xhoja = admGrafo.getGrafo().getNodoAlimento().getX();
+                        int yhoja = admGrafo.getGrafo().getNodoAlimento().getY();
+                        admGrafo.getGrafo().retirarAlimento();
+                        admGrafo.getGrafo().colocarAlimento(admGrafo.getGrafo().getEspera());
+                        ventana.posAlimento(ventana.imAlimentoActual,xhoja , yhoja);
+                        ventana.ocultarAlimento(ventana.imAlimentoSiguiente);
+                        iniciarPartida();
+                    }
+                }
+                try{
+                    sleep(100);
+                }catch(InterruptedException e){
+                   System.out.println(e);
+                }
+        }
+        if(hormiga_azul.getComidaRecolectada()== totalAlimento){
+            finalizarJuego(hormiga_azul,  hormiga_verde);
+        }else if(hormiga_verde.getComidaRecolectada()== totalAlimento){
+            finalizarJuego(hormiga_verde,  hormiga_azul);
+        }
         
-        if(ventana.ganadora_Partida ==0 ){
-            ganadoraPartida = hormiga_azul;
-        }else if (ventana.ganadora_Partida ==1){
-            ganadoraPartida = hormiga_verde;
-        }       
-        ventana.ganadora_Partida = -1; //nuevamente lo devuelve
-        return ganadoraPartida;
     }
     public void finalizarJuego(Hormiga ganadora, Hormiga perdedora){
+        ventana.desactivarBotones();
         //generar el XML
 
     }
-    
     //Funciones del mapeo
     /*
     Esta función se encuentra en desarrollo y la idea es trazar rayas entre

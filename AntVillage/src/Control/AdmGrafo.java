@@ -13,7 +13,7 @@ import java.util.ArrayList;
 /**
  * @author 
  */
-public class AdmGrafo extends FuerzaBruta{
+public class AdmGrafo{
     int MIN_X;//Minimo pixeles en la ventana
     int MAX_X;//maximo pixeles en la ventana
     int MIN_Y;//Minimo pixeles en la ventana

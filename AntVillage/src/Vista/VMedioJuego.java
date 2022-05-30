@@ -34,8 +34,9 @@ public class VMedioJuego extends javax.swing.JFrame {
     public JLabel imAlimentoSiguiente;
     private Juego juego;
     public JButton btnAlimentar;
-    public volatile int ganadora_Partida;
+    
     public volatile boolean pausado; 
+    public volatile boolean detenerMovimiento;
     
     public VMedioJuego( int nodos, int alimentos ) {
         initComponents();
@@ -48,9 +49,9 @@ public class VMedioJuego extends javax.swing.JFrame {
         this.cantidad_alimento = alimentos;
         crearBtnAlimentar();
         alimentoInFrame();
-        ganadora_Partida = -1;
+      
         pausado = true; // el juego empieza pausado si las hormigas no se mueven
-        
+        detenerMovimiento = false; //si una hormiga gana
     }
     private void crearBtnAlimentar(){
         this.btnAlimentar = new JButton();
@@ -487,7 +488,7 @@ public class VMedioJuego extends javax.swing.JFrame {
                     .addComponent(txtSiguienteAlimento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblNodoSiguienteAlimento))
                 .addGap(18, 18, 18)
-                .addGroup(datosPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(datosPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnIfnfo)
                     .addComponent(jButton3))
                 .addGap(18, 23, Short.MAX_VALUE))
@@ -522,17 +523,24 @@ public class VMedioJuego extends javax.swing.JFrame {
                 + "\n- name carnet"
                 + "\n- name carnet \nRepositorio: https://github.com/YitzyJimenezJ/AntVillage.git");
     }//GEN-LAST:event_btnIfnfoActionPerformed
-
+    public void desactivarBotones(){
+        for(JButton b : listaBotones){
+            b.setEnabled(false);
+        }
+    }
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
        JOptionPane.showMessageDialog(this, "Detalles:\n-Selecciona un nodo/botón "
                + "para ver los detalles del mismo, además podrás colocar el \n"
                + "alimento en esa posición; si no hay alimento entonces el \n"
-               + "programa eligirá un nodo aleatoriamente\n");
+               + "programa eligirá un nodo aleatoriamente\n"
+               + "-Coloca un alimento en cualquiera de los nodos a excepción\n"
+               + " del inicial, para comenzar el juego");
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void btnIniciarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIniciarActionPerformed
         this.btnIniciar.setVisible(false);
         juego = new Juego(this, this.cantidad_alimento);
+        juego.start();
     }//GEN-LAST:event_btnIniciarActionPerformed
    
     /**
