@@ -95,12 +95,17 @@ public class AdmGrafo extends FuerzaBruta{
         this.grafo.colocarAlimento(i);
         return i; 
     }
+    
     public int aparecerAlimento(){
         int posAlimento = (int)  (Math.random()*(this.cantidad_nodos-1))+1 ;
         this.grafo.colocarAlimento(posAlimento);
         return posAlimento;
     }
-    //========================================================================
+    public int aparecerAlimentoEspera(int i){
+        this.grafo.setAlimentoEspera(i);
+        return i;
+     }
+    //=======================================================================
     //                  Getter-setter--imprimir grafo 
     //========================================================================
  

@@ -83,6 +83,7 @@ public class Dijkstra {
         }
     }
     public ArrayList<Nodo> ruta(int idDestino){
+     
         ArrayList<Nodo> camino = new ArrayList();
         if(idDestino != origen){
             for(int i = 0; i< idDestino;i++){

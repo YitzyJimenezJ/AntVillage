@@ -112,17 +112,18 @@ public class VMedioJuego extends javax.swing.JFrame {
         this.gamePanel.add(imAlimentoActual);
         this.gamePanel.add(imAlimentoSiguiente);
     }
-    /*
-    public void mostrarAlimento(){
-        this.vistaAlimento.setVisible(true);
+    //      JLABEL ALIMENTO
+    
+    public void mostrarAlimento(JLabel label){
+        label.setVisible(true);
     }
-    public void ocultarAlimento(){
-        this.vistaAlimento.setVisible(false);
+    public void ocultarAlimento(JLabel label){
+        label.setVisible(false);
     }
-    public void posAlimento(int x, int y){
-        this.vistaAlimento.setBounds(x+5, y-15, 30,30);
+    public void posAlimento(JLabel label,int x, int y){
+        label.setBounds(x+5, y-15, 30,30);
     }
-    */
+    
   /* =========================================================================
    
        Getter
@@ -257,13 +258,13 @@ public class VMedioJuego extends javax.swing.JFrame {
         jButton1.setBackground(new java.awt.Color(255, 102, 0));
         jButton1.setFont(new java.awt.Font("Segoe UI Black", 3, 18)); // NOI18N
         jButton1.setForeground(new java.awt.Color(255, 255, 255));
-        jButton1.setText("FINALIZAR");
+        jButton1.setText("Volver");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
             }
         });
-        panelInfo.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 460, -1, -1));
+        panelInfo.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 470, 130, -1));
 
         blueTeamPanel.setBackground(new java.awt.Color(0, 204, 204));
         blueTeamPanel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
@@ -437,27 +438,28 @@ public class VMedioJuego extends javax.swing.JFrame {
                                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                                 .addComponent(jspDetalle))
                                             .addGroup(datosPanelLayout.createSequentialGroup()
-                                                .addComponent(lblNodoPresionado, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                                .addComponent(txtNodoPresionado, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addGap(0, 0, Short.MAX_VALUE))
-                                            .addGroup(datosPanelLayout.createSequentialGroup()
-                                                .addComponent(lblNodoSiguienteAlimento)
-                                                .addGap(18, 18, 18)
-                                                .addComponent(txtSiguienteAlimento)))))
+                                                .addGroup(datosPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                    .addGroup(datosPanelLayout.createSequentialGroup()
+                                                        .addComponent(lblNodoPresionado, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                                        .addComponent(txtNodoPresionado, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                                    .addGroup(datosPanelLayout.createSequentialGroup()
+                                                        .addComponent(lblNodoSiguienteAlimento)
+                                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                                        .addComponent(txtSiguienteAlimento, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                                .addGap(0, 0, Short.MAX_VALUE)))))
                                 .addGap(0, 0, Short.MAX_VALUE))))
                     .addGroup(datosPanelLayout.createSequentialGroup()
-                        .addGroup(datosPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(datosPanelLayout.createSequentialGroup()
-                                .addGap(87, 87, 87)
-                                .addComponent(lblDatos, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(datosPanelLayout.createSequentialGroup()
-                                .addContainerGap()
-                                .addComponent(btnIfnfo)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jButton3)))
+                        .addGap(87, 87, 87)
+                        .addComponent(lblDatos, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
+            .addGroup(datosPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(btnIfnfo)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton3)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         datosPanelLayout.setVerticalGroup(
             datosPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -480,18 +482,18 @@ public class VMedioJuego extends javax.swing.JFrame {
                 .addGroup(datosPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lblArcos)
                     .addComponent(jspDetalle, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 9, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(datosPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txtSiguienteAlimento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblNodoSiguienteAlimento))
+                .addGap(18, 18, 18)
                 .addGroup(datosPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblNodoSiguienteAlimento)
-                    .addComponent(txtSiguienteAlimento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(datosPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton3)
-                    .addComponent(btnIfnfo))
-                .addGap(18, 18, 18))
+                    .addComponent(btnIfnfo)
+                    .addComponent(jButton3))
+                .addGap(18, 23, Short.MAX_VALUE))
         );
 
-        panelInfo.add(datosPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 166, -1, 260));
+        panelInfo.add(datosPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 166, -1, 280));
 
         paneltotal.add(panelInfo, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, 310, 520));
 

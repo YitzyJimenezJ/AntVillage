@@ -91,15 +91,22 @@ public class Grafo {
     //=========================================================================
     //                      Métodos de control de alimento
     //=========================================================================
-    public boolean colocarAlimento(int id){
+    public void colocarAlimento(int id){
         Nodo unNodo = obtenerNodo(id);
         unNodo.setHaveFood(true);
-        return true;
     }
-     public boolean colocarAlimento(Nodo unNodo){
+     public void colocarAlimento(Nodo unNodo){
         unNodo.setHaveFood(true);
-        return true;
     }
+     public void setAlimentoEspera(int i){
+         Nodo unNodo = obtenerNodo(i);
+         System.out.println("Has colocado el alimento en la espera en el nodo:"
+                 + String.valueOf(i));
+         espera = unNodo;
+    }
+     public void retirarAlimentoEspera(){
+         espera = null;
+     }
   
     public boolean retirarAlimento(){
         /*Busca en el grafo el alimento para retirarlo del nodo 
@@ -152,6 +159,11 @@ public class Grafo {
         }
         return false;//El grafo no tiene alimento
     }
+
+    public Nodo getEspera() {
+        return espera;
+    }
+    
     /**
      *Obtiene el valor del arco entre un par de nodos
      * @return valor del peso

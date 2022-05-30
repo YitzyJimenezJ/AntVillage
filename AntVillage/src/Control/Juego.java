@@ -136,24 +136,27 @@ public class Juego extends Thread{
         this.ventana.btnAlimentar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if(admGrafo.getGrafo().hayComida() && ){
-                    
-                }
                 if(ventana.pausado == true){
                     admGrafo.aparecerAlimento(i);
                     int xhoja = admGrafo.getGrafo().getNodoAlimento().getX();
                     int yhoja = admGrafo.getGrafo().getNodoAlimento().getY();
 
-                    ventana.posAlimento(xhoja, yhoja);
-                    ventana.mostrarAlimento();
-                    ventana.btnAlimentar.setVisible(false);//lo desaparece
+                    ventana.posAlimento(ventana.imAlimentoActual, xhoja, yhoja);
+                    ventana.mostrarAlimento(ventana.imAlimentoActual);
+                    
+                    //aquí lo empieza a buscar e inicia el juego
+                }else{//Significa que hay una partida en ejecución
+                    admGrafo.getGrafo().setAlimentoEspera(i);
+                    int xhojaGris = admGrafo.getGrafo().getEspera().getX();
+                    int yhojaGris = admGrafo.getGrafo().getEspera().getY();
+                    ventana.posAlimento(ventana.imAlimentoSiguiente, xhojaGris, yhojaGris);
+                    ventana.mostrarAlimento(ventana.imAlimentoSiguiente);
+                }
+                ventana.btnAlimentar.setVisible(false);//lo desaparece
                     ventana.getTxtNodoPresionado().setText("");
                     ventana.getTxaDetalles().setText("");
                     System.out.println("Has colocado el alimento en el nodo: "+
                             String.valueOf(i));
-                }else{
-                
-                }
                 //aquí debe ir que las hormigas deban seguir el alimento
                 //si y solo si el grafo no tiene más alimento de seguido
                 //si están buscando el alimento y alguien pone la comida para la siguiente
