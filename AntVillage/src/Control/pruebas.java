@@ -25,14 +25,24 @@ public class pruebas {
         adm.imprimirGrafo();
         
         adm.getGrafo().colocarAlimento(4);
+        
         Dijkstra D = new Dijkstra(adm);
+        FuerzaBruta FB = new FuerzaBruta(adm);   
+        
         ArrayList<Nodo> rutaD = D.getRuta(4);
 
         System.out.println("Camino Dijkstra: \n");
         for (Nodo n : rutaD){
             System.out.print(n.getId()+" ->");
         }
-        
-        //FuerzaBruta FB = new FuerzaBruta(adm);    
+        System.out.println("Camino Fuerza Bruta: \n");
+        while(!FB.hallegado(adm.getNodoGrafo(4))){
+            FB.siguienteCamino();
+        }
+         System.out.println("Camino Fuerza Bruta2: \n");
+        FB.restart();
+        while(!FB.hallegado(adm.getNodoGrafo(4))){
+            FB.siguienteCamino();
+        }
     }
 }

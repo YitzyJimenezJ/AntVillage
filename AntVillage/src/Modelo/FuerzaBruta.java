@@ -18,6 +18,8 @@ public class FuerzaBruta {
     
     private Nodo anterior;
     private Nodo actual; 
+    
+    
     public FuerzaBruta(AdmGrafo adm) {
         this.anterior = new Nodo (); //vacío porque empieza desde el actual 
         this.actual = adm.getNodoGrafo(0); //obtiene el nodo inicial
@@ -30,7 +32,7 @@ public class FuerzaBruta {
 
     public FuerzaBruta() {
     }
-    
+   
     public Nodo siguienteCamino(){
         int i = actual.getId(); //obtiene el indice del nodo
         ArrayList<Nodo> adyacentes = nodosAdyacentes.get(i);//obtiene sus adyacentes
@@ -42,8 +44,7 @@ public class FuerzaBruta {
                 {
                     anterior = actual;
                     actual = unNodoAdyacente;
-                    System.out.println("FB: NODO"+String.valueOf(actual.getId())+""
-                            + "Agregado ");
+                    System.out.print(String.valueOf(actual.getId())+" ->");
                     recorrido.add(actual);
                     nodosAdyacentes.get(i).remove(unNodoAdyacente); //lo elimina para no volver a el
                     return actual;
@@ -71,6 +72,12 @@ public class FuerzaBruta {
             recorrido.add(unNodo);
             nodosAdyacentes.add(admgrafo.getGrafo().getAdyacentesByNodo(unNodo));
         }
+    }
+    public boolean hallegado(Nodo destino){
+        if(destino.getId() == actual.getId()){
+            return true;
+        }else
+            return false;
     }
     public void restart(){
         
