@@ -31,6 +31,7 @@ public class HiloHormigaV extends Thread{
     }
     @Override
     public void run(){
+        ventana.pausado =false;
         int i = 1; // el primer nodo es el origen y ese no debe recorrerlo entonces inicia en 1
         while((i<ruta.size()-1) && !ventana.detenerMovimiento){
             if(!movimiento.enMovimiento){ // si no está en movimiento asigna otra
@@ -48,7 +49,10 @@ public class HiloHormigaV extends Thread{
         if(i== ruta.size()-1){ //significa que terminó porque esta ganó
             hVerde.setComidaRecolectada(hVerde.getComidaRecolectada()+1);
             this.ventana.getTxtAV().setText(String.valueOf(hVerde.getComidaRecolectada()));
+            this.ventana.ocultarAlimento(ventana.imAlimentoActual);
+            ventana.pausado = true; 
         }
+        
     }
 
     

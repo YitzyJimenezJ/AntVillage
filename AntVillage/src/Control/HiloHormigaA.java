@@ -44,6 +44,7 @@ public class HiloHormigaA extends Thread{
     
     @Override
     public void run(){
+        ventana.pausado = false;
         FB.restart();
         while(!FB.hallegado(destino) && !ventana.detenerMovimiento){
             if(!movimiento.enMovimiento){
@@ -60,6 +61,8 @@ public class HiloHormigaA extends Thread{
         if(FB.hallegado(destino)){
             hAzul.setComidaRecolectada(hAzul.getComidaRecolectada()+1);
             this.ventana.getTxtAA().setText(String.valueOf(hAzul.getComidaRecolectada()));
+            this.ventana.ocultarAlimento(ventana.imAlimentoActual);
+            ventana.pausado = true;
         }
     }    
 }

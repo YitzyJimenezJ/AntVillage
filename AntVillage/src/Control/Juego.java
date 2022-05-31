@@ -63,8 +63,8 @@ public class Juego extends Thread{
         //colocar las hormigas a su punto de inicio
         int x = admGrafo.getNodoGrafo(0).getX(); //obtiene el nodo
         int y = admGrafo.getNodoGrafo(0).getY();
-        hormiga_azul =  new Hormiga(0,"Hormiga Azul",  x+5,y-20,100);
-        hormiga_verde = new Hormiga(1,"Hormiga Verde", x+5,y-20,100);
+        hormiga_azul =  new Hormiga(0,"Hormiga Azul",  x+5,y-20,50);
+        hormiga_verde = new Hormiga(1,"Hormiga Verde", x+5,y-20,50);
         colocar_nodos_interfaz();
         hormigasEnJuego(); //coloca los label de las hormigas según su posición
         dijsktra = new Dijkstra(admGrafo);
@@ -114,8 +114,7 @@ public class Juego extends Thread{
             public void actionPerformed(ActionEvent e) {
                 ventana.getTxtNodoPresionado().setText(String.valueOf(i));
                 ventana.getTxaDetalles().setText(
-                        admGrafo.getGrafo().get_Arcos_To_String(i));
-                
+                        admGrafo.getGrafo().get_Arcos_To_String(i)); 
             }
         });
         }else{
@@ -142,11 +141,7 @@ public class Juego extends Thread{
             public void actionPerformed(ActionEvent e) {
                 if(ventana.pausado == true){
                     admGrafo.aparecerAlimento(i);
-                    int xhoja = admGrafo.getGrafo().getNodoAlimento().getX();
-                    int yhoja = admGrafo.getGrafo().getNodoAlimento().getY();
-
-                    ventana.posAlimento(ventana.imAlimentoActual, xhoja, yhoja);
-                    ventana.mostrarAlimento(ventana.imAlimentoActual);
+                  
                     iniciarPartida();
                     
                 
@@ -191,6 +186,11 @@ public class Juego extends Thread{
         return true;
     }
     public void iniciarPartida(){
+        int xhoja = admGrafo.getGrafo().getNodoAlimento().getX();
+        int yhoja = admGrafo.getGrafo().getNodoAlimento().getY();
+
+        ventana.posAlimento(ventana.imAlimentoActual, xhoja, yhoja);
+        ventana.mostrarAlimento(ventana.imAlimentoActual);
         Nodo nodoDestino = admGrafo.getNodoAlimento();
         fuerza_bruta.restart();
         ArrayList<Nodo> rutaD = dijsktra.getRuta(nodoDestino.getId());
@@ -199,10 +199,6 @@ public class Juego extends Thread{
        
         hhv.start();
         hha.start();
-        
-        
-        
-        //debe quitar el alimento del grafo una vez que lo haya encontrado y también si tiene un alimento en espera continuar con ese
         //las hojas deben cambiar de posición; es decir, la verde colocarse en la que está la gris y la gris debe desaparecer
         //acordarse que el nodo en espera debe regresar a null
     }
@@ -213,17 +209,16 @@ public class Juego extends Thread{
                 hormiga_verde.getComidaRecolectada()<totalAlimento){
                 if(ventana.pausado){
                     if(admGrafo.getGrafo().getEspera() != null){
-                        int xhoja = admGrafo.getGrafo().getNodoAlimento().getX();
-                        int yhoja = admGrafo.getGrafo().getNodoAlimento().getY();
                         admGrafo.getGrafo().retirarAlimento();
                         admGrafo.getGrafo().colocarAlimento(admGrafo.getGrafo().getEspera());
-                        ventana.posAlimento(ventana.imAlimentoActual,xhoja , yhoja);
                         ventana.ocultarAlimento(ventana.imAlimentoSiguiente);
+                        admGrafo.setNodo_espera_alimento(null); //regresa a null para que el siguiente no sea el mismo
                         iniciarPartida();
+                        
                     }
                 }
                 try{
-                    sleep(100);
+                    sleep(10);
                 }catch(InterruptedException e){
                    System.out.println(e);
                 }
@@ -240,35 +235,5 @@ public class Juego extends Thread{
         //generar el XML
 
     }
-    //Funciones del mapeo
-    /*
-    Esta función se encuentra en desarrollo y la idea es trazar rayas entre
-    los nodos para conocer el movimiento de las hormigas
     
-    public void trazar(){
-        for (int i = 0; i < cantidadNodos; i++){
-            for(int j = 0; j < cantidadNodos; j++){
-                int tipoTrazo = admGrafo.getTipoRelacion(i, j);
-                Nodo nodoA = admGrafo.getNodoGrafo(i);
-                Nodo nodoB = admGrafo.getNodoGrafo(j);
-                if(tipoTrazo !=0)
-                {
-                   
-                    ventana.dibujarLinea(this.ventana.getJpanelMapeo().getGraphics(), 
-                            nodoA.getX(), nodoA.getY(), nodoB.getX(), nodoB.getY(), Color.white);  
-                    
-                }
-            }
-   
-        }
-        
-        System.out.println("Trazos dibujados");
-    }
-    */
-    
-    
-    
-    /* un update de ir tratando de igualar los valores de sus posiciones hacia el nuevo nodo para 
-    el dezplazamiento de las hormigas como están en un hilo cada una puede ir sumando los valores
-    una por una */
 }

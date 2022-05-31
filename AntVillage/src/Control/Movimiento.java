@@ -84,7 +84,6 @@ public class Movimiento extends Thread {
     private void dormir(){
         try
         {
-            System.out.println("SLEEP: "+ hormiga.nombre);
             sleep(hormiga.getVelocidad());
         }catch(InterruptedException e)
         {
