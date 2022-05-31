@@ -88,7 +88,7 @@ public class Juego extends Thread{
     //          Funciones de colocar los nodos/botones en la interfaz
     //==========================================================================
     private void colocar_nodos_interfaz(){
-        for (int i = 0; i<cantidadNodos-1;i++){
+        for (int i = 0; i<cantidadNodos;i++){
             Nodo unNodo = admGrafo.getNodoGrafo(i);
             JButton btncreado =crearBotonNodo(i, unNodo.getX(), unNodo.getY());
             //unNodo.getX(), unNodo.getY() corresponden a su respectiva posición en el grafo.
