@@ -63,8 +63,8 @@ public class Juego extends Thread{
         //colocar las hormigas a su punto de inicio
         int x = admGrafo.getNodoGrafo(0).getX(); //obtiene el nodo
         int y = admGrafo.getNodoGrafo(0).getY();
-        hormiga_azul =  new Hormiga(0,"Hormiga Azul",  x+5,y-20,50);
-        hormiga_verde = new Hormiga(1,"Hormiga Verde", x+5,y-20,50);
+        hormiga_azul =  new Hormiga(0,"Hormiga Azul",  x+5,y-20,100, totalAlimento);
+        hormiga_verde = new Hormiga(1,"Hormiga Verde", x+5,y-20,100, totalAlimento);
         colocar_nodos_interfaz();
         hormigasEnJuego(); //coloca los label de las hormigas según su posición
         dijsktra = new Dijkstra(admGrafo);
@@ -112,6 +112,7 @@ public class Juego extends Thread{
             nuevoBoton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                ventana.btnAlimentar.setVisible(false);
                 ventana.getTxtNodoPresionado().setText(String.valueOf(i));
                 ventana.getTxaDetalles().setText(
                         admGrafo.getGrafo().get_Arcos_To_String(i)); 
@@ -141,10 +142,7 @@ public class Juego extends Thread{
             public void actionPerformed(ActionEvent e) {
                 if(ventana.pausado == true){
                     admGrafo.aparecerAlimento(i);
-                  
                     iniciarPartida();
-                    
-                
                 }else{//Significa que hay una partida en ejecución
                     admGrafo.getGrafo().setAlimentoEspera(i);
                     int xhojaGris = admGrafo.getGrafo().getEspera().getX();
@@ -153,14 +151,10 @@ public class Juego extends Thread{
                     ventana.mostrarAlimento(ventana.imAlimentoSiguiente);
                 }
                 ventana.btnAlimentar.setVisible(false);//lo desaparece
-                    ventana.getTxtNodoPresionado().setText("");
-                    ventana.getTxaDetalles().setText("");
-                    System.out.println("Has colocado el alimento en el nodo: "+
-                            String.valueOf(i));
-                //aquí debe ir que las hormigas deban seguir el alimento
-                //si y solo si el grafo no tiene más alimento de seguido
-                //si están buscando el alimento y alguien pone la comida para la siguiente
-                
+                ventana.getTxtNodoPresionado().setText("");
+                ventana.getTxaDetalles().setText("");
+                System.out.println("Has colocado el alimento en el nodo: "+
+                            String.valueOf(i));       
             }
         });
     }
@@ -186,6 +180,7 @@ public class Juego extends Thread{
         return true;
     }
     public void iniciarPartida(){
+        ventana.pausado = false;
         int xhoja = admGrafo.getGrafo().getNodoAlimento().getX();
         int yhoja = admGrafo.getGrafo().getNodoAlimento().getY();
 
@@ -205,23 +200,22 @@ public class Juego extends Thread{
     
     @Override 
     public void run(){ //está comparando constantemente si una de las hormigas ha ganado
-        while(hormiga_azul.getComidaRecolectada()< totalAlimento ||
-                hormiga_verde.getComidaRecolectada()<totalAlimento){
-                if(ventana.pausado){
-                    if(admGrafo.getGrafo().getEspera() != null){
-                        admGrafo.getGrafo().retirarAlimento();
-                        admGrafo.getGrafo().colocarAlimento(admGrafo.getGrafo().getEspera());
-                        ventana.ocultarAlimento(ventana.imAlimentoSiguiente);
-                        admGrafo.setNodo_espera_alimento(null); //regresa a null para que el siguiente no sea el mismo
-                        iniciarPartida();
-                        
-                    }
+        while(!ventana.juegoTerminado){
+            if(ventana.pausado){
+                if(admGrafo.getGrafo().getEspera() != null){
+                    admGrafo.getGrafo().retirarAlimento();
+                    admGrafo.getGrafo().colocarAlimento(admGrafo.getGrafo().getEspera());
+                    ventana.ocultarAlimento(ventana.imAlimentoSiguiente);
+                    admGrafo.setNodo_espera_alimento(null); //regresa a null para que el siguiente no sea el mismo
+                    iniciarPartida();
+
                 }
-                try{
-                    sleep(10);
-                }catch(InterruptedException e){
-                   System.out.println(e);
-                }
+            }
+            try{
+                sleep(10);
+            }catch(InterruptedException e){
+               System.out.println(e);
+            }
         }
         if(hormiga_azul.getComidaRecolectada()== totalAlimento){
             finalizarJuego(hormiga_azul,  hormiga_verde);
@@ -232,6 +226,7 @@ public class Juego extends Thread{
     }
     public void finalizarJuego(Hormiga ganadora, Hormiga perdedora){
         ventana.desactivarBotones();
+        ventana.getGamePanel().setBackground(Color.GRAY);
         //generar el XML
 
     }

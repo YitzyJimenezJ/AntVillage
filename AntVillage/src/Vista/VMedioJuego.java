@@ -36,7 +36,8 @@ public class VMedioJuego extends javax.swing.JFrame {
     public JButton btnAlimentar;
     
     public volatile boolean pausado; 
-    public volatile boolean detenerMovimiento;
+    public volatile boolean juegoTerminado;
+    //public volatile boolean detenerMovimiento;
     
     public VMedioJuego( int nodos, int alimentos ) {
         initComponents();
@@ -49,9 +50,9 @@ public class VMedioJuego extends javax.swing.JFrame {
         this.cantidad_alimento = alimentos;
         crearBtnAlimentar();
         alimentoInFrame();
+        juegoTerminado = false;
       
         pausado = true; // el juego empieza pausado si las hormigas no se mueven
-        detenerMovimiento = false; //si una hormiga gana
     }
     private void crearBtnAlimentar(){
         this.btnAlimentar = new JButton();
@@ -148,6 +149,8 @@ public class VMedioJuego extends javax.swing.JFrame {
     }
     public void moverHormiga(JLabel imagenHormiga, int x, int y){
         imagenHormiga.setBounds(x, y, 30,30);
+        repaint();
+                
     }
     
     private VMedioJuego() { ///es obligatorio poner este constructor sobre cargado aunque no se use
@@ -402,6 +405,7 @@ public class VMedioJuego extends javax.swing.JFrame {
         txaDetalles.setBackground(new java.awt.Color(255, 255, 255));
         txaDetalles.setColumns(10);
         txaDetalles.setRows(5);
+        txaDetalles.setAutoscrolls(false);
         txaDetalles.setFocusable(false);
         jspDetalle.setViewportView(txaDetalles);
 
@@ -411,6 +415,11 @@ public class VMedioJuego extends javax.swing.JFrame {
 
         txtSiguienteAlimento.setEditable(false);
         txtSiguienteAlimento.setFocusable(false);
+        txtSiguienteAlimento.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtSiguienteAlimentoActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout datosPanelLayout = new javax.swing.GroupLayout(datosPanel);
         datosPanel.setLayout(datosPanelLayout);
@@ -487,11 +496,11 @@ public class VMedioJuego extends javax.swing.JFrame {
                 .addGroup(datosPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(txtSiguienteAlimento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblNodoSiguienteAlimento))
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(datosPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnIfnfo)
-                    .addComponent(jButton3))
-                .addGap(18, 23, Short.MAX_VALUE))
+                    .addComponent(btnIfnfo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(57, 57, 57))
         );
 
         panelInfo.add(datosPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 166, -1, 280));
@@ -542,6 +551,10 @@ public class VMedioJuego extends javax.swing.JFrame {
         juego = new Juego(this, this.cantidad_alimento);
         juego.start();
     }//GEN-LAST:event_btnIniciarActionPerformed
+
+    private void txtSiguienteAlimentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSiguienteAlimentoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtSiguienteAlimentoActionPerformed
    
     /**
      * @param args the command line arguments

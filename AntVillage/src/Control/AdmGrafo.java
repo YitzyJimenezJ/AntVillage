@@ -53,8 +53,9 @@ public class AdmGrafo{
     }
     public void colocarArcos(){
         for (int i = 0; i < cantidad_nodos; i++){
+           
             int nodoA = i; // es lo mismo pero se entenderá mejor
-            int cantidadArcos = (int ) (Math.random() * cantidad_nodos);
+            int cantidadArcos = (int ) (Math.random() * cantidad_nodos)+1;//al menos un arco
             for(int j = 0; j < cantidadArcos; j++){
                     int nodoB = escogerNodoAleatorio(nodoA);
                     if(!grafo.haveArco(nodoA, nodoB)){

@@ -41,7 +41,7 @@ public class Movimiento extends Thread {
         int yDestino = siguientePaso.getY();
         int xActual = hormiga.getxActual();
         int yActual = hormiga.getyActual();
-        while(!hormiga.isInNodo(xDestino, yDestino) && !ventana.detenerMovimiento){
+        while(!hormiga.isInNodo(xDestino, yDestino) && !ventana.pausado){
             if(xActual < xDestino)
             {
                 xActual+=1;
@@ -63,7 +63,6 @@ public class Movimiento extends Thread {
             this.dormir(); //modularizar el try cath
         }
         if(hormiga.isInNodo(xDestino, yDestino)){
-            ventana.detenerMovimiento = true; //detener el moviemiento para que la otra hormiga no se siga moviendo
             return true; //el dezplazamiento se cumplío 
         }else{
             return false; //el desplazamiento se interrumpe porque ganó otra hormiga
@@ -71,9 +70,10 @@ public class Movimiento extends Thread {
     }
     private void moverLabel(int x, int y){
         if(hormiga.getId() == 0){ // Hormiga azul
-            this.ventana.vistaHormigaAzul.setLocation(x+5, y-20);
+            ventana.moverHormiga(ventana.vistaHormigaAzul, x+5, y-20);
+            
         }else if(hormiga.getId() == 1){ //hormiga verde
-            this.ventana.vistaHormigaVerde.setLocation(x+5, y-20);  
+            ventana.moverHormiga(ventana.vistaHormigaVerde, x+5, y-20);
         }
     }
     public void reestablecer(){
@@ -84,7 +84,7 @@ public class Movimiento extends Thread {
     private void dormir(){
         try
         {
-            sleep(hormiga.getVelocidad());
+            Thread.sleep(hormiga.getVelocidad());
         }catch(InterruptedException e)
         {
             System.out.println("Error al dormir el hilo");

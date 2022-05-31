@@ -31,27 +31,35 @@ public class HiloHormigaV extends Thread{
     }
     @Override
     public void run(){
-        ventana.pausado =false;
         int i = 1; // el primer nodo es el origen y ese no debe recorrerlo entonces inicia en 1
-        while((i<ruta.size()-1) && !ventana.detenerMovimiento){
+        while((i<ruta.size()) && !ventana.pausado){
             if(!movimiento.enMovimiento){ // si no está en movimiento asigna otra
                 Nodo nRuta = ruta.get(i);
+                System.out.println("La hormiga verde va al nodo : "+String.valueOf(nRuta.getId()));
                 movimiento.moverA(nRuta);
                 movimiento.start();
                 i++;
             }
-            try{
+            try
+            {
                 sleep(10);
-            }catch(InterruptedException e){
-               System.out.println(e);
+            }catch(InterruptedException e)
+            {
+                System.out.println("Error al dormir el hilo");
+                System.out.println(e);
             }
         }
-        if(i== ruta.size()-1){ //significa que terminó porque esta ganó
-            hVerde.setComidaRecolectada(hVerde.getComidaRecolectada()+1);
+        if(i== ruta.size()){ //significa que terminó porque esta ganó
+            if(hVerde.sumarRecolectada()){
+               ventana.juegoTerminado = true;
+            }//si no el juego aún no termina
+            System.out.println("La hormiga verde ha llegado de primero");
             this.ventana.getTxtAV().setText(String.valueOf(hVerde.getComidaRecolectada()));
             this.ventana.ocultarAlimento(ventana.imAlimentoActual);
             ventana.pausado = true; 
         }
+        int[] posIn = hVerde.restartPoint(); //siempre vuelven a su punto
+        this.ventana.moverHormiga(ventana.vistaHormigaVerde, posIn[0], posIn[1]);
         
     }
 

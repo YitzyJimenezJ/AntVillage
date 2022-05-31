@@ -44,25 +44,34 @@ public class HiloHormigaA extends Thread{
     
     @Override
     public void run(){
-        ventana.pausado = false;
         FB.restart();
-        while(!FB.hallegado(destino) && !ventana.detenerMovimiento){
+        while(!FB.hallegado(destino) && !ventana.pausado){
             if(!movimiento.enMovimiento){
                 Nodo nRuta = FB.siguienteCamino();
+                System.out.println("La hormiga azul va al nodo : "+String.valueOf(nRuta.getId()));
                 movimiento.moverA(nRuta);
                 movimiento.start();
             }
-            try{
+            try
+            {
                 sleep(10);
-            }catch(InterruptedException e){
+            }catch(InterruptedException e)
+            {
+                System.out.println("Error al dormir el hilo");
                 System.out.println(e);
             }
         }
         if(FB.hallegado(destino)){
-            hAzul.setComidaRecolectada(hAzul.getComidaRecolectada()+1);
+            if(hAzul.sumarRecolectada()){
+                ventana.juegoTerminado = true;
+            }
+            System.out.println("La hormiga azul ha llegado de primero");
             this.ventana.getTxtAA().setText(String.valueOf(hAzul.getComidaRecolectada()));
             this.ventana.ocultarAlimento(ventana.imAlimentoActual);
             ventana.pausado = true;
         }
+        int[] posIn = hAzul.restartPoint();
+        this.ventana.moverHormiga(ventana.vistaHormigaAzul, posIn[0], posIn[1]);
+        
     }    
 }

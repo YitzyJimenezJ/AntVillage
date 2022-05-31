@@ -184,19 +184,36 @@ public class VInicio extends javax.swing.JFrame {
         }
             
     }
+    private boolean validarNodos(JTextField entrada){  
+        int num = Integer.parseInt(entrada.getText().trim());
+        if(num >2){
+            return true; //todo exitoso
+        }else{
+            System.out.println("La cantidad no puede ser negativa");
+            return false;
+        }
+ 
+    }
     private void bIniciarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bIniciarActionPerformed
         int resultadoNodo = validarCantidades(txtNodos);
         int resultadoAlimento = validarCantidades(txtAlimento);
         if (resultadoNodo !=0 ){
             JOptionPane.showMessageDialog(this, "La cantidad de nodos debe ser un"
-                    + " número entero positivo mayor a 1", "Error", JOptionPane.WARNING_MESSAGE);
+                    + " número entero positivo mayor a 3", "Error", JOptionPane.WARNING_MESSAGE);
         }else if (resultadoAlimento != 0){
             JOptionPane.showMessageDialog(this, "La cantidad de alimento debe ser "
                     + "un número entero positivo mayor a 1", "Error", JOptionPane.WARNING_MESSAGE);
         }else if(resultadoAlimento == 0 && resultadoNodo == 0){
-            VMedioJuego juego = new VMedioJuego(Integer.parseInt(txtNodos.getText().trim()),Integer.parseInt(txtAlimento.getText().trim()));
-            juego.setVisible(true);
-            this.dispose();
+            if(validarNodos(txtNodos)){
+                VMedioJuego juego = new VMedioJuego(Integer.parseInt(
+                        txtNodos.getText().trim()),Integer.parseInt(
+                                txtAlimento.getText().trim()));
+                juego.setVisible(true);
+                this.dispose();
+            }else{
+                JOptionPane.showMessageDialog(this, "La cantidad de nodos debe ser "
+                    + "un número entero positivo mayor a 3", "Error", JOptionPane.WARNING_MESSAGE);
+            }
         }
         
     }//GEN-LAST:event_bIniciarActionPerformed

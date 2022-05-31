@@ -20,6 +20,7 @@ public class Hormiga {
     private int xInicial;
     private int yInicial;
     private int comidaRecolectada; 
+    private int totalAlimento;
     private int velocidad; 
   
   /*La velocidad podría ser o no una constante, pero por ahora parametrizamos los
@@ -28,7 +29,7 @@ public class Hormiga {
     verdes tienen la ventaja; entonces podríamos modificar la velocidad para que las verdes
     se muevan más lento y las azules más rápido*/
 
-    public Hormiga(int id, String nombre, int x, int y, int velocidad) {
+    public Hormiga(int id, String nombre, int x, int y, int velocidad, int totalAlimento) {
         this.id = id;
         this.nombre = nombre;
         this.xActual = x; //recibe el parámetro del x del primer nodo (inicio)
@@ -37,6 +38,7 @@ public class Hormiga {
         this.velocidad = velocidad;
         this.xInicial = x; //inicializa los valores de una vez en el constructor
         this.yInicial = y; //inicializa los valores de una vez en el constructor
+        this.totalAlimento = totalAlimento;
     }
 
     public Hormiga() {
@@ -98,6 +100,16 @@ public class Hormiga {
 
     public int getId() {
         return id;
+    }
+    public boolean sumarRecolectada(){
+        if(this.comidaRecolectada+1 == totalAlimento){
+            this.comidaRecolectada++;
+            return true;
+        }else{
+            this.comidaRecolectada++;
+            return false;
+        }
+
     }
     
     
