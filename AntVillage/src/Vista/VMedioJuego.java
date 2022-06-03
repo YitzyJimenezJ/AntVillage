@@ -26,8 +26,8 @@ public class VMedioJuego extends javax.swing.JFrame {
      * Creates new form VMedioJuego
      */
     private ArrayList<JButton> listaBotones = new ArrayList<>();
-    private int cantidad_nodos;
-    private int cantidad_alimento;
+    public int cantidad_nodos;
+    public int cantidad_alimento;
     public JLabel vistaHormigaAzul;
     public JLabel vistaHormigaVerde;
     public JLabel imAlimentoActual;

@@ -17,7 +17,6 @@ public class HiloHormigaV extends Thread{
     private Hormiga hVerde;
     private VMedioJuego ventana;
     private ArrayList<Nodo> ruta;
-    private Movimiento movimiento;
     
 
     public HiloHormigaV(Hormiga hVerde, VMedioJuego ventana, ArrayList<Nodo> ruta) {
@@ -26,43 +25,73 @@ public class HiloHormigaV extends Thread{
         this.ventana = ventana;
         this.ruta = ruta;
         
-        movimiento = new Movimiento(hVerde, ventana);
         
     }
     @Override
     public void run(){
-        int i = 1; // el primer nodo es el origen y ese no debe recorrerlo entonces inicia en 1
-        while((i<ruta.size()) && !ventana.pausado){
-            if(!movimiento.enMovimiento){ // si no está en movimiento asigna otra
-                Nodo nRuta = ruta.get(i);
-                System.out.println("La hormiga verde va al nodo : "+String.valueOf(nRuta.getId()));
-                movimiento.moverA(nRuta);
-                movimiento.start();
-                i++;
+        int xDesplazo, yDesplazo, xActual, yActual;
+        int i;
+        for(i = 1; i<ruta.size(); i++){
+            Nodo unCamino = ruta.get(i);
+            xDesplazo= unCamino.getX();
+            yDesplazo = unCamino.getY();
+            xActual = hVerde.getxActual();
+            yActual = hVerde.getyActual();
+            while(hVerde.isInNodo(xDesplazo, yDesplazo)){
+                if(xActual < xDesplazo)
+                {
+                    xActual+=1;
+                }else if(xActual> xDesplazo)
+                {
+                    xActual-=1;
+                }
+                if(yActual < yDesplazo)
+                {
+                    yActual+=1;
+                }else if(yActual>yDesplazo)
+                {
+                    yActual-=1;
+                }
+                if(ventana.pausado){ //sale del ciclo del desplazamiento
+                    break;
+                }
+                //controla los cambios en la interfaz
+                this.dormir();
+                ventana.moverHormiga(ventana.vistaHormigaAzul, xActual+5, yActual-20);
+                
             }
+            if(ventana.pausado){ //sale del ciclo que recorre el camino
+                break;
+            }
+        }
+        if(i==ruta.size()-1){
+            hVerde.sumarRecolectada();
+            System.out.println("La hormiga verde ha llegado de primero al alimento");
+            this.ventana.getTxtAV().setText(String.valueOf(hVerde.getComidaRecolectada()));
+            this.ventana.ocultarAlimento(ventana.imAlimentoActual);
+            if(hVerde.getComidaRecolectada()==ventana.cantidad_alimento){
+                ventana.juegoTerminado =true;
+            }
+        }
+        ventana.pausado = true; //pausa la partida aunque ya esté pausada
+        //por si acaso esta hormiga es la que ha ganaado
+        reestablecer();//en ambos casos termina y deben reestablecerce
+    }
+    
+    private void dormir(){
             try
             {
-                sleep(10);
+                Thread.sleep(hVerde.getVelocidad());
             }catch(InterruptedException e)
             {
                 System.out.println("Error al dormir el hilo");
                 System.out.println(e);
             }
         }
-        if(i== ruta.size()){ //significa que terminó porque esta ganó
-            if(hVerde.sumarRecolectada()){
-               ventana.juegoTerminado = true;
-            }//si no el juego aún no termina
-            System.out.println("La hormiga verde ha llegado de primero");
-            this.ventana.getTxtAV().setText(String.valueOf(hVerde.getComidaRecolectada()));
-            this.ventana.ocultarAlimento(ventana.imAlimentoActual);
-            ventana.pausado = true; 
-        }
-        int[] posIn = hVerde.restartPoint(); //siempre vuelven a su punto
-        this.ventana.moverHormiga(ventana.vistaHormigaVerde, posIn[0], posIn[1]);
-        
+    public void reestablecer(){
+        int[] pos = hVerde.restartPoint();
+        ventana.moverHormiga(ventana.vistaHormigaVerde,pos[0]+5, pos[1]-20);
     }
-
     
     
     

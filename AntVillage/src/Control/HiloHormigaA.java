@@ -18,7 +18,6 @@ public class HiloHormigaA extends Thread{
     private Hormiga hAzul;
     private VMedioJuego ventana;
     private FuerzaBruta FB;
-    private Movimiento movimiento;
     private Nodo destino;
 
     public HiloHormigaA(Hormiga hAzul, VMedioJuego ventana, FuerzaBruta FB) {
@@ -26,7 +25,6 @@ public class HiloHormigaA extends Thread{
         this.hAzul = hAzul;
         this.ventana = ventana;
         this.FB = FB;
-        movimiento = new Movimiento(hAzul, ventana);
         destino = new Nodo();
     }
     public HiloHormigaA(Hormiga hAzul, VMedioJuego ventana, FuerzaBruta FB, Nodo destino) {
@@ -34,10 +32,8 @@ public class HiloHormigaA extends Thread{
         this.hAzul = hAzul;
         this.ventana = ventana;
         this.FB = FB;
-        movimiento = new Movimiento(hAzul, ventana);
         this.destino = destino;
     }
-
     public void setDestino(Nodo destino) {
         this.destino = destino;
     }
@@ -45,33 +41,60 @@ public class HiloHormigaA extends Thread{
     @Override
     public void run(){
         FB.restart();
+        int xDesplazo, yDesplazo, xActual, yActual;
         while(!FB.hallegado(destino) && !ventana.pausado){
-            if(!movimiento.enMovimiento){
-                Nodo nRuta = FB.siguienteCamino();
-                System.out.println("La hormiga azul va al nodo : "+String.valueOf(nRuta.getId()));
-                movimiento.moverA(nRuta);
-                movimiento.start();
+            Nodo unCamino = FB.siguienteCamino();
+            xDesplazo = unCamino.getX();
+            yDesplazo = unCamino.getY();
+            xActual = hAzul.getxActual();
+            yActual = hAzul.getyActual();
+            while(hAzul.isInNodo(xDesplazo, yDesplazo)){
+                if(xActual <xDesplazo){
+                    xActual+=1;
+                }else if(xActual>xDesplazo){
+                    xActual-=1;
+                }
+                if(yActual<yDesplazo){
+                    yActual+=1;
+                }else if(yActual>yDesplazo){
+                    yActual-=1;
+                }
+                if(ventana.pausado){
+                    break;
+                }
+                this.dormir();
+                ventana.moverHormiga(ventana.vistaHormigaAzul, xActual, yActual);
             }
-            try
-            {
-                sleep(10);
-            }catch(InterruptedException e)
-            {
-                System.out.println("Error al dormir el hilo");
-                System.out.println(e);
+            if(ventana.pausado){
+                break;
             }
-        }
-        if(FB.hallegado(destino)){
-            if(hAzul.sumarRecolectada()){
-                ventana.juegoTerminado = true;
+            if(!FB.hallegado(destino)){
+                hAzul.sumarRecolectada();
+                System.out.println("La hormiga azul ha llegado");
+                ventana.getTxtAA().setText(String.valueOf(hAzul.getComidaRecolectada()));
+                ventana.ocultarAlimento(ventana.imAlimentoActual); //la hoja desaparece
+                if(hAzul.getComidaRecolectada() == ventana.cantidad_alimento){
+                    ventana.juegoTerminado = true;
+                }
             }
-            System.out.println("La hormiga azul ha llegado de primero");
-            this.ventana.getTxtAA().setText(String.valueOf(hAzul.getComidaRecolectada()));
-            this.ventana.ocultarAlimento(ventana.imAlimentoActual);
             ventana.pausado = true;
+            reestablecer();
+
         }
-        int[] posIn = hAzul.restartPoint();
-        this.ventana.moverHormiga(ventana.vistaHormigaAzul, posIn[0], posIn[1]);
-        
-    }    
+    }
+    
+    private void dormir(){
+        try
+        {
+            Thread.sleep(hAzul.getVelocidad());
+        }catch(InterruptedException e)
+        {
+            System.out.println("Error al dormir el hilo");
+            System.out.println(e);
+        }
+    }
+    public void reestablecer(){
+        int[] pos = hAzul.restartPoint();
+        ventana.moverHormiga(ventana.vistaHormigaAzul,pos[0]+5, pos[1]-20);
+    }
 }

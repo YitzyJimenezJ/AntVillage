@@ -180,7 +180,7 @@ public class Juego extends Thread{
         return true;
     }
     public void iniciarPartida(){
-        ventana.pausado = false;
+        ventana.pausado = false; //el juego inició (No está pausado)
         int xhoja = admGrafo.getGrafo().getNodoAlimento().getX();
         int yhoja = admGrafo.getGrafo().getNodoAlimento().getY();
 

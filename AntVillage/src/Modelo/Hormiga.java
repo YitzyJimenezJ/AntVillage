@@ -101,15 +101,8 @@ public class Hormiga {
     public int getId() {
         return id;
     }
-    public boolean sumarRecolectada(){
-        if(this.comidaRecolectada+1 == totalAlimento){
-            this.comidaRecolectada++;
-            return true;
-        }else{
-            this.comidaRecolectada++;
-            return false;
-        }
-
+    public void sumarRecolectada(){ 
+        this.comidaRecolectada++;
     }
     
     
