@@ -25,7 +25,6 @@ public class HiloHormigaV extends Thread{
         this.ventana = ventana;
         this.ruta = ruta;
         
-        
     }
     @Override
     public void run(){
@@ -37,7 +36,7 @@ public class HiloHormigaV extends Thread{
             yDesplazo = unCamino.getY();
             xActual = hVerde.getxActual();
             yActual = hVerde.getyActual();
-            while(hVerde.isInNodo(xDesplazo, yDesplazo)){
+            while(!hVerde.isInNodo(xDesplazo, yDesplazo) && !ventana.pausado){
                 if(xActual < xDesplazo)
                 {
                     xActual+=1;
@@ -57,14 +56,16 @@ public class HiloHormigaV extends Thread{
                 }
                 //controla los cambios en la interfaz
                 this.dormir();
-                ventana.moverHormiga(ventana.vistaHormigaAzul, xActual+5, yActual-20);
-                
+                ventana.moverHormiga(ventana.vistaHormigaVerde, xActual+5, yActual-20);
+                hVerde.setxActual(xActual);
+                hVerde.setyActual(yActual);
             }
+            
             if(ventana.pausado){ //sale del ciclo que recorre el camino
                 break;
             }
         }
-        if(i==ruta.size()-1){
+        if(i==ruta.size()){
             hVerde.sumarRecolectada();
             System.out.println("La hormiga verde ha llegado de primero al alimento");
             this.ventana.getTxtAV().setText(String.valueOf(hVerde.getComidaRecolectada()));
@@ -90,7 +91,7 @@ public class HiloHormigaV extends Thread{
         }
     public void reestablecer(){
         int[] pos = hVerde.restartPoint();
-        ventana.moverHormiga(ventana.vistaHormigaVerde,pos[0]+5, pos[1]-20);
+        ventana.moverHormiga(ventana.vistaHormigaVerde,pos[0], pos[1]);
     }
     
     

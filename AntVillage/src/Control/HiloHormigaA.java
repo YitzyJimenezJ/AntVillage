@@ -48,7 +48,7 @@ public class HiloHormigaA extends Thread{
             yDesplazo = unCamino.getY();
             xActual = hAzul.getxActual();
             yActual = hAzul.getyActual();
-            while(hAzul.isInNodo(xDesplazo, yDesplazo)){
+            while(!hAzul.isInNodo(xDesplazo, yDesplazo)){
                 if(xActual <xDesplazo){
                     xActual+=1;
                 }else if(xActual>xDesplazo){
@@ -63,12 +63,17 @@ public class HiloHormigaA extends Thread{
                     break;
                 }
                 this.dormir();
-                ventana.moverHormiga(ventana.vistaHormigaAzul, xActual, yActual);
+                ventana.moverHormiga(ventana.vistaHormigaAzul, xActual+5, yActual-20);
+                hAzul.setxActual(xActual);
+                hAzul.setyActual(yActual);
             }
             if(ventana.pausado){
                 break;
             }
-            if(!FB.hallegado(destino)){
+            
+
+        }
+        if(FB.hallegado(destino)){
                 hAzul.sumarRecolectada();
                 System.out.println("La hormiga azul ha llegado");
                 ventana.getTxtAA().setText(String.valueOf(hAzul.getComidaRecolectada()));
@@ -79,8 +84,6 @@ public class HiloHormigaA extends Thread{
             }
             ventana.pausado = true;
             reestablecer();
-
-        }
     }
     
     private void dormir(){
@@ -95,6 +98,6 @@ public class HiloHormigaA extends Thread{
     }
     public void reestablecer(){
         int[] pos = hAzul.restartPoint();
-        ventana.moverHormiga(ventana.vistaHormigaAzul,pos[0]+5, pos[1]-20);
+        ventana.moverHormiga(ventana.vistaHormigaAzul,pos[0], pos[1]);
     }
 }

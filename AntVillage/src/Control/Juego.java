@@ -13,6 +13,8 @@ import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -63,8 +65,8 @@ public class Juego extends Thread{
         //colocar las hormigas a su punto de inicio
         int x = admGrafo.getNodoGrafo(0).getX(); //obtiene el nodo
         int y = admGrafo.getNodoGrafo(0).getY();
-        hormiga_azul =  new Hormiga(0,"Hormiga Azul",  x+5,y-20,100, totalAlimento);
-        hormiga_verde = new Hormiga(1,"Hormiga Verde", x+5,y-20,100, totalAlimento);
+        hormiga_azul =  new Hormiga(0,"Hormiga Azul",  x+5,y-20,15, totalAlimento);
+        hormiga_verde = new Hormiga(1,"Hormiga Verde", x+5,y-20,15, totalAlimento);
         colocar_nodos_interfaz();
         hormigasEnJuego(); //coloca los label de las hormigas según su posición
         dijsktra = new Dijkstra(admGrafo);
@@ -193,6 +195,11 @@ public class Juego extends Thread{
         HiloHormigaA hha = new HiloHormigaA(hormiga_azul, ventana, fuerza_bruta,nodoDestino);
        
         hhv.start();
+        try {
+            sleep(10);
+        } catch (InterruptedException ex) {
+            System.out.println("ERROR AL DETENER 10 MILISEGUNDOS");
+        }
         hha.start();
         //las hojas deben cambiar de posición; es decir, la verde colocarse en la que está la gris y la gris debe desaparecer
         //acordarse que el nodo en espera debe regresar a null
