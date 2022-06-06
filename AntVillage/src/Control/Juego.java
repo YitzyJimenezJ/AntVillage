@@ -137,12 +137,16 @@ public class Juego extends Thread{
             @Override
             public void actionPerformed(ActionEvent e) {
                 if(ventana.pausado == true){
+                    admGrafo.getGrafo().retirarAlimento();
+                    System.out.println("\n\n\n\n===PARTIDA===");
+                    System.out.println("Has colocado el alimento en el nodo: "+
+                            String.valueOf(i));   
                     admGrafo.aparecerAlimento(i);
                     iniciarPartida();
                 }else{//Significa que hay una partida en ejecución
-                    admGrafo.getGrafo().setAlimentoEspera(i);
-                    int xhojaGris = admGrafo.getGrafo().getEspera().getX();
-                    int yhojaGris = admGrafo.getGrafo().getEspera().getY();
+                    admGrafo.setEspera(i);
+                    int xhojaGris = admGrafo.getEspera().getX();
+                    int yhojaGris = admGrafo.getEspera().getY();
                     ventana.getTxtSiguienteAlimento().setText(String.valueOf(i));
                     ventana.posAlimento(ventana.imAlimentoSiguiente, xhojaGris, yhojaGris);
                     ventana.mostrarAlimento(ventana.imAlimentoSiguiente);
@@ -152,8 +156,7 @@ public class Juego extends Thread{
                 ventana.btnAlimentar.setVisible(false);//lo desaparece
                 ventana.getTxtNodoPresionado().setText("");
                 ventana.getTxaDetalles().setText("");
-                System.out.println("Has colocado el alimento en el nodo: "+
-                            String.valueOf(i));       
+                    
             }
         });
     }
@@ -206,19 +209,24 @@ public class Juego extends Thread{
     public void run(){ //está comparando constantemente si una de las hormigas ha ganado
         while(!ventana.juegoTerminado){
             if(ventana.pausado){
-                if(admGrafo.getGrafo().getEspera() != null){
+                if(admGrafo.getEspera() != null){
                     System.out.println("\n\nRecorriendo alimento que estaba en espera");
                     admGrafo.getGrafo().retirarAlimento();
-                    admGrafo.aparecerAlimento(admGrafo.getGrafo().getEspera().getId());
+                    admGrafo.aparecerAlimento(admGrafo.getEspera().getId());
                     int xhoja = admGrafo.getGrafo().getNodoAlimento().getX();//sería lo mismo obtener el x del alimento de espera 
                     int yhoja = admGrafo.getGrafo().getNodoAlimento().getY();//sería lo mismo obtener el y del alimento de espera directmente
-                    ventana.posAlimento(ventana.imAlimentoActual, xhoja, yhoja);
-                    ventana.mostrarAlimento(ventana.imAlimentoActual);
                     admGrafo.quitarNodoEspera(); //regresa a null para que el siguiente no sea el mismo
+                    
+                    ventana.posAlimento(ventana.imAlimentoActual, xhoja, yhoja);
+                    ventana.mostrarAlimento(ventana.imAlimentoActual); //muestra la hoja verde 
+                    ventana.ocultarAlimento(ventana.imAlimentoSiguiente);//oculta la hoja gris
+                    ventana.getTxtSiguienteAlimento().setText(""); //Reset el txt
+                   
                     iniciarPartida();
                     
                 }
             }
+        
         }
         if(hormiga_azul.getComidaRecolectada()== totalAlimento){
             finalizarJuego(hormiga_azul,  hormiga_verde);

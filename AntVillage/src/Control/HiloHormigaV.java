@@ -36,7 +36,8 @@ public class HiloHormigaV extends Thread{
             yDesplazo = unCamino.getY();
             xActual = hVerde.getxActual();
             yActual = hVerde.getyActual();
-            System.out.println("La hormiga verde se desplaza al nodo: "+unCamino.toString());
+            System.out.println(String.valueOf(i)+"-> La hormiga verde se desplaza "
+                    + "al nodo: "+unCamino.toString());
             while(!hVerde.isInNodo(xDesplazo, yDesplazo) && !ventana.pausado){
                 
                 if(xActual < xDesplazo)
@@ -75,9 +76,16 @@ public class HiloHormigaV extends Thread{
             if(hVerde.getComidaRecolectada()==ventana.cantidad_alimento){
                 ventana.juegoTerminado =true;
             }
+            try
+            {
+                Thread.sleep(100);
+            }catch(InterruptedException e)
+            {
+                System.out.println("Error al dormir el hilo");
+                System.out.println(e);
+            }
         }
         ventana.pausado = true; //pausa la partida aunque ya esté pausada
-        //por si acaso esta hormiga es la que ha ganaado
         reestablecer();//en ambos casos termina y deben reestablecerce
     }
     
@@ -94,6 +102,7 @@ public class HiloHormigaV extends Thread{
     public void reestablecer(){
         int[] pos = hVerde.restartPoint();
         ventana.moverHormiga(ventana.vistaHormigaVerde,pos[0], pos[1]);
+        System.out.println("\nHormiga verde reestablecida");
     }
     
     

@@ -24,7 +24,7 @@ public class AdmGrafo{
     //todas las variables privadas
     private final Grafo grafo;
     private final int cantidad_nodos;
-    private Nodo nodo_espera_alimento;
+    private Nodo espera;
     
   
 
@@ -105,10 +105,6 @@ public class AdmGrafo{
         this.grafo.colocarAlimento(posAlimento);
         return posAlimento;
     }
-    public int aparecerAlimentoEspera(int i){
-        this.grafo.setAlimentoEspera(i);
-        return i;
-     }
     //=======================================================================
     //                  Getter-setter--imprimir grafo 
     //========================================================================
@@ -129,11 +125,28 @@ public class AdmGrafo{
         return grafo.getNodoAlimento();
     }
 
-    public void setNodo_espera_alimento(Nodo nodo_espera_alimento) {
-        this.nodo_espera_alimento = nodo_espera_alimento;
+    public void setEspera(Nodo unNodo) {
+        this.espera = unNodo;
+        System.out.println("Has colocado el alimento en la espera en el nodo:"
+                 + String.valueOf(espera.getId()));
     }
+    public void setEspera(int i) {
+        this.espera = this.getGrafo().obtenerNodo(i);
+        if(espera != null){
+            System.out.println("Has colocado el alimento en la espera en el nodo:"
+                     + String.valueOf(espera.getId()));
+        }else{
+            System.out.println("El nodo que intentas colocar no existe");
+        }
+        
+    }
+
+    public Nodo getEspera() {
+        return espera;
+    }
+    
     public void quitarNodoEspera(){
-        this.nodo_espera_alimento= null;
+        this.espera= null;
         System.out.println("Ya no hay nodo espera");
     }
     public int getMAX(){

@@ -60,19 +60,11 @@ public class HiloHormigaA extends Thread{
                 }else if(yActual>yDesplazo){
                     yActual-=1;
                 }
-                if(ventana.pausado){
-                    break;
-                }
                 this.dormir();
                 ventana.moverHormiga(ventana.vistaHormigaAzul, xActual+5, yActual-20);
                 hAzul.setxActual(xActual);
                 hAzul.setyActual(yActual);
             }
-            if(ventana.pausado){
-                break;
-            }
-            
-
         }
         if(FB.hallegado(destino) && hAzul.isInNodo(destino.getX(), destino.getY())){
                 hAzul.sumarRecolectada();
@@ -82,9 +74,18 @@ public class HiloHormigaA extends Thread{
                 if(hAzul.getComidaRecolectada() == ventana.cantidad_alimento){
                     ventana.juegoTerminado = true;
                 }
+                try
+                {
+                    Thread.sleep(100);
+                }catch(InterruptedException e)
+                {
+                    System.out.println("Error al dormir el hilo");
+                    System.out.println(e);
+                }
             }
-        ventana.pausado = true;
         reestablecer();
+        ventana.pausado = true;
+        
     }
     
     private void dormir(){
@@ -100,5 +101,6 @@ public class HiloHormigaA extends Thread{
     public void reestablecer(){
         int[] pos = hAzul.restartPoint();
         ventana.moverHormiga(ventana.vistaHormigaAzul,pos[0], pos[1]);
+        System.out.println("\nHormiga azul reestablecida");
     }
 }
