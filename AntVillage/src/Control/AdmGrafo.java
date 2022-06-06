@@ -132,6 +132,10 @@ public class AdmGrafo{
     public void setNodo_espera_alimento(Nodo nodo_espera_alimento) {
         this.nodo_espera_alimento = nodo_espera_alimento;
     }
+    public void quitarNodoEspera(){
+        this.nodo_espera_alimento= null;
+        System.out.println("Ya no hay nodo espera");
+    }
     public int getMAX(){
         return this.GRAN_PESO;
     }

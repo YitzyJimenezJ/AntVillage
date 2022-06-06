@@ -125,12 +125,18 @@ public class VMedioJuego extends javax.swing.JFrame {
     public void posAlimento(JLabel label,int x, int y){
         label.setBounds(x+5, y-15, 30,30);
     }
+
+    
     
   /* =========================================================================
    
        Getter
     
      =========================================================================*/
+    
+    public JTextField getTxtSiguienteAlimento() {
+        return txtSiguienteAlimento;
+    }
 
     public JTextField getTxtAA() {
         return txtAA;
@@ -149,7 +155,6 @@ public class VMedioJuego extends javax.swing.JFrame {
     }
     public void moverHormiga(JLabel imagenHormiga, int x, int y){
         imagenHormiga.setBounds(x, y, 30,30);
-        repaint();
                 
     }
     
@@ -456,7 +461,7 @@ public class VMedioJuego extends javax.swing.JFrame {
                                                     .addGroup(datosPanelLayout.createSequentialGroup()
                                                         .addComponent(lblNodoSiguienteAlimento)
                                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                                        .addComponent(txtSiguienteAlimento, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                                        .addComponent(txtSiguienteAlimento, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                                 .addGap(0, 0, Short.MAX_VALUE)))))
                                 .addGap(0, 0, Short.MAX_VALUE))))
                     .addGroup(datosPanelLayout.createSequentialGroup()

@@ -36,7 +36,7 @@ public class Juego extends Thread{
     private VMedioJuego ventana;
     private final int cantidadNodos;
     private final int totalAlimento; //alimento para ganar
-
+    final int VELOCIDAD = 20;
     public Dijkstra dijsktra;
     public FuerzaBruta fuerza_bruta;
     
@@ -65,20 +65,14 @@ public class Juego extends Thread{
         //colocar las hormigas a su punto de inicio
         int x = admGrafo.getNodoGrafo(0).getX(); //obtiene el nodo
         int y = admGrafo.getNodoGrafo(0).getY();
-        hormiga_azul =  new Hormiga(0,"Hormiga Azul",  x+5,y-20,15, totalAlimento);
-        hormiga_verde = new Hormiga(1,"Hormiga Verde", x+5,y-20,15, totalAlimento);
+        hormiga_azul =  new Hormiga(0,"Hormiga Azul",  x+5,y-20,VELOCIDAD, totalAlimento);
+        hormiga_verde = new Hormiga(1,"Hormiga Verde", x+5,y-20,VELOCIDAD, totalAlimento);
         colocar_nodos_interfaz();
         hormigasEnJuego(); //coloca los label de las hormigas según su posición
         dijsktra = new Dijkstra(admGrafo);
         fuerza_bruta = new FuerzaBruta(admGrafo);
         return true;
     }
-    /*
-        El juego contiene n partidas, el juego termina hasta que la hormiga
-        recolecte el alimento máximo y la partida termina hasta que la primer
-        hormiga llege al alimento que seleccionó el usuario.
-    */
-
     /*
     Este función coloca los label de las hormigas
     */
@@ -149,8 +143,11 @@ public class Juego extends Thread{
                     admGrafo.getGrafo().setAlimentoEspera(i);
                     int xhojaGris = admGrafo.getGrafo().getEspera().getX();
                     int yhojaGris = admGrafo.getGrafo().getEspera().getY();
+                    ventana.getTxtSiguienteAlimento().setText(String.valueOf(i));
                     ventana.posAlimento(ventana.imAlimentoSiguiente, xhojaGris, yhojaGris);
                     ventana.mostrarAlimento(ventana.imAlimentoSiguiente);
+                    ventana.getTxtSiguienteAlimento().setText(String.valueOf(i));
+                    System.out.println("ALIMENTO EN ESPERA COLOCADO");
                 }
                 ventana.btnAlimentar.setVisible(false);//lo desaparece
                 ventana.getTxtNodoPresionado().setText("");
@@ -210,18 +207,17 @@ public class Juego extends Thread{
         while(!ventana.juegoTerminado){
             if(ventana.pausado){
                 if(admGrafo.getGrafo().getEspera() != null){
+                    System.out.println("\n\nRecorriendo alimento que estaba en espera");
                     admGrafo.getGrafo().retirarAlimento();
-                    admGrafo.getGrafo().colocarAlimento(admGrafo.getGrafo().getEspera());
-                    ventana.ocultarAlimento(ventana.imAlimentoSiguiente);
-                    admGrafo.setNodo_espera_alimento(null); //regresa a null para que el siguiente no sea el mismo
+                    admGrafo.aparecerAlimento(admGrafo.getGrafo().getEspera().getId());
+                    int xhoja = admGrafo.getGrafo().getNodoAlimento().getX();//sería lo mismo obtener el x del alimento de espera 
+                    int yhoja = admGrafo.getGrafo().getNodoAlimento().getY();//sería lo mismo obtener el y del alimento de espera directmente
+                    ventana.posAlimento(ventana.imAlimentoActual, xhoja, yhoja);
+                    ventana.mostrarAlimento(ventana.imAlimentoActual);
+                    admGrafo.quitarNodoEspera(); //regresa a null para que el siguiente no sea el mismo
                     iniciarPartida();
-
+                    
                 }
-            }
-            try{
-                sleep(10);
-            }catch(InterruptedException e){
-               System.out.println(e);
             }
         }
         if(hormiga_azul.getComidaRecolectada()== totalAlimento){

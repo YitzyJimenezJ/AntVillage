@@ -36,7 +36,9 @@ public class HiloHormigaV extends Thread{
             yDesplazo = unCamino.getY();
             xActual = hVerde.getxActual();
             yActual = hVerde.getyActual();
+            System.out.println("La hormiga verde se desplaza al nodo: "+unCamino.toString());
             while(!hVerde.isInNodo(xDesplazo, yDesplazo) && !ventana.pausado){
+                
                 if(xActual < xDesplazo)
                 {
                     xActual+=1;

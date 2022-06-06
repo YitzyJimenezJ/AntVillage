@@ -115,7 +115,6 @@ public class Grafo {
             Nodo unNodo = listaNodos.get(i);
             if(unNodo.isHaveFood()){
                 unNodo.setHaveFood(false);
-                return true;
             }
         }
         return false;

@@ -43,19 +43,19 @@ public class FuerzaBruta {
                 {
                     anterior = actual;
                     actual = unNodoAdyacente;
-                    System.out.print(String.valueOf(actual.getId())+" ->");
                     recorrido.add(actual);
                     nodosAdyacentes.get(i).remove(unNodoAdyacente); //lo elimina para no volver a el
                     return actual;
                 }
             }
         }else{
-            actual = anterior;
+            actual = anterior; //se devuelve
             if(recorrido.size()-2>=0){
                 anterior = recorrido.get(recorrido.size()-3);//obtiene el tras anterior
                 System.out.println("El anterior es: "+String.valueOf(anterior.getId()));
             }else{
-                 anterior = admgrafo.getNodoGrafo(0);//obtiene el primer nodo
+                 anterior = admgrafo.getNodoGrafo(0);
+                //obtiene el primer nodo en caso de no encontrar más camino
             }
             System.out.println("FB: NODO"+String.valueOf(recorrido.get(
                     recorrido.size()-1).getId())+""

@@ -93,8 +93,8 @@ public class Dijkstra {
     public ArrayList<Nodo> getRuta(int idDestino){
         ruta = new ArrayList(); //lo vuelvo vacío
         recuperaCamino(idDestino);
+        System.out.println("");//salto de línea
         return ruta;
-
     }
     private void recuperaCamino(int v)
     {
@@ -107,7 +107,9 @@ public class Dijkstra {
         } else{
             ruta.add(admgrafo.getNodoGrafo(origen));
             System.out.print("V" + origen);
+            
         }
+        
     }
     
     
