@@ -32,7 +32,7 @@ public class Juego extends Thread{
     private VMedioJuego ventana;
     private final int cantidadNodos;
     private final int totalAlimento; //alimento para ganar
-    final int VELOCIDAD = 10;//20
+    final int VELOCIDAD = 20;//20
     public Dijkstra dijsktra;
     public FuerzaBruta fuerza_bruta;
     
