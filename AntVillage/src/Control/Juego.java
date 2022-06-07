@@ -32,7 +32,7 @@ public class Juego extends Thread{
     private VMedioJuego ventana;
     private final int cantidadNodos;
     private final int totalAlimento; //alimento para ganar
-    final int VELOCIDAD = 20;
+    final int VELOCIDAD = 10;//20
     public Dijkstra dijsktra;
     public FuerzaBruta fuerza_bruta;
     
@@ -206,6 +206,14 @@ public class Juego extends Thread{
         while(!ventana.juegoTerminado){
             if(ventana.pausado){
                 if(admGrafo.getEspera() != null){
+                    try
+                    {
+                        this.sleep(100);//evita el parpadeo 
+                    }catch(InterruptedException e)
+                    {
+                        System.out.println("Error al dormir el hilo");
+                        System.out.println(e);
+                    }
                     System.out.println("\n\nRecorriendo alimento que estaba en espera");
                     admGrafo.getGrafo().retirarAlimento();
                     admGrafo.aparecerAlimento(admGrafo.getEspera().getId());

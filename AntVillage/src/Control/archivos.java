@@ -168,7 +168,8 @@ public class archivos {
         String nombActual = "";
         while(strikes<2){
             nombActual = getNombreArch(contadorActual);
-            if(!archExiste(nombActual)){ // no existe
+            nombSiguiente= getNombreArch(contadorActual+1);
+            if(!archExiste(nombActual) || !archExiste(nombSiguiente)){ // no existe
                 nombSiguiente= getNombreArch(contadorActual+1);
                 while(archExiste(nombSiguiente)){
                     nombActual   =   getNombreArch(contadorActual);
