@@ -36,7 +36,7 @@ public class archivos {
 
     
     
-    public static void crearXML(String nombArch, int cNodos, int cAlimentos, int cVerde, int cAzul) {
+    public void crearXML(String nombArch, int cNodos, int cAlimentos, int cVerde, int cAzul) {
         
         try{
             DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
@@ -160,5 +160,48 @@ public class archivos {
             System.out.println("El fichero no puede ser borrado");
             return false;
         }
+    }
+    public void reordenarArchivos(){
+        int strikes = 0; //cuando llegue a 2 strikes seguidos es porque no hay archivos
+        int contadorActual = 1; //
+        String nombSiguiente= "";
+        String nombActual = "";
+        while(strikes<2){
+            nombActual = getNombreArch(contadorActual);
+            if(!archExiste(nombActual)){ // no existe
+                nombSiguiente= getNombreArch(contadorActual+1);
+                while(archExiste(nombSiguiente)){
+                    nombActual   =   getNombreArch(contadorActual);
+                    nombSiguiente=   getNombreArch(contadorActual+1);
+                    reemplazarNombre(nombActual, nombSiguiente);
+                    contadorActual++;
+                }
+                strikes++;
+            }else{//Sí existe 
+                strikes++;
+                contadorActual++;
+            }
+        }
+        System.out.println("Ya no hay más archivos por leer");
+    }
+    public String getNombreArch(int i){
+        return  "partida"+String.valueOf(i)+".xml";
+    }
+    
+    public void reemplazarNombre(String actual, String siguiente){
+        File archActual = new File(actual);
+        File archSiguiente = new File(siguiente);
+        archSiguiente.renameTo(archActual);
+    }
+    public boolean archExiste(String nombActual){
+        try{
+            DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+            DocumentBuilder builder = factory.newDocumentBuilder();
+            File archActual = new File(nombActual);
+            Document documento = builder.parse(archActual);
+        }catch(ParserConfigurationException | IOException | SAXException ex){
+            return false;
+        }
+        return true;  
     }
 }

@@ -237,11 +237,11 @@ public class Juego extends Thread{
         archivos nuevoArchivo  = new archivos();
         int recolectadoVerdes = Integer.parseInt(ventana.getTxtAV().getText().trim());
         int recolectadoAzules = Integer.parseInt(ventana.getTxtAA().getText().trim());
-        String nombArch = "partida"+String.valueOf(nuevoArchivo.cantiArchivos+1)+".xml";
+        String nombArch = "partida"+String.valueOf(nuevoArchivo.cantiArchivos)+".xml";
         nuevoArchivo.crearXML(nombArch,ventana.cantidad_nodos, ventana.cantidad_alimento, 
                recolectadoVerdes , recolectadoAzules);
-        JOptionPane.showMessageDialog(ventana, "La "+ganadora.nombre+" ha ganado!\n"
-                + "y el XML generado exitosamente");
+        JOptionPane.showMessageDialog(ventana, "¡ Partida terminada !\n"
+                + "El XML generado correctamente con el nombre "+nombArch);
     }
     
 }

@@ -198,10 +198,10 @@ public class VInicio extends javax.swing.JFrame {
     }
     private boolean validarNodos(JTextField entrada){  
         int num = Integer.parseInt(entrada.getText().trim());
-        if(num >2){
+        if(num >2 || num<500){
             return true; //todo exitoso
         }else{
-            System.out.println("La cantidad no puede ser negativa");
+            System.out.println("La cantidad no puede ser negativa o muy alta");
             return false;
         }
  

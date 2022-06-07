@@ -67,6 +67,21 @@ public class ListaHistorico {
             System.out.println("No se ha eliminado ningún nodo");
         }
     }
+    public boolean reordenarPartidas(){
+        int contador = 1;
+        boolean correcto= false;
+        if(primero!=null){
+            NodoHistorico aux = primero; 
+            while(aux.getSiguiente() !=primero){
+                aux.partida = contador;
+                aux = aux.getSiguiente();
+                contador++;
+                correcto = true;
+                
+            }
+        }
+        return correcto;
+    }
     
     
     

@@ -25,19 +25,13 @@ public class VhistoricoPartidas extends javax.swing.JDialog {
         this.manejoXML.leerXML();
          historicoActual = manejoXML.listapartidas.primero;
         if (manejoXML.cantiArchivos >0 && historicoActual!= null){
-       
-        lblNumPartida.setText("Partida #: "+String.valueOf(historicoActual.partida));
-        txtnodos.setText(String.valueOf(historicoActual.getCantidadNodos()));
-        txtalimentos.setText(String.valueOf(historicoActual.getCantidadAlimento()));
-        txtverdes.setText(String.valueOf(historicoActual.getRecolectadoVerdes()));
-        txtAzules.setText(String.valueOf(historicoActual.getRecolectadoAzules()));
+            colocarDatos();
         }else{ // en el caso que no haya una partida registrada obliga al usuario a volver
-            lblNumPartida.setText("Partida #: N/D");
+            lblNumPartida.setText("Sin registros");
             txtnodos.setText("N/D");
             txtalimentos.setText("N/D");
             txtverdes.setText("N/D");
             txtAzules.setText("N/D");
-            JOptionPane.showMessageDialog(null, "No hay partidas registradas");
             btnEliminar.setEnabled(false);
             btnSiguiente.setEnabled(false);
             btnAnterior.setEnabled(false);
@@ -295,30 +289,49 @@ public class VhistoricoPartidas extends javax.swing.JDialog {
     }//GEN-LAST:event_btnVolverActionPerformed
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
-        manejoXML.borrarPartida(historicoActual.partida);
+        if(manejoXML.borrarPartida(historicoActual.partida)){
+            if(manejoXML.listapartidas.reordenarPartidas()){
+                manejoXML.reordenarArchivos();
+                this.historicoActual.getSiguiente();
+                colocarDatos();
+            }else{
+                lblNumPartida.setText("Sin registros");
+                txtnodos.setText("N/D");
+                txtalimentos.setText("N/D");
+                txtverdes.setText("N/D");
+                txtAzules.setText("N/D");
+                btnEliminar.setEnabled(false);
+                btnSiguiente.setEnabled(false);
+                btnAnterior.setEnabled(false);
+                
+            }
+            JOptionPane.showMessageDialog(this, "Partida eliminada exitosamente");
+            
+        }else{
+            JOptionPane.showMessageDialog(this, "Partida no se puede eliminar");
+        }
     }//GEN-LAST:event_btnEliminarActionPerformed
 
     private void btnSiguienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSiguienteActionPerformed
         historicoActual = historicoActual.getSiguiente();
-        lblNumPartida.setText("Partida #: "+String.valueOf(historicoActual.partida));
-        txtnodos.setText(String.valueOf(historicoActual.getCantidadNodos()));
-        txtalimentos.setText(String.valueOf(historicoActual.getCantidadAlimento()));
-        txtverdes.setText(String.valueOf(historicoActual.getRecolectadoVerdes()));
-        txtAzules.setText(String.valueOf(historicoActual.getRecolectadoAzules()));
+        colocarDatos();
     }//GEN-LAST:event_btnSiguienteActionPerformed
 
     private void btnAnteriorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAnteriorActionPerformed
         historicoActual = historicoActual.getAnterior();
-        lblNumPartida.setText("Partida #: "+String.valueOf(historicoActual.partida));
-        txtnodos.setText(String.valueOf(historicoActual.getCantidadNodos()));
-        txtalimentos.setText(String.valueOf(historicoActual.getCantidadAlimento()));
-        txtverdes.setText(String.valueOf(historicoActual.getRecolectadoVerdes()));
-        txtAzules.setText(String.valueOf(historicoActual.getRecolectadoAzules()));
+        colocarDatos();
     }//GEN-LAST:event_btnAnteriorActionPerformed
 
     /**
      * @param args the command line arguments
      */
+    public void colocarDatos(){
+        lblNumPartida.setText("Partida #: "+String.valueOf(historicoActual.partida));
+        txtnodos.setText(String.valueOf(historicoActual.getCantidadNodos()));
+        txtalimentos.setText(String.valueOf(historicoActual.getCantidadAlimento()));
+        txtverdes.setText(String.valueOf(historicoActual.getRecolectadoVerdes()));
+        txtAzules.setText(String.valueOf(historicoActual.getRecolectadoAzules()));
+    }
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
