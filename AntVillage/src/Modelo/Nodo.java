@@ -1,9 +1,7 @@
 
 package Modelo;
-/**
- *
- * @author 
- */
+
+
 public class Nodo {
     private int id;
     private int x;
@@ -32,7 +30,6 @@ public class Nodo {
         return y;
     }
 
-    
     public boolean isHaveFood() {
         return haveFood;
     }
