@@ -14,6 +14,7 @@ import javax.xml.transform.Result;
 import javax.xml.transform.Source;
 import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerConfigurationException;
+import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
@@ -35,14 +36,14 @@ public class archivos {
 
     
     
-    public void crearXML(String nombArch, int cNodos, int cAlimentos, int cVerde, int cAzul) {
+    public static void crearXML(String nombArch, int cNodos, int cAlimentos, int cVerde, int cAzul) {
         
         try{
             DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
             DocumentBuilder builder = factory.newDocumentBuilder();
             DOMImplementation implementation = builder.getDOMImplementation();
             
-            Document documento = implementation.createDocument(null, "partida", null);
+            Document documento = implementation.createDocument(null, "Partida", null);
             documento.setXmlVersion("1.0");
             
             Element partida = documento.createElement("partida");
@@ -64,7 +65,7 @@ public class archivos {
             
             Element cazules = documento.createElement("RecolectadosEquipoAzul");
             Text textAzules = documento.createTextNode(String.valueOf(cAzul));
-            cazules.appendChild(textVerdes);
+            cazules.appendChild(textAzules);
             partida.appendChild(cazules);
             
             documento.getDocumentElement().appendChild(partida);
@@ -73,9 +74,11 @@ public class archivos {
             Result result = new StreamResult(new File(nombArch));
             
             Transformer transformer = TransformerFactory.newInstance().newTransformer();
-
+            transformer.transform(sourse, result);
         }catch(ParserConfigurationException | TransformerConfigurationException ex){
-            System.out.println("Error al crear archivo");
+            System.out.println("\n\nError al crear archivo");
+        } catch (TransformerException ex) {
+            System.out.println("+Error al trasformar");
         }  
     }
     public void leerXML(){
@@ -84,8 +87,8 @@ public class archivos {
             try {
                 DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
                 DocumentBuilder builder = factory.newDocumentBuilder();
-
-                Document documento = builder.parse(new File(nombArch));
+                File xml  = new File(nombArch);
+                Document documento = builder.parse(xml);
                 NodeList partidas = documento.getElementsByTagName("partida");
                 for(int i = 0; i< partidas.getLength(); i++ ){
                     Node nodo = partidas.item(i);
@@ -94,7 +97,7 @@ public class archivos {
                         NodeList hijos = e.getChildNodes();
                         
                         int[] listaAtributos = new int[4];
-                        for(int j = 0; j < hijos.getLength(); i++){
+                        for(int j = 0; j < hijos.getLength(); j++){
                             Node hijo = hijos.item(j);
                             if(hijo.getNodeType() == Node.ELEMENT_NODE){
                                Element ehijo = (Element) hijo; 
@@ -112,17 +115,17 @@ public class archivos {
             } catch (ParserConfigurationException | SAXException ex) {
                 Logger.getLogger(archivos.class.getName()).log(Level.SEVERE, null, ex);
             } catch (IOException ex) {
-                Logger.getLogger(archivos.class.getName()).log(Level.SEVERE, null, ex);
+                System.out.println("NO SE ENCUENTRA EL ARCHIVOS");
             }   
         } 
     }
     public int getCantidadPartidas()
     {
-        int contador = 0; 
+        int contador = 1; 
         boolean archivoExiste = true;
         while(archivoExiste)
         {
-            String nombArch = "partida"+String.valueOf(contador)+"xml";
+            String nombArch = "partida"+String.valueOf(contador)+".xml";
             try 
             {
                 DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
@@ -135,6 +138,7 @@ public class archivos {
                 System.out.println("Ya no hay más archivos por leer");
             } catch (ParserConfigurationException | SAXException ex) 
             {
+                archivoExiste = false;
                 Logger.getLogger(archivos.class.getName()).log(Level.SEVERE, null, ex);
                 System.out.println("ERROR CON LOS BUILDERS");
             }
@@ -149,6 +153,7 @@ public class archivos {
         if (fichero.delete())
         {
             System.out.println("El fichero ha sido borrado satisfactoriamente");
+            listapartidas.eliminar(partida);
             return true;
         }
         else{

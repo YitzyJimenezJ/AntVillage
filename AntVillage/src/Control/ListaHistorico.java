@@ -7,8 +7,8 @@ import Modelo.NodoHistorico;
 
 
 public class ListaHistorico {
-    NodoHistorico primero; 
-    NodoHistorico ultimo;
+    public NodoHistorico primero; 
+    public NodoHistorico ultimo;
 
     public ListaHistorico() {
         primero = null; 

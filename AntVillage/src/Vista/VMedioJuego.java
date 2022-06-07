@@ -16,10 +16,7 @@ import java.awt.Image;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import static javax.swing.SwingConstants.CENTER;
-/**
- *
- * @author 
- */
+
 public class VMedioJuego extends javax.swing.JFrame {
 
     /**
