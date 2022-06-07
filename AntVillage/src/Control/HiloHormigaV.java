@@ -1,7 +1,6 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
+
+
 package Control;
 
 import Modelo.Hormiga;
@@ -10,9 +9,10 @@ import Vista.VMedioJuego;
 import java.util.ArrayList;
 
 /**
- *
- * @author Esteb
- */
+*@code Esta clase controla los moviemientos de la hormiga verde, a diferencia de
+* la clase de la hormiga azul, esta ya recibe el la ruta por completo entonces
+* solo deberá recorrerla.
+*/
 public class HiloHormigaV extends Thread{
     private Hormiga hVerde;
     private VMedioJuego ventana;
@@ -30,8 +30,8 @@ public class HiloHormigaV extends Thread{
     public void run(){
         int xDesplazo, yDesplazo, xActual, yActual;
         int i;
-        for(i = 1; i<ruta.size(); i++){
-            Nodo unCamino = ruta.get(i);
+        for(i = 1; i<ruta.size(); i++){ //por cada nodo en ruta
+            Nodo unCamino = ruta.get(i); //obtiene el nodo 
             xDesplazo= unCamino.getX();
             yDesplazo = unCamino.getY();
             xActual = hVerde.getxActual();
@@ -39,7 +39,8 @@ public class HiloHormigaV extends Thread{
             System.out.println(String.valueOf(i)+"-> La hormiga verde se desplaza "
                     + "al nodo: "+unCamino.toString());
             while(!hVerde.isInNodo(xDesplazo, yDesplazo) && !ventana.pausado){
-                
+                //si la hormiga no se encuenta en nodo, ni la otra ha llegado
+                //entonces se desplaza
                 if(xActual < xDesplazo)
                 {
                     xActual+=1;
@@ -68,7 +69,7 @@ public class HiloHormigaV extends Thread{
                 break;
             }
         }
-        if(i==ruta.size()){
+        if(i==ruta.size()){//si esto es equivalente es porque completó el camino
             hVerde.sumarRecolectada();
             System.out.println("La hormiga verde ha llegado de primero al alimento");
             this.ventana.getTxtAV().setText(String.valueOf(hVerde.getComidaRecolectada()));
@@ -86,9 +87,13 @@ public class HiloHormigaV extends Thread{
             }
         }
         ventana.pausado = true; //pausa la partida aunque ya esté pausada
-        reestablecer();//en ambos casos termina y deben reestablecerce
+        reestablecer();//si la hormiga azul gana o si la verde gana ambos deben reestablecerce
     }
-    
+    /**
+     *@code Duerme la hormiga según su velocidad 
+     *@param vacío 
+     *@return vacío
+     */
     private void dormir(){
             try
             {
@@ -99,6 +104,11 @@ public class HiloHormigaV extends Thread{
                 System.out.println(e);
             }
         }
+    /**
+     *@code  Reestablece la hormiga y la imagen a su punto de origen 
+     *@param vacío
+     *@return vacío
+     */
     public void reestablecer(){
         int[] pos = hVerde.restartPoint();
         ventana.moverHormiga(ventana.vistaHormigaVerde,pos[0], pos[1]);

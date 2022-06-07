@@ -22,10 +22,6 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import static javax.swing.SwingConstants.CENTER;
 
-/**
- *
- * @author 
- */
 /*
 El juego es prácticamente la conexión entre el modelo y la vista
 */

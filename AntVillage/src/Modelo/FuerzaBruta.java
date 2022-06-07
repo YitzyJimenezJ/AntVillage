@@ -1,7 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package Modelo;
 
 import Control.AdmGrafo;
@@ -11,13 +8,17 @@ import java.util.ArrayList;
  *
  * @author Yitsy
  */
+/**
+*@code Algoritmo que va otorgando los valores para la hormiga azul vaya 
+* recorriendo el camino
+*/
 public class FuerzaBruta {
     private ArrayList<Nodo>recorrido; //solo los nodos en orden
     private ArrayList<ArrayList<Nodo>>nodosAdyacentes; //lista de nodos adyacentes por cada nodo
     private AdmGrafo admgrafo;
     
-    private Nodo anterior;
-    private Nodo actual; 
+    private Nodo anterior; //guarda el nodo anteriormente recorrido
+    private Nodo actual;  //guarda el nodo actual
     
     
     public FuerzaBruta(AdmGrafo adm) {
@@ -29,15 +30,17 @@ public class FuerzaBruta {
         recorrido.add(actual); 
         llenado();
     }
-
-    
-   
+    /**
+     *@code obtiene el siguiente nodo como opción a recorrer
+     *@param vacío
+     *@return el siguiente nodo
+     */
     public Nodo siguienteCamino(){
         int i = actual.getId(); //obtiene el indice del nodo
         ArrayList<Nodo> adyacentes = nodosAdyacentes.get(i);//obtiene sus adyacentes
         if(adyacentes.size()> 0) //este if le permite devolverse si no tiene más arcos adyacentes
         {
-            for(Nodo unNodoAdyacente : adyacentes)
+            for(Nodo unNodoAdyacente : adyacentes) //va a recorrer todos los adyacentes
             {
                 if(unNodoAdyacente.getId()!= anterior.getId()) //para que no regrese por el mismo
                 {
@@ -65,19 +68,34 @@ public class FuerzaBruta {
         return actual;
     }
     
-    
+    /**
+     *@code llena los nodos adyacentes por cada nodo
+     *@param vacío
+     *@return vacío
+     */
     private void llenado(){
         for(Nodo unNodo : admgrafo.getGrafo().getListaNodos()){
             recorrido.add(unNodo);
             nodosAdyacentes.add(admgrafo.getGrafo().getAdyacentesByNodo(unNodo));
         }
     }
+      /**
+     *@code Compara si el nodo que se ingresa corresponde al mismo del actual
+     * para saber si ha llegado
+     *@param Nodo destino
+     *@return boolean
+     */
     public boolean hallegado(Nodo destino){
         if(destino.getId() == actual.getId()){
             return true;
         }else
             return false;
     }
+      /**
+     *@code reinicia los valores en cero
+     *@param vacío
+     *@return vacío
+     */
     public void restart(){
         
         recorrido = new ArrayList();
@@ -87,6 +105,5 @@ public class FuerzaBruta {
         recorrido.add(actual); 
         llenado();
     }
-    //GETTER-SETTER
     
 }

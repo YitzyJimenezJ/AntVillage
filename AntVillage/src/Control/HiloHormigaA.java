@@ -11,15 +11,19 @@ import Vista.VMedioJuego;
 import java.util.ArrayList;
 
 /**
- *
- * @author Esteb
- */
+*@code  Clase que controla el moviento de la hormiga azul y vizualizarlo en 
+*pantalla
+*/
 public class HiloHormigaA extends Thread{
     private Hormiga hAzul;
     private VMedioJuego ventana;
     private FuerzaBruta FB;
     private Nodo destino;
-
+    /**
+     *@code constructor
+     *@param Hormiga, ventana, fuerza bruta
+     *@return 
+     */
     public HiloHormigaA(Hormiga hAzul, VMedioJuego ventana, FuerzaBruta FB) {
         super();
         this.hAzul = hAzul;
@@ -27,6 +31,10 @@ public class HiloHormigaA extends Thread{
         this.FB = FB;
         destino = new Nodo();
     }
+    /**
+     *@code  Constructor sobrecargado
+     *@param Hormiga, ventana, fuerza bruta,  Nodo Destino
+     */
     public HiloHormigaA(Hormiga hAzul, VMedioJuego ventana, FuerzaBruta FB, Nodo destino) {
         super();
         this.hAzul = hAzul;
@@ -34,22 +42,35 @@ public class HiloHormigaA extends Thread{
         this.FB = FB;
         this.destino = destino;
     }
+    /**
+     *@code  Asigna el destino de la hormiga azul (la hormiga azul no sabe dónde
+     * está la comida), pero es necesario el destino para saber si ya llegó 
+     *@param Nodo destino
+     *@return vacío
+     */
     public void setDestino(Nodo destino) {
         this.destino = destino;
     }
-    
+    /**
+     *@code Hilo que recorre desplaza la hormiga según los nodos ingresados 
+     *@param vacio
+     *@return vacio
+     */
     @Override
     public void run(){
-        FB.restart();
+        int contador = 1;
+        FB.restart(); //reinicia el algoritmo de fuerza bruta porque es una nueva búsqueda
         int xDesplazo, yDesplazo, xActual, yActual;
         while(!FB.hallegado(destino) && !ventana.pausado){
-            Nodo unCamino = FB.siguienteCamino();
+            Nodo unCamino = FB.siguienteCamino(); //obtiene el camino 
             xDesplazo = unCamino.getX();
             yDesplazo = unCamino.getY();
             xActual = hAzul.getxActual();
             yActual = hAzul.getyActual();
-            System.out.println("La hormiga azul se desplaza al nodo: "+unCamino.toString());
+            System.out.println(String.valueOf(contador)+"-> "
+                    + "La hormiga azul se desplaza al nodo: "+unCamino.toString());
             while(!hAzul.isInNodo(xDesplazo, yDesplazo) && !ventana.pausado){
+                //se desplaza
                 if(xActual <xDesplazo){
                     xActual+=1;
                 }else if(xActual>xDesplazo){
@@ -65,6 +86,7 @@ public class HiloHormigaA extends Thread{
                 hAzul.setxActual(xActual);
                 hAzul.setyActual(yActual);
             }
+            contador++;
         }
         if(FB.hallegado(destino) && hAzul.isInNodo(destino.getX(), destino.getY())){
                 hAzul.sumarRecolectada();
@@ -87,7 +109,11 @@ public class HiloHormigaA extends Thread{
         ventana.pausado = true;
         
     }
-    
+    /**
+     *@code  Duerme el hilo el tiempo que la clase hormiga tenga asignado
+     *@param vacío
+     *@return vacío
+     */
     private void dormir(){
         try
         {
@@ -98,6 +124,11 @@ public class HiloHormigaA extends Thread{
             System.out.println(e);
         }
     }
+    /**
+     *@code  vuelve a las hormigas a su punto de origen
+     *@param vacío
+     *@return vacío
+     */
     public void reestablecer(){
         int[] pos = hAzul.restartPoint();
         ventana.moverHormiga(ventana.vistaHormigaAzul,pos[0], pos[1]);

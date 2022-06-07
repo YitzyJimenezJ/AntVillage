@@ -11,8 +11,9 @@ import Modelo.Nodo;
 import java.lang.Math;
 import java.util.ArrayList;
 /**
- * @author 
- */
+*@code  Clase que administra el grafo, asigna/quita comida, forma el grafo y sus arcos
+* obtiene nodos, etc.
+*/
 public class AdmGrafo{
     int MIN_X;//Minimo pixeles en la ventana
     int MAX_X;//maximo pixeles en la ventana
@@ -24,7 +25,7 @@ public class AdmGrafo{
     //todas las variables privadas
     private final Grafo grafo;
     private final int cantidad_nodos;
-    private Nodo espera;
+    private Nodo espera; 
     
   
 
@@ -41,7 +42,6 @@ public class AdmGrafo{
         Función que me genera el grafo con valores aleatorios según la cantidad
         de nodo que ingresó el usuario
         */ 
-
     public void iniciarGrafo(){
         int x; //recibirá el valor aleatorio de x respecto a su posición en el frame
         int y; //recibirá el valor aleatorio de x respecto a su posición en el frame
@@ -51,6 +51,13 @@ public class AdmGrafo{
             this.grafo.agregar(i, x, y);
         }
     }
+    /**
+     *@code  Coloca los arcos de forma aleatoria. un nodo tendrá n arcos pero 
+     * cada nodo tendrá una forma de llegar a él. La cantidad de arcos se genera
+     * de forma aleatoria igual que los pesos.
+     *@param vacío
+     *@return vacío
+     */
     public void colocarArcos(){
         for (int i = 0; i < cantidad_nodos; i++){
            
@@ -70,6 +77,11 @@ public class AdmGrafo{
             }
         }
     }
+     /**
+     *@code Escoge el nodo aleatoriamente para colococar un arco 
+     *@param recibe un número aleatorio dentro del rango de la cantidad de nodos
+     *@return retorna el nodo escogido diferente al mismo y diferente a 0 
+     */
     private int escogerNodoAleatorio(int a){
         int b = (int)  (Math.random() * (this.cantidad_nodos-1));//+1 porque los nodos empiezan desde 0
         while (a == b)//evitar que sea el mismo nodo o que ya tenga arco
@@ -78,9 +90,12 @@ public class AdmGrafo{
         }
         return b;
     }
-    //Generador de números aleatorios
+    /**
+     *@code Generador de aleatorios para las posiciones en el eje X Y 
+     *@return int 
+     */
     private int generarAleatorioX(){
-        int rango = (MAX_X-MIN_X)+1;
+        int rango = (MAX_X-MIN_X)+1; //maximo en la pantalla en el eje x
         return (int)(Math.random()*rango)+MIN_X;
     }
     private int generarAleatorioY(){

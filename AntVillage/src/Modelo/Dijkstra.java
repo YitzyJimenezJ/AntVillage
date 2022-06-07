@@ -8,16 +8,15 @@ import Control.AdmGrafo;
 import java.util.ArrayList;
 
 /**
- *
- * @author 
- */
+     *@code Clase del algoritmo Dijkstra
+     */
 public class Dijkstra {
-    private int mcostos[][];
-    private int ultimo[];
-    private int minimos[]; //D
-    private boolean visitados[]; //F
+    private int mcostos[][]; //matriz de costos
+    private int ultimo[];   //la ruta almacenada
+    private int minimos[]; 
+    private boolean visitados[]; //lista de nodos visitados
     private int origen;
-    private int n;
+    private int n; //cantidad de nodos
     private AdmGrafo admgrafo;
     
     private ArrayList<Nodo> ruta = new ArrayList();
@@ -35,6 +34,9 @@ public class Dijkstra {
         caminosMinimos();
         imprimir();
     }
+    /**
+     *@code Obtiene los caminos mínimos a cada no
+     */
     private void caminosMinimos(){
         for(int i= 0; i<n; i++){ //inicializador de vectores
             visitados[i] = false;
@@ -74,6 +76,9 @@ public class Dijkstra {
         }
         return nodo;
     }
+    /**
+     *@code obtiene la matriz de costos del grafo (los pesos) y rellena mcostos
+     */
     private void inicializar_mcostos(){
         mcostos = new int[n][n];
         for(int i = 0; i<n; i++)
@@ -90,12 +95,22 @@ public class Dijkstra {
             }
         }
     }
+    /**
+     *@code obtiene la ruta en forma de objetos de los nodos
+     *@param int idDestino
+     *@return ArrayList<Nodo> ruta
+     */
     public ArrayList<Nodo> getRuta(int idDestino){
         ruta = new ArrayList(); //lo vuelvo vacío
         recuperaCamino(idDestino);
         System.out.println("");//salto de línea
         return ruta;
     }
+    /**
+     *@code Obtiene el la ruta en forma de los id de los nodos
+     *@param Iddestino
+     *@return void
+     */
     private void recuperaCamino(int v)
     {
         int anterior = ultimo[v];
