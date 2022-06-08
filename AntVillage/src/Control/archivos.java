@@ -147,41 +147,36 @@ public class archivos {
     return contador;
     }
     
-    public boolean borrarPartida(int partida){
+    public void borrarPartida(int partida){
         String nombArch= "partida"+String.valueOf(partida)+".xml";
         File fichero = new File(nombArch);
-        if (fichero.delete())
-        {
-            System.out.println("El fichero ha sido borrado satisfactoriamente");
-            listapartidas.eliminar(partida);
-            return true;
-        }
-        else{
-            System.out.println("El fichero no puede ser borrado");
-            return false;
-        }
+        fichero.delete();
+        this.cantiArchivos--;
+        System.out.println("El fichero ha sido borrado satisfactoriamente");
+        reordenarArchivos();
+        listapartidas.eliminar(partida);
     }
     public void reordenarArchivos(){
         int strikes = 0; //cuando llegue a 2 strikes seguidos es porque no hay archivos
         int contadorActual = 1; //
         String nombSiguiente= "";
         String nombActual = "";
-        while(strikes<2){
+        nombActual = getNombreArch(contadorActual);
+        nombSiguiente= getNombreArch(contadorActual+1);
+        while(archExiste(nombActual) || archExiste(nombSiguiente)){
             nombActual = getNombreArch(contadorActual);
-            nombSiguiente= getNombreArch(contadorActual+1);
-            if(!archExiste(nombActual) || !archExiste(nombSiguiente)){ // no existe
+            if(!archExiste(nombActual)){ // no existe
                 nombSiguiente= getNombreArch(contadorActual+1);
-                while(archExiste(nombSiguiente)){
+                if(archExiste(nombSiguiente)){
                     nombActual   =   getNombreArch(contadorActual);
                     nombSiguiente=   getNombreArch(contadorActual+1);
                     reemplazarNombre(nombActual, nombSiguiente);
-                    contadorActual++;
                 }
-                strikes++;
-            }else{//Sí existe 
-                strikes++;
-                contadorActual++;
             }
+            contadorActual++;
+            nombActual = getNombreArch(contadorActual);
+            nombSiguiente=   getNombreArch(contadorActual+1);
+            
         }
         System.out.println("Ya no hay más archivos por leer");
     }

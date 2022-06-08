@@ -289,27 +289,22 @@ public class VhistoricoPartidas extends javax.swing.JDialog {
     }//GEN-LAST:event_btnVolverActionPerformed
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
-        if(manejoXML.borrarPartida(historicoActual.partida)){
-            if(manejoXML.listapartidas.reordenarPartidas()){
-                manejoXML.reordenarArchivos();
-                this.historicoActual.getSiguiente();
-                colocarDatos();
-            }else{
-                lblNumPartida.setText("Sin registros");
-                txtnodos.setText("N/D");
-                txtalimentos.setText("N/D");
-                txtverdes.setText("N/D");
-                txtAzules.setText("N/D");
-                btnEliminar.setEnabled(false);
-                btnSiguiente.setEnabled(false);
-                btnAnterior.setEnabled(false);
-                
-            }
-            JOptionPane.showMessageDialog(this, "Partida eliminada exitosamente");
-            
+        manejoXML.borrarPartida(historicoActual.partida);
+        manejoXML.listapartidas.reordenarPartidas();
+        if(manejoXML.cantiArchivos!=0){
+            historicoActual = this.historicoActual.getSiguiente();
+            colocarDatos();
         }else{
+            lblNumPartida.setText("Sin registros");
+            txtnodos.setText("N/D");
+            txtalimentos.setText("N/D");
+            txtverdes.setText("N/D");
+            txtAzules.setText("N/D");
+            btnEliminar.setEnabled(false);
+            btnSiguiente.setEnabled(false);
+            btnAnterior.setEnabled(false);
             JOptionPane.showMessageDialog(this, "Partida no se puede eliminar");
-        }
+       }
     }//GEN-LAST:event_btnEliminarActionPerformed
 
     private void btnSiguienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSiguienteActionPerformed
@@ -326,11 +321,19 @@ public class VhistoricoPartidas extends javax.swing.JDialog {
      * @param args the command line arguments
      */
     public void colocarDatos(){
-        lblNumPartida.setText("Partida #: "+String.valueOf(historicoActual.partida));
-        txtnodos.setText(String.valueOf(historicoActual.getCantidadNodos()));
-        txtalimentos.setText(String.valueOf(historicoActual.getCantidadAlimento()));
-        txtverdes.setText(String.valueOf(historicoActual.getRecolectadoVerdes()));
-        txtAzules.setText(String.valueOf(historicoActual.getRecolectadoAzules()));
+        if(historicoActual!=null){
+            lblNumPartida.setText("Partida #: "+String.valueOf(historicoActual.partida));
+            txtnodos.setText(String.valueOf(historicoActual.getCantidadNodos()));
+            txtalimentos.setText(String.valueOf(historicoActual.getCantidadAlimento()));
+            txtverdes.setText(String.valueOf(historicoActual.getRecolectadoVerdes()));
+            txtAzules.setText(String.valueOf(historicoActual.getRecolectadoAzules()));
+        }else{
+            lblNumPartida.setText("sin registro");
+            txtnodos.setText("sin registro");
+            txtalimentos.setText("Sin registro");
+            txtverdes.setText("Sin registro");
+            txtAzules.setText("Sin registro");
+        }
     }
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
