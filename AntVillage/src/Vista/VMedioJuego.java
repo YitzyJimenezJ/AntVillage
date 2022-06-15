@@ -530,9 +530,9 @@ public class VMedioJuego extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void btnIfnfoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIfnfoActionPerformed
-        JOptionPane.showMessageDialog(this, "Integrantes:\n- name carnet"
-                + "\n- name carnet"
-                + "\n- name carnet \nRepositorio: https://github.com/YitzyJimenezJ/AntVillage.git");
+        JOptionPane.showMessageDialog(this, "Integrantes:\n- Fernanda Alvarez, 2019068454"
+                + "\n- Sofia Cascante, 2021043032"
+                + "\n- Yitzy Jimenez, 2021018775  \nRepositorio: https://github.com/YitzyJimenezJ/AntVillage.git");
     }//GEN-LAST:event_btnIfnfoActionPerformed
     public void desactivarBotones(){
         for(JButton b : listaBotones){
