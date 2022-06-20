@@ -6,7 +6,7 @@ import java.util.ArrayList;
 
 /**
  *
- * @author Yitzy
+ * 
  */
 /**
 *@code Algoritmo que va otorgando los valores para la hormiga azul vaya 

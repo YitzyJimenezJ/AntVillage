@@ -12,7 +12,7 @@ import javax.swing.JTextField;
 
 /**
  *
- * @author 
+ *
  */
 public class VInicio extends javax.swing.JFrame {
 

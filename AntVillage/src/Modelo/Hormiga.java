@@ -10,7 +10,7 @@ import javax.swing.JLabel;
 
 /**
  *
- * @author Esteb
+ * 
  */
 public class Hormiga {
     private int id; //identificadores que serán necesarios si queremos dejar el programa escalable
